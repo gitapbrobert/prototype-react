@@ -1,8 +1,9 @@
 import { Gantt } from "wx-react-gantt";
+import { Willow } from "wx-react-gantt";
 import "wx-react-gantt/dist/gantt.css";
 import React, { useRef, useEffect } from "react";
 
-const MyGanttComponent = () => {
+const GanttComponent = () => {
   const tasks = [
     {
       id: 20,
@@ -47,56 +48,19 @@ const MyGanttComponent = () => {
   ];
 
   const zoomConfig = {
-  maxCellWidth: 400,
-  level: 3,
-  levels: [
-    {
-      minCellWidth: 200,
-      scales: [{ unit: "year", step: 1, format: "yyyy" }],
-    },
-    {
-      minCellWidth: 150,
-      scales: [
-        { unit: "year", step: 1, format: "yyyy" },
-        { unit: "quarter", step: 1, format: "QQQQ" },
-      ],
-    },
-    {
-      minCellWidth: 250,
-      scales: [
-        { unit: "quarter", step: 1, format: "QQQQ" },
-        { unit: "month", step: 1, format: "MMMM yyy" },
-      ],
-    },
-    {
-      minCellWidth: 100,
-      scales: [
-        { unit: "month", step: 1, format: "MMMM yyy" },
-        { unit: "week", step: 1, format: "'week' w" },
-      ],
-    },
-    {
-      maxCellWidth: 200,
-      scales: [
-        { unit: "month", step: 1, format: "MMMM yyy" },
-        { unit: "day", step: 1, format: "d", css: dayStyle },
-      ],
-    },
-    {
-      minCellWidth: 25,
-      scales: [
-        { unit: "day", step: 1, format: "MMM d", css: dayStyle },
-        { unit: "hour", step: 6, format: hoursTemplate },
-      ],
-    },
-    {
-      scales: [
-        { unit: "day", step: 1, format: "MMM d", css: dayStyle },
-        { unit: "hour", step: 1, format: "HH:mm" },
-      ],
-    },
-  ],
-};
+    maxCellWidth: 400,
+    level: 1,
+    levels: [
+      {
+        minCellWidth: 100,
+        scales: [
+          { unit: "year", step: 1, format: "yyyy" },
+          { unit: "month", step: 1, format: "MMMM" },
+        ],
+      },
+    ],
+  };
+
 
   const links = [{ id: 1, source: 20, target: 21, type: "e2e" }];
 
@@ -105,7 +69,7 @@ const MyGanttComponent = () => {
     { unit: "day", step: 1, format: "d" },
   ];
 
-  return <Gantt zoomConfig tasks={tasks} links={links} scales={scales} />;
+  return <Gantt zoom = {zoomConfig} tasks={tasks} links={links} scales={scales} />;
 };
 
-export default MyGanttComponent;
+export default GanttComponent;
