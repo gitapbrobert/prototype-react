@@ -1,34 +1,24 @@
-import React from 'react';
-import { Gantt, WillowDark } from "wx-react-gantt";
-import { Willow } from "wx-react-gantt";
+import React, { useRef } from 'react';
+import {  Willow, WillowDark, Toolbar } from "wx-react-gantt";
 import "wx-react-gantt/dist/gantt.css";
 import MyGanttComponent from './Gantt';
-import SideBar from './SideBar';
 import Header from './Header';
+import "../assets/App.css";
 
 
 function App() {
+
   return (
     <>
     <div>
-        <Header></Header>
-      </div>
-    <div className="d-flex">
-      
-      
-      
-      
-      
-      <div className="flex-grow-1 p-3">
+      {/* <div class="container-lg"> */}
+        <Header/>
         <WillowDark>
-          <MyGanttComponent/>
+          <Toolbar />
+          <MyGanttComponent />
         </WillowDark>
       </div>
-    </div>
-
-    
     </>
-    
   );
 }
 

@@ -1,9 +1,13 @@
 import { Gantt } from "wx-react-gantt";
-import { Willow } from "wx-react-gantt";
+import { Toolbar , Willow } from "wx-react-gantt";
 import "wx-react-gantt/dist/gantt.css";
 import React, { useRef, useEffect } from "react";
+import "../assets/GanttStyles.css";
 
 const GanttComponent = () => {
+
+
+
   const tasks = [
     {
       id: 20,
@@ -47,12 +51,47 @@ const GanttComponent = () => {
     },
   ];
 
+  const markers = [
+    {
+      start: new Date(2024, 2, 4),
+      text: "Start Project",
+      css: "myMiddleClass",
+    },
+    {
+      start: new Date(2024, 2, 4),
+      text: "Start Project",
+      css: "myMiddleClass",
+    },
+    //other markers
+  ];
+  const columns = [
+    { id: "text", header: "Task name", flexGrow: 2 },
+    {
+      id: "start",
+      header: "Start date",
+      flexGrow: 1,
+      align: "center",
+    },
+    {
+      id: "end",
+      header: "End date",
+      flexGrow: 1,
+      align: "center",
+    },
+
+    {
+      id: "action",
+      header: "",
+      width: 50,
+      align: "center",
+    },
+  ];
   const zoomConfig = {
     maxCellWidth: 400,
     level: 1,
     levels: [
       {
-        minCellWidth: 100,
+        minCellWidth: 50,
         scales: [
           { unit: "year", step: 1, format: "yyyy" },
           { unit: "month", step: 1, format: "MMMM" },
@@ -64,12 +103,21 @@ const GanttComponent = () => {
 
   const links = [{ id: 1, source: 20, target: 21, type: "e2e" }];
 
-  const scales = [
-    { unit: "month", step: 1, format: "MMMM yyy" },
-    { unit: "day", step: 1, format: "d" },
-  ];
+  // const scales = [
+  //   { unit: "month", step: 1, format: "MMMM yyy" },
+  //   { unit: "day", step: 1, format: "d" },
+  // ];
 
-  return <Gantt zoom = {zoomConfig} tasks={tasks} links={links} scales={scales} />;
+  return (
+    <Gantt
+      zoom={zoomConfig}
+      columns={columns}
+      markers={markers}
+      tasks={tasks}
+      links={links}
+      start={new Date(2024, 0, 1)}
+      end={new Date(2025, 3, 1)}
+    />);
 };
 
 export default GanttComponent;
