@@ -4,33 +4,33 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Header = () => {
   return (
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-      <a class="navbar-brand " href="#">Pics</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <a className="navbar-brand " href="#">Pics</a>
+      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
+      <div className="collapse navbar-collapse" id="navbarText">
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item active">
+            <a className="nav-link" href="#">Home <span className="sr-only"></span></a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Dropdown
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">lorem ipsum</a></li>
-              <li><a class="dropdown-item" href="#">lorem ipsum</a></li>
-              <li><a class="dropdown-item" href="#">lorem ipsum</a></li>
+            <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a className="dropdown-item" href="#">lorem ipsum</a></li>
+              <li><a className="dropdown-item" href="#">lorem ipsum</a></li>
+              <li><a className="dropdown-item" href="#">lorem ipsum</a></li>
             </ul>
 
-            {/* <a class="nav-link" href="#">Features</a> */}
+            {/* <a className="nav-link" href="#">Features</a> */}
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">lorem ipsum</a>
+          <li className="nav-item">
+            <a className="nav-link" href="#">lorem ipsum</a>
           </li>
         </ul>
-        <span class="navbar-text float-right">
+        <span className="navbar-text float-right">
           Lorem Ipsum
         </span>
       </div>

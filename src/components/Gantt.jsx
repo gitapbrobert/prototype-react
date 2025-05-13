@@ -6,7 +6,20 @@ import "../assets/GanttStyles.css";
 
 const GanttComponent = () => {
 
+  const apiRef = useRef();
 
+  useEffect(() => {
+    if (apiRef.current) {
+      apiRef.current.intercept("drag-task", ev => {
+        if (typeof ev.top !== "undefined")
+          console.log("matenmeeeeee")
+        return false;
+      });
+    }
+  }, [apiRef]);
+  
+
+  
 
   const tasks = [
     {
@@ -50,7 +63,6 @@ const GanttComponent = () => {
       lazy: false,
     },
   ];
-
   const markers = [
     {
       start: new Date(2024, 2, 4),
@@ -65,18 +77,24 @@ const GanttComponent = () => {
     //other markers
   ];
   const columns = [
-    { id: "text", header: "Task name", flexGrow: 2 },
+    { 
+      id: "text", 
+      header: "Task name", 
+      width:120,
+      align: "center"
+
+    },
     {
       id: "start",
       header: "Start date",
-      flexGrow: 1,
-      align: "center",
+      width:100,
+      align: "center"
     },
     {
       id: "end",
       header: "End date",
-      flexGrow: 1,
-      align: "center",
+      width:100,
+      align: "center"
     },
 
     {
@@ -100,24 +118,27 @@ const GanttComponent = () => {
     ],
   };
 
-
   const links = [{ id: 1, source: 20, target: 21, type: "e2e" }];
 
-  // const scales = [
-  //   { unit: "month", step: 1, format: "MMMM yyy" },
-  //   { unit: "day", step: 1, format: "d" },
-  // ];
 
+
+  // el return
   return (
-    <Gantt
-      zoom={zoomConfig}
-      columns={columns}
-      markers={markers}
-      tasks={tasks}
-      links={links}
-      start={new Date(2024, 0, 1)}
-      end={new Date(2025, 3, 1)}
-    />);
+    <>
+      <Toolbar  />
+      <Gantt
+        api={apiRef}
+        zoom={zoomConfig}
+        columns={columns}
+        markers={markers}
+        tasks={tasks}
+        links={links}
+        start={new Date(2024, 0, 1)}
+        end={new Date(2025, 3, 1)}
+      />
+    </>
+  );
+    
 };
 
 export default GanttComponent;

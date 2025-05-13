@@ -6,31 +6,13 @@ import Header from './Header';
 import "../assets/App.css";
 
 function App() {
-  const apiRef = useRef();
 
-  const items = [
-    {
-      id: "add-task",
-      comp: "button",
-      icon: "wxi-bi-calendar2-plus",
-      text: "Add task",
-      type: "primary",
-    },
-    {
-      id: "edit-task",
-      comp: "button",
-      icon: "wxi-edit",
-      text: "edit",
-      type: "link",
-    },
-  ];
   return (
     <>
     <div>
         <Header/>
         <WillowDark>
-          <Toolbar api={apiRef.current} items={items}/>
-          <MyGanttComponent apiRef={apiRef}/>
+          <MyGanttComponent/>
         </WillowDark>
       </div>
     </>
