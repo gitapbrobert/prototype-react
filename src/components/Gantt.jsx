@@ -7,6 +7,19 @@ import "../assets/GanttStyles.css";
 const GanttComponent = () => {
 
   const apiRef = useRef();
+  
+  const dayStyle = (a) => {
+    const day = a.getDay() === 5 || a.getDay() === 6;
+    console.log("teto best log")
+    return day ? "sday" : "";
+  };
+
+  const complexScales = [
+    { unit: "year", step: 1, format: "yyyy" },
+    { unit: "month", step: 2, format: "MMMM yyy" },
+    { unit: "week", step: 1, format: "w" },
+    { unit: "day", step: 1, format: "d", css: dayStyle },
+  ];
 
   useEffect(() => {
     if (apiRef.current) {
@@ -29,7 +42,7 @@ const GanttComponent = () => {
       end: new Date(2024, 6, 12),
       duration: 1,
       progress: 2,
-      type: "task",
+      type: "pet",
       lazy: false,
     },
     {
@@ -61,6 +74,16 @@ const GanttComponent = () => {
       progress: 0,
       type: "task",
       lazy: false,
+    },
+    {
+      id: 1,
+      text: "New teorico prueba",
+      start: new Date(2024, 5, 11),
+      end: new Date(2024, 6, 12),
+      duration: 1,
+      progress: 2,
+      type: "pet",
+      precio: 40,
     },
   ];
   const markers = [
@@ -118,10 +141,12 @@ const GanttComponent = () => {
     ],
   };
 
-  const links = [{ id: 1, source: 20, target: 21, type: "e2e" }];
+  const links = [
+    { id: 1, source: 20, target: 21, type: "e2e" }
+  ];
   const editorShape = [
     {
-      key: "text",
+      key:  "text",
       type: "text",
       label: "Name",
       config: {
@@ -132,21 +157,33 @@ const GanttComponent = () => {
     //other settings
   ];
 
+  const taskTypes = [
+    { id: "task", label: "Task" },
+    { id: "milestone", label: "Milestone" },
+    { id: "summary", label: "Project" },
+    { id: "pet", label: "Pedido Teorico" },
+    { id: "pef", label: "Pedido Firme" },
+    { id: "emb", label: "Pedido Teorico" },
+  ];
+
 
   // el return
   return (
     <>
-      <Toolbar  />
+      <Toolbar/>
       <Gantt
+        
         api={apiRef}
-        zoom={zoomConfig}
+        scales={complexScales}
+        // zoom={zoomConfig}
         columns={columns}
         markers={markers}
         tasks={tasks}
         links={links}
         start={new Date(2024, 0, 1)}
         end={new Date(2025, 3, 1)}
-        editorShape={editorShape}
+        taskTypes={taskTypes}
+        // editorShape={editorShape}
       />
     </>
   );
