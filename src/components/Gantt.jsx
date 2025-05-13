@@ -12,7 +12,7 @@ const GanttComponent = () => {
     if (apiRef.current) {
       apiRef.current.intercept("drag-task", ev => {
         if (typeof ev.top !== "undefined")
-          console.log("matenmeeeeee")
+          console.log("FUNCIONA EL HOOK WOOOOOOOOOOOOOOOOHHHHHH")
         return false;
       });
     }
@@ -119,7 +119,18 @@ const GanttComponent = () => {
   };
 
   const links = [{ id: 1, source: 20, target: 21, type: "e2e" }];
-
+  const editorShape = [
+    {
+      key: "text",
+      type: "text",
+      label: "Name",
+      config: {
+        placeholder: "Add task name",
+        focus: true,
+      },
+    },
+    //other settings
+  ];
 
 
   // el return
@@ -135,6 +146,7 @@ const GanttComponent = () => {
         links={links}
         start={new Date(2024, 0, 1)}
         end={new Date(2025, 3, 1)}
+        editorShape={editorShape}
       />
     </>
   );
