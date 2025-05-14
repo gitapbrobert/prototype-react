@@ -3,6 +3,8 @@ import { Toolbar , Willow } from "wx-react-gantt";
 import "wx-react-gantt/dist/gantt.css";
 import React, { useRef, useEffect } from "react";
 import "../assets/GanttStyles.css";
+import { getData } from "../data/data.js";"../data/data.js"
+import {TaskTemplate} from "./TaskTemplate.jsx";
 
 const GanttComponent = () => {
 
@@ -21,89 +23,104 @@ const GanttComponent = () => {
     { unit: "day", step: 1, format: "d", css: dayStyle },
   ];
 
-  useEffect(() => {
-    if (apiRef.current) {
-      apiRef.current.intercept("drag-task", ev => {
-        if (typeof ev.top !== "undefined")
-          console.log("FUNCIONA EL HOOK WOOOOOOOOOOOOOOOOHHHHHH")
-        return false;
-      });
-    }
-  }, [apiRef]);
+  // useEffect(() => {
+  //   if (apiRef.current) {
+  //     apiRef.current.intercept("drag-task", ev => {
+  //       if (typeof ev.top !== "undefined")
+  //         console.log("FUNCIONA EL HOOK WOOOOOOOOOOOOOOOOHHHHHH")
+  //       return false;
+  //     });
+  //   }
+  // }, [apiRef]);
   
 
   
 
-  const tasks = [
-    {
-      id: 20,
-      text: "New Task",
-      start: new Date(2024, 5, 11),
-      end: new Date(2024, 6, 12),
-      duration: 1,
-      progress: 2,
-      type: "pet",
-      lazy: false,
-    },
-    {
-      id: 47,
-      text: "[1] Master project",
-      start: new Date(2024, 5, 12),
-      end: new Date(2024, 7, 12),
-      duration: 8,
-      progress: 0,
-      parent: 0,
-      type: "summary",
-    },
-    {
-      id: 22,
-      text: "Task",
-      start: new Date(2024, 7, 11),
-      end: new Date(2024, 8, 12),
-      duration: 8,
-      progress: 0,
-      parent: 47,
-      type: "task",
-    },
-    {
-      id: 21,
-      text: "New Task 2",
-      start: new Date(2024, 7, 10),
-      end: new Date(2024, 8, 12),
-      duration: 3,
-      progress: 0,
-      type: "task",
-      lazy: false,
-    },
-    {
-      id: 1,
-      text: "New teorico prueba",
-      start: new Date(2024, 5, 11),
-      end: new Date(2024, 6, 12),
-      duration: 1,
-      progress: 2,
-      type: "pet",
-      precio: 40,
-    },
+  const tasks = [{
+    id: 1,
+    text:"PEDIDO TEORICO ENERO",
+    sys_name: "PT01",
+    start: new Date(2024, 0, 1),
+    end: new Date(2024, 6, 12),
+    duration: 1,
+    progress: 2,
+    type: "pet",
+    lazy: false,
+  },
+  {
+    id: 2,
+    text:"PEDIDO TEORICO FEBRERO",
+    sys_name: "PT02",
+    start: new Date(2024, 1, 0),
+    end: new Date(2024, 8, 12),
+    duration: 1,
+    progress: 2,
+    type: "pet",
+    lazy: false,
+
+  },
+  {
+    id: 3,
+    text:"PEDIDO FIRME ENERO",
+    sys_name: "PF01",
+    start: new Date(2024, 0, 5),
+    end: new Date(2024, 2, 12),
+    duration: 8,
+    progress: 0,
+    parent: 1,
+    type: "pef",
+  },
+  {
+    id: 4,
+    text:"PEDIDO FIRME FEBRERO",
+    sys_name: "PF02",
+    start: new Date(2024, 7, 11),
+    end: new Date(2024, 8, 12),
+    duration: 8,
+    progress: 0,
+    parent: 2,
+    type: "pef",
+  },
+
+  {
+    id: 5,
+    text:"EMBARQUE ENERO 01",
+    sys_name: "EMB01",
+    start: new Date(2024, 4, 11),
+    end: new Date(2024, 6, 12),
+    duration: 1,
+    progress: 2,
+    parent: 1,
+    type: "emb",
+  },
+  {
+    id: 6,
+    text:"EMBARQUE FEBRERO 01",
+    sys_name: "EMB02",
+    start: new Date(2024, 5, 11),
+    end: new Date(2024, 6, 12),
+    duration: 1,
+    progress: 2,
+    parent: 2,
+    type: "emb",
+    precio:40,
+  },
   ];
+
+
   const markers = [
     {
-      start: new Date(2024, 2, 4),
-      text: "Start Project",
-      css: "myMiddleClass",
+      // start: new Date(2024, 2, 4),
+      // text: "Start Project",
+      // css: "myMiddleClass",
     },
-    {
-      start: new Date(2024, 2, 4),
-      text: "Start Project",
-      css: "myMiddleClass",
-    },
-    //other markers
   ];
+
   const columns = [
     { 
       id: "text", 
       header: "Task name", 
-      width:120,
+      flexgrow: 1,
       align: "center"
 
     },
@@ -142,8 +159,12 @@ const GanttComponent = () => {
   };
 
   const links = [
-    { id: 1, source: 20, target: 21, type: "e2e" }
+    { id:1, source: 1, target: 3, type: "s2s" },
+    { id:2, source: 3, target: 5, type: "e2s" },
+    { id:3, source: 2, target: 4, type: "s2s" },
+    { id:4, source: 4, target: 6, type: "e2s" },
   ];
+
   const editorShape = [
     {
       key:  "text",
@@ -174,13 +195,14 @@ const GanttComponent = () => {
       <Gantt
         
         api={apiRef}
-        scales={complexScales}
-        // zoom={zoomConfig}
+        // scales={complexScales}
+        zoom={zoomConfig}
         columns={columns}
-        markers={markers}
+        taskTemplate={TaskTemplate}
+        // markers={markers}
         tasks={tasks}
         links={links}
-        start={new Date(2024, 0, 1)}
+        start={new Date(2023, 11, 1)}
         end={new Date(2025, 3, 1)}
         taskTypes={taskTypes}
         // editorShape={editorShape}

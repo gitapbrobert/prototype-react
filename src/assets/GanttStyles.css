@@ -1,3 +1,15 @@
-.wx-willow-theme .myMiddleClass {
-  background-color: rgba(255, 84, 84, 0.77);
+.wx-willow-theme .wx-task.pet {
+  background-color: rgba(228, 8, 8, 0.77);
+  --wx-gantt-task-fill-color: rgba(192, 11, 11, 0.77);
+}
+
+.wx-willow-theme .wx-task.pef {
+  background-color: rgba(63, 206, 106, 0.77);
+  --wx-gantt-task-fill-color: rgba(15, 148, 55, 0.77);
+}
+
+.wx-willow-theme .wx-task.emb {
+  background-color: rgba(255, 191, 54, 0.897);
+  --wx-gantt-task-fill-color: rgba(255, 166, 0, 0.897);
+
 }
