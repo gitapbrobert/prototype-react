@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
-import {  Willow, WillowDark, Toolbar } from "wx-react-gantt";
 import "wx-react-gantt/dist/gantt.css";
+import "../assets/App.css";
+import {  Willow, WillowDark, Toolbar } from "wx-react-gantt";
 import MyGanttComponent from './Gantt';
 import Header from './Header';
-import "../assets/App.css";
+import SalesPlanBar from './SalesPlanBar';
 
 function App() {
 
@@ -11,6 +11,8 @@ function App() {
     <>
     <div>
         <Header/>
+        <SalesPlanBar/>
+        
         <WillowDark>
           <MyGanttComponent/>
         </WillowDark>

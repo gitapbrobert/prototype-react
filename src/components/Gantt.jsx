@@ -4,7 +4,6 @@ import "wx-react-gantt/dist/gantt.css";
 import React, { useRef, useEffect } from "react";
 import "../assets/GanttStyles.css";
 import { getData } from "../data/data.js";"../data/data.js"
-import {TaskTemplate} from "./TaskTemplate.jsx";
 
 const GanttComponent = () => {
 
@@ -38,8 +37,8 @@ const GanttComponent = () => {
 
   const tasks = [{
     id: 1,
-    text:"PEDIDO TEORICO ENERO",
-    sys_name: "PT01",
+    sysname:"PEDIDO TEORICO ENERO",
+    text: "PT01",
     start: new Date(2024, 0, 1),
     end: new Date(2024, 6, 12),
     duration: 1,
@@ -49,8 +48,8 @@ const GanttComponent = () => {
   },
   {
     id: 2,
-    text:"PEDIDO TEORICO FEBRERO",
-    sys_name: "PT02",
+    sysname:"PEDIDO TEORICO FEBRERO",
+    text: "PT02",
     start: new Date(2024, 1, 0),
     end: new Date(2024, 8, 12),
     duration: 1,
@@ -61,8 +60,8 @@ const GanttComponent = () => {
   },
   {
     id: 3,
-    text:"PEDIDO FIRME ENERO",
-    sys_name: "PF01",
+    sysname:"PEDIDO FIRME ENERO",
+    text: "PF01",
     start: new Date(2024, 0, 5),
     end: new Date(2024, 2, 12),
     duration: 8,
@@ -72,8 +71,8 @@ const GanttComponent = () => {
   },
   {
     id: 4,
-    text:"PEDIDO FIRME FEBRERO",
-    sys_name: "PF02",
+    sysname:"PEDIDO FIRME FEBRERO",
+    text: "PF02",
     start: new Date(2024, 7, 11),
     end: new Date(2024, 8, 12),
     duration: 8,
@@ -84,8 +83,8 @@ const GanttComponent = () => {
 
   {
     id: 5,
-    text:"EMBARQUE ENERO 01",
-    sys_name: "EMB01",
+    sysname:"EMBARQUE ENERO 01",
+    text: "EMB01",
     start: new Date(2024, 4, 11),
     end: new Date(2024, 6, 12),
     duration: 1,
@@ -95,8 +94,8 @@ const GanttComponent = () => {
   },
   {
     id: 6,
-    text:"EMBARQUE FEBRERO 01",
-    sys_name: "EMB02",
+    sysname:"EMBARQUE FEBRERO 01",
+    text: "EMB02",
     start: new Date(2024, 5, 11),
     end: new Date(2024, 6, 12),
     duration: 1,
@@ -116,34 +115,33 @@ const GanttComponent = () => {
     },
   ];
 
-  const columns = [
-    { 
-      id: "text", 
-      header: "Task name", 
-      flexgrow: 1,
-      align: "center"
+const columns = [
+  {
+     id: "text", 
+    header: "ID", 
+    width:90, 
+    align: "center", 
+    resizable: false
+  },
+  // {
+  //   id: "sysname",
+  //   header: "name",
+  //   width: 300,
+  //   align: "center",
+  // },
+  {
+    id: "action",
+    header: "",
+    width: 50,
+    align: "center",
+    resizable: false,
+  },
+  
+  
+  
+  
+];
 
-    },
-    {
-      id: "start",
-      header: "Start date",
-      width:100,
-      align: "center"
-    },
-    {
-      id: "end",
-      header: "End date",
-      width:100,
-      align: "center"
-    },
-
-    {
-      id: "action",
-      header: "",
-      width: 50,
-      align: "center",
-    },
-  ];
   const zoomConfig = {
     maxCellWidth: 400,
     level: 1,
@@ -191,14 +189,12 @@ const GanttComponent = () => {
   // el return
   return (
     <>
-      <Toolbar/>
       <Gantt
         
         api={apiRef}
         // scales={complexScales}
         zoom={zoomConfig}
         columns={columns}
-        taskTemplate={TaskTemplate}
         // markers={markers}
         tasks={tasks}
         links={links}
