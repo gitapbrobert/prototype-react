@@ -1,6 +1,6 @@
 .wx-willow-theme .wx-task.pet {
-  background-color: rgba(228, 8, 8, 0.77);
-  --wx-gantt-task-fill-color: rgba(192, 11, 11, 0.77);
+  background-color: rgba(22, 154, 241, 0.77);
+  --wx-gantt-task-fill-color: rgba(11, 95, 192, 0.77);
 }
 
 .wx-willow-theme .wx-task.pef {
