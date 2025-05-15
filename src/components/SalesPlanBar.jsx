@@ -5,26 +5,18 @@ const SalesPlanBar = () => {
     return (
         // placeholder while a i defin
         //e routs and stuff
-        
-        <ul className="nav nav-underline justify-content-center" >
-            <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">Active</a>
-            </li>
-            <li className="nav-item">
-                <a className="nav-link" href="#">Link</a>
-            </li>
-            <li className="nav-item">
-                <a className="nav-link" href="#">Link</a>
-            </li>
-            <li className="nav-item">
-                <a className="nav-link disabled" aria-disabled="true">Disabled</a>
-            </li>
-        </ul>
+        <>
 
+            <nav class="navbar bg-body-tertiary">
+                <div class="container-fluid">
+                    <div class="form-floating mb-3">
+                        <input type="text" readonly class="form-control-plaintext" id="floatingPlaintextInput" placeholder="name@example.com" value="PLAN DE NEGOCIOS 2025"/>
+                        <label for="floatingPlaintextInput">Usando Actualmente:</label>
+                    </div>
+                </div>
+            </nav>
 
-
-
-
+        </>
     );
 };
 

@@ -37,24 +37,24 @@ const GanttComponent = () => {
     { unit: "day", step: 1, format: "d", css: dayStyle },
   ];
 
-  useEffect(() => {
-    if (apiRef.current) {
-      apiRef.current.intercept("drag-task", ev => {
-        if (typeof ev.top !== "undefined")
-          console.log("FUNCIONA EL HOOK WOOOOOOOOOOOOOOOOHHHHHH")
-        return false;
-      });
-    }
-  }, [apiRef]);
+  // useEffect(() => {
+  //   if (apiRef.current) {
+  //     apiRef.current.intercept("drag-task", ev => {
+  //       if (typeof ev.top !== "undefined")
+  //         console.log("FUNCIONA EL HOOK WOOOOOOOOOOOOOOOOHHHHHH")
+  //       return false;
+  //     });
+  //   }
+  // }, [apiRef]);
 
 
-  useEffect(() => {
-    if (apiRef.current) {
-      apiRef.current.intercept("resize-column", ev => {
-        if (ev.width || ev.left) return false;
-      });
-    }
-  }, [apiRef]);
+  // useEffect(() => {
+  //   if (apiRef.current) {
+  //     apiRef.current.intercept("resize-column", ev => {
+  //       if (ev.width || ev.left) return false;
+  //     });
+  //   }
+  // }, [apiRef]);
 
   const tasks = [{
     id: 1,
@@ -140,21 +140,15 @@ const columns = [
   {
      id: "text", 
     header: "ID", 
-    width:90, 
-    align: "center", 
+    flexgrow: 1,
+    align: "left", 
     resizable: false
   },
-  // {
-  //   id: "sysname",
-  //   header: "name",
-  //   width: 300,
-  //   align: "center",
-  // },
   {
     id: "action",
     header: "",
     width: 50,
-    align: "center",
+    align: "left",
     resizable: false,
   },
   
