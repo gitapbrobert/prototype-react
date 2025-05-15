@@ -1,13 +1,28 @@
+import "../assets/GanttStyles.css";
+import "wx-react-gantt/dist/gantt.css";
 import { Gantt } from "wx-react-gantt";
 import { Toolbar , Willow } from "wx-react-gantt";
-import "wx-react-gantt/dist/gantt.css";
 import React, { useRef, useEffect } from "react";
-import "../assets/GanttStyles.css";
+import Template from "./TaskTemplate.jsx";
+
 import { getData } from "../data/data.js";"../data/data.js"
 
 const GanttComponent = () => {
 
   const apiRef = useRef();
+
+  function doClick(ev) {
+    const data = ev;
+    apiRef.current.exec("update-task", {
+      id: data.id,
+      task: {
+        clicked: data.clicked,
+      },
+    });
+  }
+
+  
+
   
   const dayStyle = (a) => {
     const day = a.getDay() === 5 || a.getDay() === 6;
@@ -22,18 +37,24 @@ const GanttComponent = () => {
     { unit: "day", step: 1, format: "d", css: dayStyle },
   ];
 
-  // useEffect(() => {
-  //   if (apiRef.current) {
-  //     apiRef.current.intercept("drag-task", ev => {
-  //       if (typeof ev.top !== "undefined")
-  //         console.log("FUNCIONA EL HOOK WOOOOOOOOOOOOOOOOHHHHHH")
-  //       return false;
-  //     });
-  //   }
-  // }, [apiRef]);
-  
+  useEffect(() => {
+    if (apiRef.current) {
+      apiRef.current.intercept("drag-task", ev => {
+        if (typeof ev.top !== "undefined")
+          console.log("FUNCIONA EL HOOK WOOOOOOOOOOOOOOOOHHHHHH")
+        return false;
+      });
+    }
+  }, [apiRef]);
 
-  
+
+  useEffect(() => {
+    if (apiRef.current) {
+      apiRef.current.intercept("resize-column", ev => {
+        if (ev.width || ev.left) return false;
+      });
+    }
+  }, [apiRef]);
 
   const tasks = [{
     id: 1,
@@ -195,7 +216,8 @@ const columns = [
         // scales={complexScales}
         zoom={zoomConfig}
         columns={columns}
-        // markers={markers}
+        taskTemplate={Template}
+        onCustomClick={doClick}
         tasks={tasks}
         links={links}
         start={new Date(2023, 11, 1)}
