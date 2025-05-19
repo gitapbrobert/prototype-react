@@ -6,7 +6,7 @@ import SalesPlanBar from "../components/SalesPlanBar";
 const Orders = () => {
   return (
       <>
-          <SalesPlanBar />
+          {/* <SalesPlanBar /> */}
           <Willow>
             <GanttComponent />
           </Willow>

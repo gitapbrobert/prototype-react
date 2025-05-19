@@ -8,7 +8,7 @@ export default function Template({ data }) {
     <>
       {data.type !== "milestone" ? (
         <>
-          <div className=" text-right">{data.sysname || ""}</div>
+          <div className="custom-class ">{data.text || ""} ($ {String( data.price || 0)})</div>
           
         </>
       ) : (

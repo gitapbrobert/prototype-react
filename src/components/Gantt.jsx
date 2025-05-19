@@ -1,11 +1,11 @@
 import "../assets/GanttStyles.css";
 import "wx-react-gantt/dist/gantt.css";
-import { Gantt } from "wx-react-gantt";
+import { Gantt, defaultEditorShape, defaultMenuOptions } from "wx-react-gantt";
 import { Toolbar , Willow } from "wx-react-gantt";
 import React, { useRef, useEffect } from "react";
 import Template from "./TaskTemplate.jsx";
 
-import { getData } from "../data/data.js";"../data/data.js"
+import { getData, getMarkers } from "../data/data.js";"../data/data.js"
 
 const GanttComponent = () => {
 
@@ -20,21 +20,16 @@ const GanttComponent = () => {
       },
     });
   }
-
   
+  // const dayStyle = (a) => {
+  //   const day = a.getDay() === 5 || a.getDay() === 6;
+  //   console.log("best log")
+  //   return day ? "sday" : "";
+  // };
 
-  
-  const dayStyle = (a) => {
-    const day = a.getDay() === 5 || a.getDay() === 6;
-    console.log("teto best log")
-    return day ? "sday" : "";
-  };
-
-  const complexScales = [
+  const scales = [
     { unit: "year", step: 1, format: "yyyy" },
-    { unit: "month", step: 2, format: "MMMM yyy" },
-    { unit: "week", step: 1, format: "w" },
-    { unit: "day", step: 1, format: "d", css: dayStyle },
+    { unit: "month", step: 1, format: "MMMM" },
   ];
 
   // useEffect(() => {
@@ -47,7 +42,6 @@ const GanttComponent = () => {
   //   }
   // }, [apiRef]);
 
-
   // useEffect(() => {
   //   if (apiRef.current) {
   //     apiRef.current.intercept("resize-column", ev => {
@@ -56,120 +50,48 @@ const GanttComponent = () => {
   //   }
   // }, [apiRef]);
 
-  const tasks = [{
-    id: 1,
-    sysname:"PEDIDO TEORICO ENERO",
-    text: "PT01",
-    start: new Date(2024, 0, 1),
-    end: new Date(2024, 6, 12),
-    duration: 1,
-    progress: 2,
-    type: "pet",
-    lazy: false,
-  },
-  {
-    id: 2,
-    sysname:"PEDIDO TEORICO FEBRERO",
-    text: "PT02",
-    start: new Date(2024, 1, 0),
-    end: new Date(2024, 8, 12),
-    duration: 1,
-    progress: 2,
-    type: "pet",
-    lazy: false,
+  const tasks = getData()
 
-  },
-  {
-    id: 3,
-    sysname:"PEDIDO FIRME ENERO",
-    text: "PF01",
-    start: new Date(2024, 0, 5),
-    end: new Date(2024, 2, 12),
-    duration: 8,
-    progress: 0,
-    parent: 1,
-    type: "pef",
-  },
-  {
-    id: 4,
-    sysname:"PEDIDO FIRME FEBRERO",
-    text: "PF02",
-    start: new Date(2024, 7, 11),
-    end: new Date(2024, 8, 12),
-    duration: 8,
-    progress: 0,
-    parent: 2,
-    type: "pef",
-  },
+  const markers = getMarkers();
 
-  {
-    id: 5,
-    sysname:"EMBARQUE ENERO 01",
-    text: "EMB01",
-    start: new Date(2024, 4, 11),
-    end: new Date(2024, 6, 12),
-    duration: 1,
-    progress: 2,
-    parent: 1,
-    type: "emb",
-  },
-  {
-    id: 6,
-    sysname:"EMBARQUE FEBRERO 01",
-    text: "EMB02",
-    start: new Date(2024, 5, 11),
-    end: new Date(2024, 6, 12),
-    duration: 1,
-    progress: 2,
-    parent: 2,
-    type: "emb",
-    precio:40,
-  },
-  ];
-
-
-  const markers = [
+  const columns = [
     {
-      // start: new Date(2024, 2, 4),
-      // text: "Start Project",
-      // css: "myMiddleClass",
+      id: "text",
+      header: "ID",
+      flexgrow: 1,
+      align: "left",
+      resizable: false
+    },
+    {
+      id: "progress",
+      header: "P%",
+      // flexgrow: 1,
+      width: 50,
+      align: "center",
+      resizable: false
+    },
+    {
+      id: "start",
+      header: "Initial Date",
+      width: 100,
+      align: "center",
+      resizable: false,
+    },
+    {
+      id: "end",
+      header: "Initial Date",
+      width: 100,
+      align: "center",
+      resizable: false,
+    },
+    {
+      id: "action",
+      header: "",
+      width: 40,
+      align: "center",
+      resizable: false,
     },
   ];
-
-const columns = [
-  {
-     id: "text", 
-    header: "ID", 
-    flexgrow: 1,
-    align: "left", 
-    resizable: false
-  },
-  {
-    id: "action",
-    header: "",
-    width: 50,
-    align: "left",
-    resizable: false,
-  },
-  
-  
-  
-  
-];
-
-  const zoomConfig = {
-    maxCellWidth: 400,
-    level: 1,
-    levels: [
-      {
-        minCellWidth: 50,
-        scales: [
-          { unit: "year", step: 1, format: "yyyy" },
-          { unit: "month", step: 1, format: "MMMM" },
-        ],
-      },
-    ],
-  };
 
   const links = [
     { id:1, source: 1, target: 3, type: "s2s" },
@@ -178,37 +100,83 @@ const columns = [
     { id:4, source: 4, target: 6, type: "e2s" },
   ];
 
-  const editorShape = [
-    {
-      key:  "text",
-      type: "text",
-      label: "Name",
-      config: {
-        placeholder: "Add task name",
-        focus: true,
-      },
-    },
-    //other settings
-  ];
+
 
   const taskTypes = [
-    { id: "task", label: "Task" },
-    { id: "milestone", label: "Milestone" },
-    { id: "summary", label: "Project" },
-    { id: "pet", label: "Pedido Teorico" },
-    { id: "pef", label: "Pedido Firme" },
-    { id: "emb", label: "Pedido Teorico" },
+    {
+      id: "task",
+      label: "Task"
+    },
+    {
+      id: "milestone",
+      label: "Milestone"
+    },
+    {
+      id: "summary",
+      label: "Project"
+    },
+    { 
+      id: "pet", 
+      label: "Pedido Teorico" 
+    },
+    { 
+      id: "pef", 
+      label: "Pedido Firme" 
+    },
+    { 
+      id: "emb", 
+      label: "Embarque" 
+    },
   ];
 
+
+  const editor = [
+    {key:"text",type:"text",label:"Name",config:{placeholder:"Add task name",focus:!0}},
+    // { key: "details", type: "textarea", label: "Description", config: { placeholder: "Add description" } },
+    {
+      key:"type",
+      type:"select",
+      label:"Type",
+      options: [
+        {
+          id: "task",
+          label: "Task"
+        },
+        {
+          id: "pet",
+          label: "Pedido Teorico"
+        },
+        {
+          id: "pef",
+          label: "Pedido Firme"
+        },
+        {
+          id: "emb",
+          label: "Embarque"
+        },
+
+      ]
+    },
+    
+    { key: "start", type: "date", label: "Start date" },
+    { key: "end", type: "date", label: "End date" },
+    {key:"progress",type:"slider",label:"Progress"},
+    { 
+      key: "price", 
+      type: "counter", 
+      label: "Monto", 
+      // config: { min: 1, max: 100 } 
+    },
+    // { key: "links", type: "links" }
+  ];
 
   // el return
   return (
     <>
       <Gantt
-        
         api={apiRef}
-        // scales={complexScales}
-        zoom={zoomConfig}
+        scales={scales}
+        markers={markers}
         columns={columns}
         taskTemplate={Template}
         onCustomClick={doClick}
@@ -217,7 +185,7 @@ const columns = [
         start={new Date(2023, 11, 1)}
         end={new Date(2025, 3, 1)}
         taskTypes={taskTypes}
-        // editorShape={editorShape}
+        editorShape={editor}
       />
     </>
   );

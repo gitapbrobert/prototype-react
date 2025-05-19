@@ -16,3 +16,19 @@
   --wx-gantt-task-fill-color: rgba(255, 166, 0, 0.897);
 
 }
+
+.wx-willow-theme .marker{
+  background-color: rgba(161, 170, 255, 0.605);
+  --wx-font-size-sm: 15px;
+  --wx-gantt-marker-font: var(--wx-font-weight-md) var(--wx-font-size-sm)
+		var(--wx-font-family);
+	--wx-gantt-marker-font-color: rgba(4, 5, 5, 0.605);
+	--wx-gantt-marker-color: rgba(4, 5, 5, 0.77);
+  
+  
+}
+
+
+.wx-willow-theme .text-center{
+  left: 50%;
+}
