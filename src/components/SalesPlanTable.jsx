@@ -1,23 +1,23 @@
-import { Grid } from "wx-react-grid";
+import { Grid, Willow } from "wx-react-grid";
 
 const MyComponent = () => {
 
     const data = [
         {
-            id: 1,
+            id: "1",
             model: 'kiwi',
-            January: 20,
-            February: 20,
-            March: 20,
-            April: 20,
-            May: 20,
-            June: 20,
-            July: 20,
-            August: 20,
-            September: 20,
-            October: 20,
-            November: 20,
-            December: 20
+            january: 20,
+            february: 20,
+            march: 20,
+            april: 20,
+            may: 20,
+            june: 20,
+            july: 20,
+            august: 20,
+            september: 20,
+            october: 20,
+            november: 20,
+            december: 20,
         },
     ];
 
@@ -31,69 +31,70 @@ const MyComponent = () => {
         id: "model",
         header: "model",
         footer: "model",
+        width: 150
     },
     {
-        id: "January",
+        id: "january",
         header: "January",
         footer: "January",
     },
     {
-        id: "February",
+        id: "february",
         header: "February",
         footer: "February",
     },
     {
-        id: "March",
+        id: "march",
         header: "March",
         footer: "March",
     },
     {
-        id: "April",
+        id: "april",
         header: "April",
         footer: "April",
     },
     {
-        id: "May",
+        id: "may",
         header: "May",
         footer: "May",
     },
     {
-        id: "June",
+        id: "june",
         header: "June",
         footer: "June",
     },
     {
-        id: "July",
+        id: "july",
         header: "July",
         footer: "July",
     },
 
     {
-        id: "August",
+        id: "august",
         header: "August",
         footer: "August",
     },
 
     {
-        id: "September",
+        id: "september",
         header: "September",
         footer: "September",
     },
 
     {
-        id: "October",
+        id: "october",
         header: "October",
         footer: "October",
     },
 
     {
-        id: "November",
+        id: "november",
         header: "November",
         footer: "November",
     },
 
     {
-        id: "December",
+        id: "december",
         header: "December",
         footer: "December",
     },
@@ -103,10 +104,12 @@ const MyComponent = () => {
 
 	return (
         <>
-        <Grid 
-            data={data}
-            columns={columns}
-        />
+            <Grid 
+                data={data}
+                columns={columns}
+            />
+    
+        
         </>
 		
 	);

@@ -1,4 +1,4 @@
-import MyComponent from "../components/SalesPlanTable";
+
 
 
 const SalesPlan = () => {
@@ -7,8 +7,9 @@ const SalesPlan = () => {
         <h1>
             Aca va el plan de negocios
         </h1>
-
-        <MyComponent></MyComponent>
+        {/* <Willow>
+            <MyComponent></MyComponent>
+        </Willow>      */}
     </>
     
     );
