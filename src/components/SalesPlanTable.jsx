@@ -1,118 +1,256 @@
-import { Grid, Willow } from "wx-react-grid";
+import { Table, Button, IconButton, Input, DateInput, InputNumber, Container, Content } from 'rsuite';
+import { getData } from '../data/table';
+import React from 'react';
+import 'rsuite/dist/rsuite.min.css';
 
-const MyComponent = () => {
+// import { mockUsers } from './mock';
 
-    const data = [
-        {
-            id: "1",
-            model: 'kiwi',
-            january: 20,
-            february: 20,
-            march: 20,
-            april: 20,
-            may: 20,
-            june: 20,
-            july: 20,
-            august: 20,
-            september: 20,
-            october: 20,
-            november: 20,
-            december: 20,
-        },
-    ];
+const WIDTH = 80;
 
 
-    const columns = [
-    {
-        id: "id",
-        width: 50
-    },
-    {
-        id: "model",
-        header: "model",
-        footer: "model",
-        width: 150
-    },
-    {
-        id: "january",
-        header: "January",
-        footer: "January",
-    },
-    {
-        id: "february",
-        header: "February",
-        footer: "February",
-    },
-    {
-        id: "march",
-        header: "March",
-        footer: "March",
-    },
-    {
-        id: "april",
-        header: "April",
-        footer: "April",
-    },
-    {
-        id: "may",
-        header: "May",
-        footer: "May",
-    },
-    {
-        id: "june",
-        header: "June",
-        footer: "June",
-    },
-    {
-        id: "july",
-        header: "July",
-        footer: "July",
-    },
+const { Column, HeaderCell, Cell } = Table;
+const defaultData = getData;
 
-    {
-        id: "august",
-        header: "August",
-        footer: "August",
-    },
+const styles = `
+.table-cell-editing .rs-table-cell-content {
+  padding: 4px;
+}
+.table-cell-editing .rs-input {
+  width: 100%;
+}
+.table-cell:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 1px #007bff;
+}
+`;
 
-    {
-        id: "september",
-        header: "September",
-        footer: "September",
-    },
+const EditableContext = React.createContext({ editingId: null, editingKey: null });
 
-    {
-        id: "october",
-        header: "October",
-        footer: "October",
-    },
-
-    {
-        id: "november",
-        header: "November",
-        footer: "November",
-    },
-
-    {
-        id: "december",
-        header: "December",
-        footer: "December",
-    },
-];
+const MyTable = () => {
+  const [data, setData] = React.useState(defaultData);
+  const [editingId, setEditingId] = React.useState(null);
+  const [editingKey, setEditingKey] = React.useState(null);
 
 
 
-	return (
-        <>
-            <Grid 
-                data={data}
-                columns={columns}
-            />
+  React.useEffect(() => {
+
+
+    data.forEach(item => {
+        item.total = Object.keys(item)
+          .filter(key => key !== "id" && key !== "model" && key !== "total")
+          .reduce((sum, key) => sum + item[key], 0);
+    });
+
     
-        
-        </>
-		
-	);
+      const months = [
+        "january", "february", "march", "april", "may", "june",
+        "july", "august", "september", "october", "november", "december"
+      ];
+      
+      // Sum each month across all rows
+      const summary = months.reduce((acc, month) => {
+        acc[month] = data.reduce((sum, item) => sum + (Number(item[month]) || 0), 0);
+        return acc;
+      }, { id: 51, model: "Total", total: 0 });
+
+      // Calculate total of all months
+      summary.total = months.reduce((sum, month) => sum + summary[month], 0);
+
+
+
+
+
+
+  }, []);
+
+
+
+
+
+  const handleChange = (id, key, value) => {
+    const nextData = data.map(item => {
+
+      //here the total column updates whenever  
+      if (item.id === id) {
+        const updatedItem = { ...item, [key]: value };
+
+        // Calculate the total
+        const months = [
+          'january', 'february', 'march', 'april', 'may', 'june',
+          'july', 'august', 'september', 'october', 'november', 'december'
+        ];
+
+        updatedItem.total = months.reduce((sum, month) => sum + (Number(updatedItem[month]) || 0), 0);
+
+        return updatedItem;
+      }
+      return item;
+    });
+
+    setData(nextData);
+  };
+
+
+  const onEdit = (id, dataKey) => {
+    setEditingId(id);
+    setEditingKey(dataKey);
+  };
+
+  const onEditFinished = () => {
+    setEditingId(null);
+    setEditingKey(null);
+  };
+
+  const handleRemove = id => {
+    setData(data.filter(item => item.id !== id));
+  };
+
+  return (
+    <Container>
+      <Content>
+
+        <EditableContext.Provider value={{ editingId, editingKey, onEdit, onEditFinished }}>
+          <style>{styles}</style>
+          <Table height={420} flexgrow={1} data={data}>
+            <Column width={100}>
+              <HeaderCell>Model</HeaderCell>
+              <Cell dataKey="model" dataType="string" onChange={handleChange} />
+            </Column>
+
+            <Column width={WIDTH}>
+              <HeaderCell>January</HeaderCell>
+              <EditableCell dataKey="january" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column width={WIDTH}>
+              <HeaderCell>February</HeaderCell>
+              <EditableCell dataKey="february" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column width={WIDTH}>
+              <HeaderCell>March</HeaderCell>
+              <EditableCell dataKey="march" dataType="number" onChange={handleChange} >$</EditableCell>
+             
+            </Column>
+            <Column width={WIDTH}>
+              <HeaderCell>April</HeaderCell>
+              <EditableCell dataKey="april" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column width={WIDTH}>
+              <HeaderCell>May</HeaderCell>
+              <EditableCell dataKey="may" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column width={WIDTH}>
+              <HeaderCell>June</HeaderCell>
+              <EditableCell dataKey="june" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column width={WIDTH}>
+              <HeaderCell>July</HeaderCell>
+              <EditableCell dataKey="july" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column width={WIDTH}>
+              <HeaderCell>August</HeaderCell>
+              <EditableCell dataKey="august" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column width={WIDTH}>
+              <HeaderCell>September</HeaderCell>
+              <EditableCell dataKey="september" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column width={WIDTH}>
+              <HeaderCell>October</HeaderCell>
+              <EditableCell dataKey="october" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column width={WIDTH}>
+              <HeaderCell>November</HeaderCell>
+              <EditableCell dataKey="november" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column width={WIDTH}>
+              <HeaderCell>December</HeaderCell>
+              <EditableCell dataKey="december" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column width={WIDTH}>
+              <HeaderCell>Total</HeaderCell>
+              <Cell dataKey="total" dataType="number" onChange={handleChange} />
+            </Column>
+
+          </Table>
+        </EditableContext.Provider>
+
+      </Content>
+    </Container>
+  );
 };
 
-export default MyComponent;
+function toValueString(value, dataType) {
+  return dataType === 'date' ? value?.toLocaleDateString() : value;
+}
+
+const fieldMap = {
+  string: Input,
+  number: InputNumber,
+  date: DateInput
+};
+
+function focus(ref) {
+  setTimeout(() => {
+    if (ref.current?.tagName === 'INPUT' || ref.current?.getAttribute('tabindex') === '0') {
+      ref.current.focus();
+    } else if (ref.current instanceof HTMLElement) {
+      ref.current.querySelector('input').focus();
+    }
+  }, 0);
+}
+
+const EditableCell = ({ rowData, dataType, dataKey, onChange, ...props }) => {
+  const { editingId, editingKey, onEdit, onEditFinished } = React.useContext(EditableContext);
+  const editing = rowData.id === editingId && dataKey === editingKey;
+  const Field = fieldMap[dataType];
+  const value = rowData[dataKey];
+  const text = toValueString(value, dataType);
+  const inputRef = React.useRef();
+  const cellRef = React.useRef();
+
+  const handleEdit = () => {
+    onEdit?.(rowData.id, dataKey);
+    focus(inputRef);
+  };
+
+  const handleFinished = () => {
+    onEditFinished();
+    focus(cellRef);
+  };
+
+  return (
+    <Cell
+      {...props}
+      ref={cellRef}
+      tabIndex={0}
+      className={editing ? 'table-cell-editing' : 'table-cell'}
+      onDoubleClick={handleEdit}
+      onKeyDown={e => {
+        if (e.key === 'Enter') {
+          handleEdit();
+        }
+      }}
+    >
+      {editing ? (
+        <Field
+          ref={inputRef}
+          defaultValue={value}
+          onBlur={handleFinished}
+          onKeyPress={e => {
+            if (e.key === 'Enter') {
+              handleFinished();
+            }
+          }}
+          onChange={value => {
+            onChange?.(rowData.id, dataKey, value);
+          }}
+        />
+      ) : (
+        text
+      )}
+    </Cell>
+  );
+};
+
+export default MyTable
