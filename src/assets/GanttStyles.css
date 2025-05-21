@@ -1,6 +1,34 @@
-.wx-willow-theme{
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+#root {
+  overflow: hidden;
   height: 100%;
 }
+
+.prueba{
+    position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--wx-background);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.wx-willow-theme {
+    position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--wx-background);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 .wx-willow-theme .wx-task.pet {
   background-color: rgba(22, 154, 241, 0.77);
   --wx-gantt-task-fill-color: rgba(11, 95, 192, 0.77);

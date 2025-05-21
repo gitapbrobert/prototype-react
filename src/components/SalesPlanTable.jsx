@@ -133,9 +133,9 @@ const MyTable = () => {
   };
 
   return (
-    <Container>
+    <Container theme="dark">
       <Content>
-        <EditableContext.Provider value={{ editingId, editingKey, onEdit, onEditFinished }}>
+        <EditableContext.Provider theme="dark" value={{ editingId, editingKey, onEdit, onEditFinished }}>
           <style>{styles}</style>
 
           <Table height={420} flexgrow={1} data={data} >
@@ -255,7 +255,7 @@ const EditableCell = ({ rowData, dataType, dataKey, onChange, ...props }) => {
       {...props}
       ref={cellRef}
       tabIndex={0}
-      className={editing && rowData.model!=="Total" ? 'table-cell-editing' : 'table-cell'}
+      className={(editing && rowData.model!=="Total" ? 'table-cell-editing' : 'table-cell')+' '+''}
       onDoubleClick={handleEdit}
       onKeyDown={e => {
         if (e.key === 'Enter') {
