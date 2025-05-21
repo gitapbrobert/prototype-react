@@ -30,41 +30,49 @@ const MyTable = () => {
   const [data, setData] = React.useState(defaultData);
   const [editingId, setEditingId] = React.useState(null);
   const [editingKey, setEditingKey] = React.useState(null);
-
-
+  
 
   React.useEffect(() => {
 
+    const months = [
+      "january", "february", "march", "april", "may", "june",
+      "july", "august", "september", "october", "november", "december"
+    ];
 
-    data.forEach(item => {
-        item.total = Object.keys(item)
-          .filter(key => key !== "id" && key !== "model" && key !== "total")
-          .reduce((sum, key) => sum + item[key], 0);
+    const summary = {
+      id: 51,
+      model: 'Total',
+      january: 0,
+      february: 0,
+      march: 0,
+      april: 0,
+      may: 0,
+      june: 0,
+      july: 0,
+      august: 0,
+      september: 0,
+      october: 0,
+      november: 0,
+      december: 0,
+      total: 0,
+    };
+
+    Object.keys(summary).filter(key => key !== "id" && key !== "model")
+      .forEach(key => {
+        summary[key] = data.reduce((acc, item) => acc + item[key], 0);
     });
-
-    
-      const months = [
-        "january", "february", "march", "april", "may", "june",
-        "july", "august", "september", "october", "november", "december"
-      ];
       
-      // Sum each month across all rows
-      const summary = months.reduce((acc, month) => {
-        acc[month] = data.reduce((sum, item) => sum + (Number(item[month]) || 0), 0);
-        return acc;
-      }, { id: 51, model: "Total", total: 0 });
-
-      // Calculate total of all months
-      summary.total = months.reduce((sum, month) => sum + summary[month], 0);
-
-
-
-
+    data.push(summary);
+    
+    
+    data.forEach(item => {
+      item.total = Object.keys(item)
+        .filter(key => key !== "id" && key !== "model" && key !== "total")
+        .reduce((sum, key) => sum + item[key], 0);
+    });
 
 
   }, []);
-
-
 
 
 
@@ -80,15 +88,33 @@ const MyTable = () => {
           'january', 'february', 'march', 'april', 'may', 'june',
           'july', 'august', 'september', 'october', 'november', 'december'
         ];
-
+        
         updatedItem.total = months.reduce((sum, month) => sum + (Number(updatedItem[month]) || 0), 0);
 
         return updatedItem;
       }
+
       return item;
     });
+    const updateSummary = nextData.map(item=>{
+      if(item.id === 51){
+        const summary =  nextData.filter(item => item.model !== 'Total').reduce((sum, item) => sum + Number(item[key] || 0), 0);
+        const update = {...item, [key]: summary };
+        console.log(update);
+        const months = [
+          'january', 'february', 'march', 'april', 'may', 'june',
+          'july', 'august', 'september', 'october', 'november', 'december'
+        ];
+        update.total = months.reduce((sum, month) => sum + (Number(update[month]) || 0), 0);
 
-    setData(nextData);
+        return update;
+      }
+      return item;
+    });
+    
+
+
+    setData(updateSummary);
   };
 
 
@@ -109,16 +135,16 @@ const MyTable = () => {
   return (
     <Container>
       <Content>
-
         <EditableContext.Provider value={{ editingId, editingKey, onEdit, onEditFinished }}>
           <style>{styles}</style>
-          <Table height={420} flexgrow={1} data={data}>
+
+          <Table height={420} flexgrow={1} data={data} >
             <Column width={100}>
               <HeaderCell>Model</HeaderCell>
               <Cell dataKey="model" dataType="string" onChange={handleChange} />
             </Column>
 
-            <Column width={WIDTH}>
+            <Column width={WIDTH} >
               <HeaderCell>January</HeaderCell>
               <EditableCell dataKey="january" dataType="number" onChange={handleChange} />
             </Column>
@@ -129,7 +155,7 @@ const MyTable = () => {
             <Column width={WIDTH}>
               <HeaderCell>March</HeaderCell>
               <EditableCell dataKey="march" dataType="number" onChange={handleChange} >$</EditableCell>
-             
+
             </Column>
             <Column width={WIDTH}>
               <HeaderCell>April</HeaderCell>
@@ -180,6 +206,11 @@ const MyTable = () => {
   );
 };
 
+
+function UpdateTotal(summary) {
+  
+}
+
 function toValueString(value, dataType) {
   return dataType === 'date' ? value?.toLocaleDateString() : value;
 }
@@ -224,7 +255,7 @@ const EditableCell = ({ rowData, dataType, dataKey, onChange, ...props }) => {
       {...props}
       ref={cellRef}
       tabIndex={0}
-      className={editing ? 'table-cell-editing' : 'table-cell'}
+      className={editing && rowData.model!=="Total" ? 'table-cell-editing' : 'table-cell'}
       onDoubleClick={handleEdit}
       onKeyDown={e => {
         if (e.key === 'Enter') {
@@ -232,7 +263,7 @@ const EditableCell = ({ rowData, dataType, dataKey, onChange, ...props }) => {
         }
       }}
     >
-      {editing ? (
+      {editing&&rowData.model!=="Total" ? (
         <Field
           ref={inputRef}
           defaultValue={value}

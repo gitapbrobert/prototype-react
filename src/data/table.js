@@ -36,7 +36,7 @@ export function getData() {
         },
         {
             id: 3,
-            model: 'francia',
+            model: 'Batmovil',
             january: 20,
             february: 20,
             march: 20,
