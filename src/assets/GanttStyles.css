@@ -3,31 +3,30 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+  white-space: nowrap
 }
 #root {
   overflow: hidden;
   height: 100%;
 }
 
-.prueba{
-    position: relative;
-  display: flex;
-  flex-direction: column;
-  background: var(--wx-background);
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
 
-.wx-willow-theme {
-    position: relative;
+.prueba{
+     position: relative;
   display: flex;
   flex-direction: column;
   background: var(--wx-background);
   width: 100%;
   height: 100%;
   overflow: hidden;
+
 }
+/* 
+.wx-willow-theme {
+ 
+} */
+
+
 
 .wx-willow-theme .wx-task.pet {
   background-color: rgba(22, 154, 241, 0.77);

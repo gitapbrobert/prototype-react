@@ -34,10 +34,10 @@ const MyTable = () => {
 
   React.useEffect(() => {
 
-    const months = [
-      "january", "february", "march", "april", "may", "june",
-      "july", "august", "september", "october", "november", "december"
-    ];
+    // const months = [
+    //   "january", "february", "march", "april", "may", "june",
+    //   "july", "august", "september", "october", "november", "december"
+    // ];
 
     const summary = {
       id: 51,
@@ -128,9 +128,10 @@ const MyTable = () => {
     setEditingKey(null);
   };
 
-  const handleRemove = id => {
-    setData(data.filter(item => item.id !== id));
-  };
+  //when adding remove, not yet
+  // const handleRemove = id => {
+  //   setData(data.filter(item => item.id !== id));
+  // };
 
   return (
     <Container theme="dark">
@@ -207,9 +208,7 @@ const MyTable = () => {
 };
 
 
-function UpdateTotal(summary) {
-  
-}
+
 
 function toValueString(value, dataType) {
   return dataType === 'date' ? value?.toLocaleDateString() : value;

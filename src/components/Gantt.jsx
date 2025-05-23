@@ -6,7 +6,9 @@ import React, { useRef, useEffect } from "react";
 import Template from "./TaskTemplate.jsx";
 
 import { getData, getMarkers } from "../data/data.js";"../data/data.js"
+const Tem = (data)=>{
 
+};
 const GanttComponent = () => {
 
   const apiRef = useRef();
@@ -20,6 +22,8 @@ const GanttComponent = () => {
       },
     });
   }
+
+  
   
   // const dayStyle = (a) => {
   //   const day = a.getDay() === 5 || a.getDay() === 6;
@@ -51,6 +55,10 @@ const GanttComponent = () => {
   // }, [apiRef]);
 
   const tasks = getData()
+
+  
+  useEffect(() => {
+  }, [tasks]);
 
   const markers = getMarkers();
 
@@ -173,23 +181,25 @@ const GanttComponent = () => {
   // el return
   return (
     <>
-      <Gantt
-        api={apiRef}
-        scales={scales}
-        markers={markers}
-        columns={columns}
-        taskTemplate={Template}
-        onCustomClick={doClick}
-        tasks={tasks}
-        links={links}
-        start={new Date(2023, 11, 1)}
-        end={new Date(2025, 3, 1)}
-        taskTypes={taskTypes}
-        editorShape={editor}
-      />
+      <div className="gantt-container">
+        <Gantt
+          api={apiRef}
+          scales={scales}
+          markers={markers}
+          columns={columns}
+          taskTemplate={Template}
+          onCustomClick={doClick}
+          tasks={tasks}
+          links={links}
+          start={new Date(2023, 11, 1)}
+          end={new Date(2025, 3, 1)}
+          taskTypes={taskTypes}
+          editorShape={editor}
+        />
+      </div>
     </>
   );
-    
+
 };
 
 export default GanttComponent;

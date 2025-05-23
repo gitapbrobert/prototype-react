@@ -111,7 +111,7 @@ export function getData() {
             price: 20
         },
     ];
-    console.log("xdxd");
+    // console.log("xdxd");
 
     return data;
 

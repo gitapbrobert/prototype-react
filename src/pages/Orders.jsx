@@ -6,12 +6,11 @@ const Orders = () => {
   return (
       <>
           {/* <SalesPlanBar /> */}
-         <div className="prueba">
-
-          <Willow>
-            <GanttComponent />
-          </Willow>
-         </div>
+          <div className="prueba">
+        <Willow>
+          <GanttComponent />
+        </Willow>
+          </div>
 
       </>
   );

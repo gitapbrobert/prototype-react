@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+// import React, { useEffect, useState } from "react";
 
 export default function Template({ data }) {
   //the docs of the component say that the template fild of the gantt doesnt admit
   //components with hooks in them
-
+ 
+  
   return (
     <>
       {data.type !== "milestone" ? (
