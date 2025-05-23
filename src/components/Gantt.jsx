@@ -2,27 +2,58 @@ import "../assets/GanttStyles.css";
 import "wx-react-gantt/dist/gantt.css";
 import { Gantt, defaultEditorShape, defaultMenuOptions } from "wx-react-gantt";
 import { Toolbar , Willow } from "wx-react-gantt";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Template from "./TaskTemplate.jsx";
+import { getData, getMarkers } from "../data/data.js";
+  import MyForm from "./Form.jsx";
 
-import { getData, getMarkers } from "../data/data.js";"../data/data.js"
-const Tem = (data)=>{
-
-};
 const GanttComponent = () => {
+  
+  const apiRef = useRef(null);
+  const [task, setTask] = useState(null);
+  const [store, setStore] = useState(null);
+  
+  // function doClick(ev) {
+  //   const data = ev;
+  //   apiRef.current.exec("update-task", {
+  //     id: data.id,
+  //     task: {
+  //       clicked: data.clicked,
+  //     },
+  //   });
+  // };
 
-  const apiRef = useRef();
 
-  function doClick(ev) {
-    const data = ev;
-    apiRef.current.exec("update-task", {
-      id: data.id,
-      task: {
-        clicked: data.clicked,
-      },
-    });
-  }
+  useEffect(() => {
+    if (apiRef.current) {
+      const api = apiRef.current;
+      setStore(api.getState().tasks);
 
+      api.intercept("show-editor", (data) => {
+          setTask(store.byId(data.id));
+        return false;
+      });
+      api.intercept("add-task", () => {
+        return false;
+      });
+      console.log(task);
+    }
+    
+  }, [apiRef.current, store]);
+
+  const formAction = (ev) => {
+    const { action, data } = ev;
+
+    switch (action) {
+      case "close-form":
+        setTask(null);
+      break;
+
+      default:
+        apiRef.current.exec(action, data); // "update-task", "delete-task" actions
+      break;
+    }
+  };
   
   
   // const dayStyle = (a) => {
@@ -57,8 +88,6 @@ const GanttComponent = () => {
   const tasks = getData()
 
   
-  useEffect(() => {
-  }, [tasks]);
 
   const markers = getMarkers();
 
@@ -188,15 +217,16 @@ const GanttComponent = () => {
           markers={markers}
           columns={columns}
           taskTemplate={Template}
-          onCustomClick={doClick}
+          // onCustomClick={doClick}
           tasks={tasks}
           links={links}
           start={new Date(2023, 11, 1)}
           end={new Date(2025, 3, 1)}
           taskTypes={taskTypes}
-          editorShape={editor}
+          // editorShape={editor}
         />
       </div>
+       {task && <MyForm task={task} taskTypes={taskTypes} onAction={formAction} />}
     </>
   );
 
