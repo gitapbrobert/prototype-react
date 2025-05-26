@@ -16,7 +16,7 @@ export function getData() {
             start: new Date(2024, 0, 1),
             end: new Date(2024, 6, 12),
             duration: 1,
-            progress: 2,
+            progress: 20,
             type: "pet",
             lazy: false,
             price: 20

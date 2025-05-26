@@ -1,4 +1,4 @@
-import { Table, Button, IconButton, Input, DateInput, InputNumber, Container, Content } from 'rsuite';
+import { Table, Button, IconButton, Input, DateInput, InputNumber, Container, Content, Stack } from 'rsuite';
 import { getData } from '../data/table';
 import React from 'react';
 import 'rsuite/dist/rsuite.min.css';
@@ -136,72 +136,77 @@ const MyTable = () => {
   return (
     <Container theme="dark">
       <Content>
-        <EditableContext.Provider theme="dark" value={{ editingId, editingKey, onEdit, onEditFinished }}>
-          <style>{styles}</style>
+         <Stack alignItems="center" justifyContent="center" style={{ height: '100%' }}>
 
-          <Table height={420} flexgrow={1} data={data} >
-            <Column width={100}>
-              <HeaderCell>Model</HeaderCell>
-              <Cell dataKey="model" dataType="string" onChange={handleChange} />
-            </Column>
+        
 
-            <Column width={WIDTH} >
-              <HeaderCell>January</HeaderCell>
-              <EditableCell dataKey="january" dataType="number" onChange={handleChange} />
-            </Column>
-            <Column width={WIDTH}>
-              <HeaderCell>February</HeaderCell>
-              <EditableCell dataKey="february" dataType="number" onChange={handleChange} />
-            </Column>
-            <Column width={WIDTH}>
-              <HeaderCell>March</HeaderCell>
-              <EditableCell dataKey="march" dataType="number" onChange={handleChange} >$</EditableCell>
+          <EditableContext.Provider theme="dark" value={{ editingId, editingKey, onEdit, onEditFinished }}>
+            <style>{styles}</style>
 
-            </Column>
-            <Column width={WIDTH}>
-              <HeaderCell>April</HeaderCell>
-              <EditableCell dataKey="april" dataType="number" onChange={handleChange} />
-            </Column>
-            <Column width={WIDTH}>
-              <HeaderCell>May</HeaderCell>
-              <EditableCell dataKey="may" dataType="number" onChange={handleChange} />
-            </Column>
-            <Column width={WIDTH}>
-              <HeaderCell>June</HeaderCell>
-              <EditableCell dataKey="june" dataType="number" onChange={handleChange} />
-            </Column>
-            <Column width={WIDTH}>
-              <HeaderCell>July</HeaderCell>
-              <EditableCell dataKey="july" dataType="number" onChange={handleChange} />
-            </Column>
-            <Column width={WIDTH}>
-              <HeaderCell>August</HeaderCell>
-              <EditableCell dataKey="august" dataType="number" onChange={handleChange} />
-            </Column>
-            <Column width={WIDTH}>
-              <HeaderCell>September</HeaderCell>
-              <EditableCell dataKey="september" dataType="number" onChange={handleChange} />
-            </Column>
-            <Column width={WIDTH}>
-              <HeaderCell>October</HeaderCell>
-              <EditableCell dataKey="october" dataType="number" onChange={handleChange} />
-            </Column>
-            <Column width={WIDTH}>
-              <HeaderCell>November</HeaderCell>
-              <EditableCell dataKey="november" dataType="number" onChange={handleChange} />
-            </Column>
-            <Column width={WIDTH}>
-              <HeaderCell>December</HeaderCell>
-              <EditableCell dataKey="december" dataType="number" onChange={handleChange} />
-            </Column>
-            <Column width={WIDTH}>
-              <HeaderCell>Total</HeaderCell>
-              <Cell dataKey="total" dataType="number" onChange={handleChange} />
-            </Column>
+            <Table height={420} flexgrow={1} data={data} >
+              <Column width={100}>
+                <HeaderCell>Model</HeaderCell>
+                <Cell dataKey="model" dataType="string" onChange={handleChange} />
+              </Column>
 
-          </Table>
-        </EditableContext.Provider>
+              <Column width={WIDTH} >
+                <HeaderCell>January</HeaderCell>
+                <EditableCell dataKey="january" dataType="number" onChange={handleChange} />
+              </Column>
+              <Column width={WIDTH}>
+                <HeaderCell>February</HeaderCell>
+                <EditableCell dataKey="february" dataType="number" onChange={handleChange} />
+              </Column>
+              <Column width={WIDTH}>
+                <HeaderCell>March</HeaderCell>
+                <EditableCell dataKey="march" dataType="number" onChange={handleChange} >$</EditableCell>
 
+              </Column>
+              <Column width={WIDTH}>
+                <HeaderCell>April</HeaderCell>
+                <EditableCell dataKey="april" dataType="number" onChange={handleChange} />
+              </Column>
+              <Column width={WIDTH}>
+                <HeaderCell>May</HeaderCell>
+                <EditableCell dataKey="may" dataType="number" onChange={handleChange} />
+              </Column>
+              <Column width={WIDTH}>
+                <HeaderCell>June</HeaderCell>
+                <EditableCell dataKey="june" dataType="number" onChange={handleChange} />
+              </Column>
+              <Column width={WIDTH}>
+                <HeaderCell>July</HeaderCell>
+                <EditableCell dataKey="july" dataType="number" onChange={handleChange} />
+              </Column>
+              <Column width={WIDTH}>
+                <HeaderCell>August</HeaderCell>
+                <EditableCell dataKey="august" dataType="number" onChange={handleChange} />
+              </Column>
+              <Column width={WIDTH}>
+                <HeaderCell>September</HeaderCell>
+                <EditableCell dataKey="september" dataType="number" onChange={handleChange} />
+              </Column>
+              <Column width={WIDTH}>
+                <HeaderCell>October</HeaderCell>
+                <EditableCell dataKey="october" dataType="number" onChange={handleChange} />
+              </Column>
+              <Column width={WIDTH}>
+                <HeaderCell>November</HeaderCell>
+                <EditableCell dataKey="november" dataType="number" onChange={handleChange} />
+              </Column>
+              <Column width={WIDTH}>
+                <HeaderCell>December</HeaderCell>
+                <EditableCell dataKey="december" dataType="number" onChange={handleChange} />
+              </Column>
+              <Column width={WIDTH}>
+                <HeaderCell>Total</HeaderCell>
+                <Cell dataKey="total" dataType="number" onChange={handleChange} />
+              </Column>
+
+            </Table>
+          </EditableContext.Provider>
+
+         </Stack>
       </Content>
     </Container>
   );

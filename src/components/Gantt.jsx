@@ -5,89 +5,66 @@ import { Toolbar , Willow } from "wx-react-gantt";
 import React, { useRef, useEffect, useState } from "react";
 import Template from "./TaskTemplate.jsx";
 import { getData, getMarkers } from "../data/data.js";
-  import MyForm from "./Form.jsx";
+import MyForm from "./Form.jsx";
 
 const GanttComponent = () => {
   
   const apiRef = useRef(null);
   const [task, setTask] = useState(null);
   const [store, setStore] = useState(null);
+  const [open, setOpen] = React.useState(false);
   
-  // function doClick(ev) {
-  //   const data = ev;
-  //   apiRef.current.exec("update-task", {
-  //     id: data.id,
-  //     task: {
-  //       clicked: data.clicked,
-  //     },
-  //   });
-  // };
-
-
+  
   useEffect(() => {
     if (apiRef.current) {
       const api = apiRef.current;
       setStore(api.getState().tasks);
 
       api.intercept("show-editor", (data) => {
-          setTask(store.byId(data.id));
+        setTask(store.byId(data.id));
+        setOpen(true);
+        console.log("showing editor ");
         return false;
       });
+
       api.intercept("add-task", () => {
+        console.log("adding task yipee");
         return false;
       });
-      console.log(task);
+
+      api.intercept("update-task", () => {
+        console.log("updating task");
+        return false;
+      });
+
     }
-    
+
   }, [apiRef.current, store]);
 
-  const formAction = (ev) => {
-    const { action, data } = ev;
+  const formAction = (action, data) => {
+    if (action) {
+      switch (action) {
+        case "close-form":
+          //setTask(null);
+          console.log("cerrando form");
+          setOpen(false);
+        break;
 
-    switch (action) {
-      case "close-form":
-        setTask(null);
-      break;
-
-      default:
-        apiRef.current.exec(action, data); // "update-task", "delete-task" actions
-      break;
+        default:
+          apiRef.current.exec(action, data); // "update-task", "delete-task" actions
+        break;
+      }
     }
   };
-  
-  
-  // const dayStyle = (a) => {
-  //   const day = a.getDay() === 5 || a.getDay() === 6;
-  //   console.log("best log")
-  //   return day ? "sday" : "";
-  // };
+
 
   const scales = [
     { unit: "year", step: 1, format: "yyyy" },
     { unit: "month", step: 1, format: "MMMM" },
   ];
 
-  // useEffect(() => {
-  //   if (apiRef.current) {
-  //     apiRef.current.intercept("drag-task", ev => {
-  //       if (typeof ev.top !== "undefined")
-  //         console.log("FUNCIONA EL HOOK WOOOOOOOOOOOOOOOOHHHHHH")
-  //       return false;
-  //     });
-  //   }
-  // }, [apiRef]);
 
-  // useEffect(() => {
-  //   if (apiRef.current) {
-  //     apiRef.current.intercept("resize-column", ev => {
-  //       if (ev.width || ev.left) return false;
-  //     });
-  //   }
-  // }, [apiRef]);
-
-  const tasks = getData()
-
-  
+  const tasks = getData();
 
   const markers = getMarkers();
 
@@ -136,9 +113,7 @@ const GanttComponent = () => {
     { id:3, source: 2, target: 4, type: "s2s" },
     { id:4, source: 4, target: 6, type: "e2s" },
   ];
-
-
-
+  
   const taskTypes = [
     {
       id: "task",
@@ -165,7 +140,6 @@ const GanttComponent = () => {
       label: "Embarque" 
     },
   ];
-
 
   const editor = [
     {key:"text",type:"text",label:"Name",config:{placeholder:"Add task name",focus:!0}},
@@ -207,10 +181,10 @@ const GanttComponent = () => {
     // { key: "links", type: "links" }
   ];
 
-  // el return
   return (
     <>
       <div className="gantt-container">
+       <MyForm task={task} setTask={setTask} Types={taskTypes} onAction={formAction} IsOpen={open} />
         <Gantt
           api={apiRef}
           scales={scales}
@@ -226,10 +200,39 @@ const GanttComponent = () => {
           // editorShape={editor}
         />
       </div>
-       {task && <MyForm task={task} taskTypes={taskTypes} onAction={formAction} />}
     </>
   );
 
 };
 
 export default GanttComponent;
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // useEffect(() => {
+  //   if (apiRef.current) {
+  //     apiRef.current.intercept("drag-task", ev => {
+  //       if (typeof ev.top !== "undefined")
+  //         console.log("FUNCIONA EL HOOK WOOOOOOOOOOOOOOOOHHHHHH")
+  //       return false;
+  //     });
+  //   }
+  // }, [apiRef]);
+
+  // useEffect(() => {
+  //   if (apiRef.current) {
+  //     apiRef.current.intercept("resize-column", ev => {
+  //       if (ev.width || ev.left) return false;
+  //     });
+  //   }
+  // }, [apiRef]);
