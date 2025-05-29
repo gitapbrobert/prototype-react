@@ -1,127 +1,262 @@
 export function getData() {
-    const data = [
-        {
+  const data = [
+    {
+      text: "",
+      start: new Date(2026, 0, 1),
+      end: new Date(2026, 6, 12),
+      type: "task",
+      lazy: false,
+      price: 20
+    },
 
-            text: "",
-            start: new Date(2026, 0, 1),
-            end: new Date(2026, 6, 12),
+    {
+      id: 1,
+      text: "PT01",
+      start: new Date(2024, 0, 1),
+      duration: 186,
+      progress: 20,
+      type: "pet",
+      lazy: false,
+      price: 20
+    },
+    {
+      id: 2,
+      text: "PT02",
+      start: new Date(2024, 1, 1),
+      duration: 186,
+      progress: 20,
+      type: "pet",
+      lazy: false,
+      price: 20
+    },
+    {
+      id: 3,
+      text: "PT03",
+      start: new Date(2024, 2, 1),
+      duration: 186,
+      progress: 20,
+      type: "pet",
+      lazy: false,
+      price: 20
+    },
+    {
+      id: 4,
+      text: "PT04",
+      start: new Date(2024, 3, 1),
+      duration: 186,
+      progress: 20,
+      type: "pet",
+      lazy: false,
+      price: 20
+    },
+    {
+      id: 5,
+      text: "PT05",
+      start: new Date(2024, 4, 1),
+      duration: 186,
+      progress: 20,
+      type: "pet",
+      lazy: false,
+      price: 20
+    },
+    {
+      id: 6,
+      text: "PT06",
+      start: new Date(2024, 5, 1),
+      duration: 186,
+      progress: 20,
+      type: "pet",
+      lazy: false,
+      price: 20
+    },
+    {
+      id: 7,
+      text: "PT07",
+      start: new Date(2024, 6, 1),
+      duration: 186,
+      progress: 20,
+      type: "pet",
+      lazy: false,
+      price: 20
+    },
+    {
+      id: 8,
+      text: "PT08",
+      start: new Date(2024, 7, 1),
+      duration: 186,
+      progress: 20,
+      type: "pet",
+      lazy: false,
+      price: 20
+    },
+    {
+      id: 9,
+      text: "PT09",
+      start: new Date(2024, 8, 1),
+      duration: 186,
+      progress: 20,
+      type: "pet",
+      lazy: false,
+      price: 20
+    },
+    {
+      id: 10,
+      text: "PT10",
+      start: new Date(2024, 9, 1),
+      duration: 186,
+      progress: 20,
+      type: "pet",
+      lazy: false,
+      price: 20
+    },
+    {
+      id: 11,
+      text: "PT11",
+      start: new Date(2024, 10, 1),
+      duration: 186,
+      progress: 20,
+      type: "pet",
+      lazy: false,
+      price: 20
+    },
+    {
+      id: 12,
+      text: "PT12",
+      start: new Date(2024, 11, 1),
+      duration: 186,
+      progress: 20,
+      type: "pet",
+      lazy: false,
+      price: 20
+    },
 
-            type: "task",
-            lazy: false,
-            price: 20
-        },
-        {
-            id: 1,
-            text: "PT01",
-            start: new Date(2024, 0, 1),
-            end: new Date(2024, 6, 12),
-            duration: 1,
-            progress: 20,
-            type: "pet",
-            lazy: false,
-            price: 20
-        },
-        
-        {
-            id: 3,
-            text: "PF01",
-            start: new Date(2024, 0, 5),
-            end: new Date(2024, 2, 12),
-            duration: 8,
-            progress: 0,
-            parent: 1,
-            type: "pef",
-            price: 20
-        },
-        {
-            id: 5,
-            text: "EMB01",
-            start: new Date(2024, 4, 11),
-            end: new Date(2024, 6, 12),
-            duration: 1,
-            progress: 2,
-            parent: 1,
-            type: "emb",
-            price: 20
-        },
-        {
-            id: 2,
-            text: "PT02",
-            start: new Date(2024, 1, 0),
-            end: new Date(2024, 8, 12),
-            duration: 1,
-            progress: 2,
-            type: "pet",
-            lazy: false,
-            price: 20
-        },
-        {
-            id: 4,
-            text: "PF02",
-            start: new Date(2024, 7, 11),
-            end: new Date(2024, 8, 12),
-            duration: 8,
-            progress: 0,
-            parent: 2,
-            type: "pef",
-            price: 20
-        },
-        {
-            id: 6,
-            text: "EMB02",
-            start: new Date(2024, 5, 11),
-            end: new Date(2024, 6, 12),
-            duration: 1,
-            progress: 2,
-            parent: 2,
-            type: "emb",
-            price: 20,
-
-        },
-        {
-            id: 9,
-            text: "PT03",
-            start: new Date(2024, 3, 0),
-            end: new Date(2024, 10, 12),
-            duration: 1,
-            progress: 2,
-            type: "pet",
-            lazy: false,
-            price: 20
-            
-        },
-        {
-            text: "PF03",
-            start: new Date(2024, 7, 11),
-            end: new Date(2024, 8, 12),
-            duration: 8,
-            progress: 0,
-            parent: 9,
-            type: "pef",
-            price: 20
-        },
-        {
-            text: "PF03",
-            start: new Date(2024, 7, 11),
-            end: new Date(2024, 8, 12),
-            duration: 8,
-            progress: 0,
-            parent: 2,
-            type: "pef",
-            price: 20
-        },
-    ];
-    // console.log("xdxd");
-
-    return data;
+  ];
+  const PF=[
+    {
+      id: "PF1-1",
+      text: "PF1-01",
+      start: new Date(2024, 0, 1),
+      duration: 96,
+      progress: 20,
+      parent: 1,
+      type: "pef",
+      lazy: false,
+      price: 20333
+    },
+    {
+      id: "PF1-2",
+      text: "PF1-02",
+      start: new Date(2024, 1, 1),
+      duration: 96,
+      progress: 20,
+      parent: 2,
+      type: "pef",
+      lazy: false,
+      price: 20444
+    },
+    {
+      id: "PF1-3",
+      text: "PF1-03",
+      start: new Date(2024, 2, 1),
+      duration: 96,
+      progress: 20,
+      parent: 3,
+      type: "pef",
+      lazy: false,
+      price: 200000
+    },
+    {
+      id: "PF2-3",
+      text: "PF2-03",
+      start: new Date(2024, 3, 15),
+      duration: 96,
+      progress: 20,
+      parent: 3,
+      type: "pef",
+      lazy: false,
+      price: 400000
+    },
+    {
+      id: "PF2-2",
+      text: "PF2-03",
+      start: new Date(2024, 3, 15),
+      duration: 96,
+      progress: 20,
+      parent: 2,
+      type: "pef",
+      lazy: false,
+      price: 400000,
+    },
+  ]
+  const Emb=[
+    {
+      id: "EMB1-1",
+      text: "EMB-1",
+      start: new Date(2024, 3, 6),
+      end: new Date(2024, 6, 5),
+      progress: 20,
+      parent: "PF1-1",
+      type: "emb",
+      lazy: false,
+      price: 20333
+    },
+    {
+      id: "EMB1-2",
+      text: "EMB-2",
+      start: new Date(2024, 4, 7),
+      end: new Date(2024, 7, 5),
+      progress: 20,
+      parent: "PF1-2",
+      type: "emb",
+      lazy: false,
+      price: 20333
+    },
+    {
+      id: "EMB1-3",
+      text: "EMB-3",
+      start: new Date(2024, 5, 5),
+      end: new Date(2024, 8, 3),
+      progress: 20,
+      parent: "PF1-3",
+      type: "emb",
+      lazy: false,
+      price: 20333
+    },
+    {
+      id: "EMB2-3",
+      text: "EMB-4",
+      start: new Date(2024, 6, 20),
+      duration: 90,
+      progress: 20,
+      parent: "PF2-3",
+      type: "emb",
+      lazy: false,
+      price: 20333
+    },
+    {
+      id: "EMB2-2",
+      text: "EMB-4",
+      start: new Date(2024, 6, 20),
+      duration: 90,
+      progress: 20,
+      parent: "PF2-2",
+      type: "emb",
+      lazy: false,
+      price: 20333
+    },
+    
+    
+  ];
+  const resul = [...data, ...PF, ...Emb];
+  return resul;
 
 }
 
-export function getMarkers(){
-    const markers =[
+export function getMarkers() {
+  const markers = [
     {
       start: new Date(2024, 0, 1),
-      text: "$ 0.00",
+      text: "$ 1640000.00",
       css: 'marker  data-bs-toggle="tooltip" data-bs-title="Default tooltip"',
 
     },
@@ -196,12 +331,35 @@ export function getMarkers(){
       css: "marker",
     },
     {
-      start: new Date(2025, 2   , 1),
+      start: new Date(2025, 2, 1),
       text: "$ 0.00",
       css: "marker",
     },
-    
+
   ];
 
   return markers;
+}
+
+export function getLinks(){
+  
+  const links = [
+    { id:1, source: 1, target: "PF1-1", type: "s2s" },
+    { id:2, source: 2, target: "PF1-2", type: "s2s" },
+    { id:3, source: 2, target: "PF2-2", type: "s2s" },
+    { id:4, source: 3, target: "PF1-3", type: "s2s" },
+    { id:5, source: 3, target: "PF2-3", type: "s2s" },
+  ];
+
+  const Emb_links =[
+    { id:6, source: "PF1-1", target: "EMB1-1", type: "s2s" },
+    { id:8, source: "PF1-2", target: "EMB1-2", type: "s2s" },
+    { id:7, source: "PF1-3", target: "EMB1-3", type: "s2s" },
+    { id:9, source: "PF2-3", target: "EMB2-3", type: "s2s" },
+    { id:10, source: "PF2-2", target: "EMB2-2", type: "s2s" },
+  ];
+  const resul = [...links, ...Emb_links];
+
+
+  return resul;
 }

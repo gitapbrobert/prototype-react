@@ -1,0 +1,40 @@
+/* body{
+  background-color: blue;
+} */
+
+.button-section{
+  padding:  20px 0px;
+  justify-content: left;
+}
+
+.test{
+  width: 500px;
+}
+
+
+.form-BP{
+  justify-content: left;
+}
+.chip{
+  margin-top: 2rem;
+  border-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px  ;
+  border: 10px;
+  box-shadow:  10px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.chip .table-head > .rs-table-cell {
+  background-color: rgb(185, 185, 185);
+  color: white;
+
+}
+
+.chip .table-cell-total{
+    background-color: rgb(214, 214, 214);
+}
+.chip .rs-table-cell-last{
+    background-color: rgb(83, 83, 83);
+    color: white;
+    border-color: rgb(83, 83, 83);;
+
+}

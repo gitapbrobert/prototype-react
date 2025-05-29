@@ -4,8 +4,8 @@ import { Gantt, defaultEditorShape, defaultMenuOptions } from "wx-react-gantt";
 import { Toolbar , Willow } from "wx-react-gantt";
 import React, { useRef, useEffect, useState } from "react";
 import Template from "./TaskTemplate.jsx";
-import { getData, getMarkers } from "../data/data.js";
-import MyForm from "./Form.jsx";
+import { getData, getLinks, getMarkers } from "../data/data.js";
+import MyForm from "./PF-Form.jsx";
 
 const GanttComponent = () => {
   
@@ -63,7 +63,6 @@ const GanttComponent = () => {
     { unit: "month", step: 1, format: "MMMM" },
   ];
 
-
   const tasks = getData();
 
   const markers = getMarkers();
@@ -107,25 +106,12 @@ const GanttComponent = () => {
     },
   ];
 
-  const links = [
-    { id:1, source: 1, target: 3, type: "s2s" },
-    { id:2, source: 3, target: 5, type: "e2s" },
-    { id:3, source: 2, target: 4, type: "s2s" },
-    { id:4, source: 4, target: 6, type: "e2s" },
-  ];
+  const links = getLinks();
   
   const taskTypes = [
     {
       id: "task",
       label: "Task"
-    },
-    {
-      id: "milestone",
-      label: "Milestone"
-    },
-    {
-      id: "summary",
-      label: "Project"
     },
     { 
       id: "pet", 
@@ -141,46 +127,7 @@ const GanttComponent = () => {
     },
   ];
 
-  const editor = [
-    {key:"text",type:"text",label:"Name",config:{placeholder:"Add task name",focus:!0}},
-    // { key: "details", type: "textarea", label: "Description", config: { placeholder: "Add description" } },
-    {
-      key:"type",
-      type:"select",
-      label:"Type",
-      options: [
-        {
-          id: "task",
-          label: "Task"
-        },
-        {
-          id: "pet",
-          label: "Pedido Teorico"
-        },
-        {
-          id: "pef",
-          label: "Pedido Firme"
-        },
-        {
-          id: "emb",
-          label: "Embarque"
-        },
-
-      ]
-    },
-    
-    { key: "start", type: "date", label: "Start date" },
-    { key: "end", type: "date", label: "End date" },
-    {key:"progress",type:"slider",label:"Progress"},
-    { 
-      key: "price", 
-      type: "counter", 
-      label: "Monto", 
-      // config: { min: 1, max: 100 } 
-    },
-    // { key: "links", type: "links" }
-  ];
-
+  
   return (
     <>
       <div className="gantt-container">
@@ -194,15 +141,16 @@ const GanttComponent = () => {
           // onCustomClick={doClick}
           tasks={tasks}
           links={links}
-          start={new Date(2023, 11, 1)}
+          start={new Date(2023, 10, 1)}
           end={new Date(2025, 3, 1)}
           taskTypes={taskTypes}
           // editorShape={editor}
         />
+        {console.log(tasks)}
       </div>
     </>
   );
-
+  
 };
 
 export default GanttComponent;
@@ -211,6 +159,45 @@ export default GanttComponent;
 
 
 
+// const editor = [
+//   {key:"text",type:"text",label:"Name",config:{placeholder:"Add task name",focus:!0}},
+//   // { key: "details", type: "textarea", label: "Description", config: { placeholder: "Add description" } },
+//   {
+//     key:"type",
+//     type:"select",
+//     label:"Type",
+//     options: [
+//       {
+//         id: "task",
+//         label: "Task"
+//       },
+//       {
+//         id: "pet",
+//         label: "Pedido Teorico"
+//       },
+//       {
+//         id: "pef",
+//         label: "Pedido Firme"
+//       },
+//       {
+//         id: "emb",
+//         label: "Embarque"
+//       },
+
+//     ]
+//   },
+  
+//   { key: "start", type: "date", label: "Start date" },
+//   { key: "end", type: "date", label: "End date" },
+//   {key:"progress",type:"slider",label:"Progress"},
+//   { 
+//     key: "price", 
+//     type: "counter", 
+//     label: "Monto", 
+//     // config: { min: 1, max: 100 } 
+//   },
+//   // { key: "links", type: "links" }
+// ];
 
 
 

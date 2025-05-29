@@ -1,12 +1,11 @@
-import { Table, Button, IconButton, Input, DateInput, InputNumber, Container, Content, Stack } from 'rsuite';
+import { Table, Button, IconButton, Input, DateInput, InputNumber, Container, Content, Stack, FlexboxGrid, ButtonToolbar, Form } from 'rsuite';
 import { getData } from '../data/table';
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import 'rsuite/dist/rsuite.min.css';
-
-// import { mockUsers } from './mock';
-
-const WIDTH = 80;
-
+import '../assets/TableStyles.css'
+import { BsPlusLg } from "react-icons/bs";
 
 const { Column, HeaderCell, Cell } = Table;
 const defaultData = getData;
@@ -30,7 +29,7 @@ const MyTable = () => {
   const [data, setData] = React.useState(defaultData);
   const [editingId, setEditingId] = React.useState(null);
   const [editingKey, setEditingKey] = React.useState(null);
-  
+
 
   React.useEffect(() => {
 
@@ -60,11 +59,11 @@ const MyTable = () => {
     Object.keys(summary).filter(key => key !== "id" && key !== "model")
       .forEach(key => {
         summary[key] = data.reduce((acc, item) => acc + item[key], 0);
-    });
-      
+      });
+
     data.push(summary);
-    
-    
+
+
     data.forEach(item => {
       item.total = Object.keys(item)
         .filter(key => key !== "id" && key !== "model" && key !== "total")
@@ -88,7 +87,7 @@ const MyTable = () => {
           'january', 'february', 'march', 'april', 'may', 'june',
           'july', 'august', 'september', 'october', 'november', 'december'
         ];
-        
+
         updatedItem.total = months.reduce((sum, month) => sum + (Number(updatedItem[month]) || 0), 0);
 
         return updatedItem;
@@ -96,10 +95,10 @@ const MyTable = () => {
 
       return item;
     });
-    const updateSummary = nextData.map(item=>{
-      if(item.id === 51){
-        const summary =  nextData.filter(item => item.model !== 'Total').reduce((sum, item) => sum + Number(item[key] || 0), 0);
-        const update = {...item, [key]: summary };
+    const updateSummary = nextData.map(item => {
+      if (item.id === 51) {
+        const summary = nextData.filter(item => item.model !== 'Total').reduce((sum, item) => sum + Number(item[key] || 0), 0);
+        const update = { ...item, [key]: summary };
         console.log(update);
         const months = [
           'january', 'february', 'march', 'april', 'may', 'june',
@@ -111,7 +110,7 @@ const MyTable = () => {
       }
       return item;
     });
-    
+
 
 
     setData(updateSummary);
@@ -134,81 +133,113 @@ const MyTable = () => {
   // };
 
   return (
-    <Container theme="dark">
-      <Content>
-         <Stack alignItems="center" justifyContent="center" style={{ height: '100%' }}>
+    <>
 
-        
+      <div className='container  chip'>
+        <div className='test'>
+          <form class="d-flex align-items-center gap-3">
 
-          <EditableContext.Provider theme="dark" value={{ editingId, editingKey, onEdit, onEditFinished }}>
-            <style>{styles}</style>
+            <label for="name" class="form-label">Codigo:</label>
+            <input type="text" id="name" readonly class="form-control-plaintext" value="PN-2025" />
 
-            <Table height={420} flexgrow={1} data={data} >
-              <Column width={100}>
-                <HeaderCell>Model</HeaderCell>
-                <Cell dataKey="model" dataType="string" onChange={handleChange} />
-              </Column>
+            <label for="name" class="form-label">Planta:</label>
+            <input type="text" id="name" readonly class="form-control-plaintext" value="Changan" />
+            <label for="name" class="form-label">Año:</label>
+            <input type="text" id="name" readonly class="form-control-plaintext" value="2025" />
+          </form>
 
-              <Column width={WIDTH} >
-                <HeaderCell>January</HeaderCell>
-                <EditableCell dataKey="january" dataType="number" onChange={handleChange} />
-              </Column>
-              <Column width={WIDTH}>
-                <HeaderCell>February</HeaderCell>
-                <EditableCell dataKey="february" dataType="number" onChange={handleChange} />
-              </Column>
-              <Column width={WIDTH}>
-                <HeaderCell>March</HeaderCell>
-                <EditableCell dataKey="march" dataType="number" onChange={handleChange} >$</EditableCell>
 
-              </Column>
-              <Column width={WIDTH}>
-                <HeaderCell>April</HeaderCell>
-                <EditableCell dataKey="april" dataType="number" onChange={handleChange} />
-              </Column>
-              <Column width={WIDTH}>
-                <HeaderCell>May</HeaderCell>
-                <EditableCell dataKey="may" dataType="number" onChange={handleChange} />
-              </Column>
-              <Column width={WIDTH}>
-                <HeaderCell>June</HeaderCell>
-                <EditableCell dataKey="june" dataType="number" onChange={handleChange} />
-              </Column>
-              <Column width={WIDTH}>
-                <HeaderCell>July</HeaderCell>
-                <EditableCell dataKey="july" dataType="number" onChange={handleChange} />
-              </Column>
-              <Column width={WIDTH}>
-                <HeaderCell>August</HeaderCell>
-                <EditableCell dataKey="august" dataType="number" onChange={handleChange} />
-              </Column>
-              <Column width={WIDTH}>
-                <HeaderCell>September</HeaderCell>
-                <EditableCell dataKey="september" dataType="number" onChange={handleChange} />
-              </Column>
-              <Column width={WIDTH}>
-                <HeaderCell>October</HeaderCell>
-                <EditableCell dataKey="october" dataType="number" onChange={handleChange} />
-              </Column>
-              <Column width={WIDTH}>
-                <HeaderCell>November</HeaderCell>
-                <EditableCell dataKey="november" dataType="number" onChange={handleChange} />
-              </Column>
-              <Column width={WIDTH}>
-                <HeaderCell>December</HeaderCell>
-                <EditableCell dataKey="december" dataType="number" onChange={handleChange} />
-              </Column>
-              <Column width={WIDTH}>
-                <HeaderCell>Total</HeaderCell>
-                <Cell dataKey="total" dataType="number" onChange={handleChange} />
-              </Column>
+        </div>
 
-            </Table>
-          </EditableContext.Provider>
 
-         </Stack>
-      </Content>
-    </Container>
+        <EditableContext.Provider theme="dark" value={{ editingId, editingKey, onEdit, onEditFinished }}>
+          <style>{styles}</style>
+
+            
+
+          <Table autoHeight={true} flexgrow={1} data={data} hover={false}>
+            <Column flexGrow={3}>
+              <HeaderCell>Model</HeaderCell>
+              <Cell dataKey="model" dataType="string" onChange={handleChange} />
+            </Column>
+
+            <Column flexGrow={1} >
+              <HeaderCell className='table-head'>January</HeaderCell>
+              <EditableCell dataKey="january" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column flexGrow={1}>
+              <HeaderCell className='table-head' >February</HeaderCell>
+              <EditableCell dataKey="february" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column flexGrow={1}>
+              <HeaderCell className='table-head'>March</HeaderCell>
+              <EditableCell dataKey="march" dataType="number" onChange={handleChange} >$</EditableCell>
+
+            </Column>
+            <Column flexGrow={1}>
+              <HeaderCell className='table-head'>April</HeaderCell>
+              <EditableCell dataKey="april" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column flexGrow={1}>
+              <HeaderCell className='table-head'>May</HeaderCell>
+              <EditableCell dataKey="may" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column flexGrow={1}>
+              <HeaderCell className='table-head'>June</HeaderCell>
+              <EditableCell dataKey="june" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column flexGrow={1}>
+              <HeaderCell className='table-head'>July</HeaderCell>
+              <EditableCell dataKey="july" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column flexGrow={1}>
+              <HeaderCell className='table-head'>August</HeaderCell>
+              <EditableCell dataKey="august" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column flexGrow={1}>
+              <HeaderCell className='table-head'>September</HeaderCell>
+              <EditableCell dataKey="september" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column flexGrow={1}>
+              <HeaderCell className='table-head'>October</HeaderCell>
+              <EditableCell dataKey="october" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column flexGrow={1}>
+              <HeaderCell className='table-head'>November</HeaderCell>
+              <EditableCell dataKey="november" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column flexGrow={1}>
+              <HeaderCell className='table-head'>December</HeaderCell>
+              <EditableCell dataKey="december" dataType="number" onChange={handleChange} />
+            </Column>
+            <Column flexGrow={2}>
+              <HeaderCell className='table-total'>Total</HeaderCell>
+              <Cell dataKey="total" dataType="number" onChange={handleChange} className='totals' />
+            </Column>
+
+          </Table>
+        </EditableContext.Provider>
+        <div></div>
+        <FlexboxGrid justify="start">
+              <FlexboxGrid.Item colspan={3}>
+                <Button endIcon={<BsPlusLg/>}  appearance="primary" active>
+                  Crear Simulacion
+                </Button>
+              </FlexboxGrid.Item>
+              <FlexboxGrid.Item colspan={0}>
+                <Button endIcon={<BsPlusLg/>}  appearance="default" active>
+                  Crear Plan
+                </Button>
+              </FlexboxGrid.Item>
+          </FlexboxGrid>
+      </div>
+
+
+
+
+
+
+    </>
   );
 };
 
@@ -259,7 +290,9 @@ const EditableCell = ({ rowData, dataType, dataKey, onChange, ...props }) => {
       {...props}
       ref={cellRef}
       tabIndex={0}
-      className={(editing && rowData.model!=="Total" ? 'table-cell-editing' : 'table-cell')+' '+''}
+      className={
+        (editing && rowData.model !== "Total" ? 'table-cell-editing' : (rowData.model === "Total" ? 'table-cell-total' : 'table-cell')) + ' ' + ''
+      }
       onDoubleClick={handleEdit}
       onKeyDown={e => {
         if (e.key === 'Enter') {
@@ -267,7 +300,7 @@ const EditableCell = ({ rowData, dataType, dataKey, onChange, ...props }) => {
         }
       }}
     >
-      {editing&&rowData.model!=="Total" ? (
+      {editing && rowData.model !== "Total" ? (
         <Field
           ref={inputRef}
           defaultValue={value}

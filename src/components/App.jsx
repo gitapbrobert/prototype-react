@@ -3,10 +3,11 @@ import "../assets/App.css";
 import {  Willow, WillowDark, Toolbar } from "wx-react-gantt";
 import Header from './Header';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SalesPlan from "../pages/SalesPlan";
+import SalesPlan from "../pages/spTable";
 import Home from "../pages/Home";
 import Orders from "../pages/Orders";
 import NoPage from "../pages/NoPage";
+import ListSP from "../pages/spList";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
             <Route path="salesplan" element={<SalesPlan />} />
             <Route path="orders" element={<Orders />} />
             <Route path="*" element={<NoPage />} />
+            <Route path="salesplanlist" element={<ListSP/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
