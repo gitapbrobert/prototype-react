@@ -17,7 +17,7 @@ export function getData() {
       progress: 20,
       type: "pet",
       lazy: false,
-      price: 20
+      price: 1496202.00
     },
     {
       id: 2,
@@ -27,7 +27,8 @@ export function getData() {
       progress: 20,
       type: "pet",
       lazy: false,
-      price: 20
+      price: 2206950.00
+
     },
     {
       id: 3,
@@ -37,7 +38,8 @@ export function getData() {
       progress: 20,
       type: "pet",
       lazy: false,
-      price: 20
+      price: 2582481.00
+
     },
     {
       id: 4,
@@ -47,7 +49,7 @@ export function getData() {
       progress: 20,
       type: "pet",
       lazy: false,
-      price: 20
+      price: 0
     },
     {
       id: 5,
@@ -57,7 +59,7 @@ export function getData() {
       progress: 20,
       type: "pet",
       lazy: false,
-      price: 20
+      price: 0
     },
     {
       id: 6,
@@ -67,7 +69,7 @@ export function getData() {
       progress: 20,
       type: "pet",
       lazy: false,
-      price: 20
+      price: 0
     },
     {
       id: 7,
@@ -77,7 +79,7 @@ export function getData() {
       progress: 20,
       type: "pet",
       lazy: false,
-      price: 20
+      price: 0
     },
     {
       id: 8,
@@ -87,7 +89,7 @@ export function getData() {
       progress: 20,
       type: "pet",
       lazy: false,
-      price: 20
+      price: 0
     },
     {
       id: 9,
@@ -97,7 +99,7 @@ export function getData() {
       progress: 20,
       type: "pet",
       lazy: false,
-      price: 20
+      price: 0
     },
     {
       id: 10,
@@ -107,7 +109,7 @@ export function getData() {
       progress: 20,
       type: "pet",
       lazy: false,
-      price: 20
+      price: 0
     },
     {
       id: 11,
@@ -117,7 +119,7 @@ export function getData() {
       progress: 20,
       type: "pet",
       lazy: false,
-      price: 20
+      price: 0
     },
     {
       id: 12,
@@ -127,7 +129,7 @@ export function getData() {
       progress: 20,
       type: "pet",
       lazy: false,
-      price: 20
+      price: 0
     },
 
   ];
@@ -141,7 +143,7 @@ export function getData() {
       parent: 1,
       type: "pef",
       lazy: false,
-      price: 20333
+      price: 598480.8,
     },
     {
       id: "PF1-2",
@@ -152,7 +154,8 @@ export function getData() {
       parent: 2,
       type: "pef",
       lazy: false,
-      price: 20444
+      price: 2206950.00
+
     },
     {
       id: "PF1-3",
@@ -187,6 +190,7 @@ export function getData() {
       lazy: false,
       price: 400000,
     },
+
   ]
   const Emb=[
     {
@@ -198,7 +202,7 @@ export function getData() {
       parent: "PF1-1",
       type: "emb",
       lazy: false,
-      price: 20333
+      price: 897721.2
     },
     {
       id: "EMB1-2",
@@ -256,23 +260,23 @@ export function getMarkers() {
   const markers = [
     {
       start: new Date(2024, 0, 1),
-      text: "$ 1640000.00",
+      text: "$ 00",
       css: 'marker  data-bs-toggle="tooltip" data-bs-title="Default tooltip"',
 
     },
     {
       start: new Date(2024, 1, 28),
-      text: "$ 200.00",
+      text: "$ 1,496,202.00",
       css: "marker",
     },
     {
       start: new Date(2024, 2, 30),
-      text: "$ 150.00",
+      text: "$ 2,206,950.00",
       css: "marker",
     },
     {
       start: new Date(2024, 3, 30),
-      text: "$ 0.00",
+      text: "$ 2,582,481.00",
       css: "marker",
     },
     {

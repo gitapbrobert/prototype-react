@@ -6,11 +6,8 @@ import Example from "../components/SalesPlanTable";
 const SalesPlan = () => {
   return(
     <>
-       
-        {/* <Willow>
-            <MyComponent></MyComponent>
-        </Willow>      */}
-        <Example/>
+        
+      <Example/>
     </>
     
     );

@@ -5,7 +5,9 @@ import { Toolbar , Willow } from "wx-react-gantt";
 import React, { useRef, useEffect, useState } from "react";
 import Template from "./TaskTemplate.jsx";
 import { getData, getLinks, getMarkers } from "../data/data.js";
-import MyForm from "./PF-Form.jsx";
+import PFForm from "./PF-Form.jsx";
+import { Button, FlexboxGrid } from "rsuite";
+import { BsPlusLg } from "react-icons/bs";
 
 const GanttComponent = () => {
   
@@ -131,7 +133,39 @@ const GanttComponent = () => {
   return (
     <>
       <div className="gantt-container">
-       <MyForm task={task} setTask={setTask} Types={taskTypes} onAction={formAction} IsOpen={open} />
+        <div className='test'>
+          <form class="d-flex align-items-center gap-3">
+
+            <label for="name" class="form-label">Codigo:</label>
+            <input type="text" id="name" readonly class="form-control-plaintext" value="PN-2025" />
+
+            <label for="name" class="form-label">Planta:</label>
+            <input type="text" id="name" readonly class="form-control-plaintext" value="Changan" />
+            <label for="name" class="form-label">Año:</label>
+            <input type="text" id="name" readonly class="form-control-plaintext" value="2025" />
+          </form>
+        </div>
+<div>
+
+        <FlexboxGrid justify="start">
+                  <FlexboxGrid.Item colspan={3}>
+                    <Button startIcon={<BsPlusLg/>}  appearance="primary" active>
+                      Agregar Firme
+                    </Button>
+                  </FlexboxGrid.Item>
+                  <FlexboxGrid.Item colspan={3}>
+                    <Button startIcon={<BsPlusLg/>}  appearance="primary" active>
+                      Agregar Embarque
+                    </Button>
+                  </FlexboxGrid.Item>
+                </FlexboxGrid>
+</div>
+
+
+
+
+
+       <PFForm task={task} setTask={setTask} Types={taskTypes} onAction={formAction} IsOpen={open} />
         <Gantt
           api={apiRef}
           scales={scales}

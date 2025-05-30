@@ -9,14 +9,19 @@
 
 .test{
   width: 500px;
+  padding-bottom: 1rem;
 }
-
+.form-footer{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
 
 .form-BP{
   justify-content: left;
 }
 .chip{
   margin-top: 2rem;
+  padding-top: 1rem;
   border-color: rgba(0, 0, 0, 0.5);
   border-radius: 5px  ;
   border: 10px;
@@ -32,9 +37,11 @@
 .chip .table-cell-total{
     background-color: rgb(214, 214, 214);
 }
-.chip .rs-table-cell-last{
-    background-color: rgb(83, 83, 83);
-    color: white;
-    border-color: rgb(83, 83, 83);;
+
+.chip .rs-table-cell-last {
+  background-color: rgb(83, 83, 83);
+  color: white;
+  font-size: 15px;
+  border-color: rgb(83, 83, 83);
 
 }

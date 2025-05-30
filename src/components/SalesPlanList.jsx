@@ -3,6 +3,8 @@ import { getData } from "../data/spList";
 import Column from "rsuite/esm/Table/TableColumn";
 import { Cell, HeaderCell } from "rsuite-table";
 import { BsPlusLg } from "react-icons/bs";
+import 'rsuite/dist/rsuite.min.css';
+import '../assets/SalesPlanListStyle.css'
 
 
 
@@ -14,27 +16,28 @@ const ListSalesPlans =()=>{
   return (
     <>
   
-      <div className="container">
+      <div className="container wisp">
         <FlexboxGrid justify="start">
           <FlexboxGrid.Item colspan={3}>
-            <Button endIcon={<BsPlusLg/>}  appearance="primary" active>
+            <Button startIcon={<BsPlusLg/>}  appearance="primary" active>
               Crear Plan
             </Button>
           </FlexboxGrid.Item>
-          <FlexboxGrid.Item colspan={0}>
-            <Button endIcon={<BsPlusLg/>}  appearance="default" active>
+          {/* <FlexboxGrid.Item colspan={0}>
+            <Button startIcon={<BsPlusLg/>}  appearance="default" active>
               Crear Plan
             </Button>
-          </FlexboxGrid.Item>
-
+          </FlexboxGrid.Item> */}
         </FlexboxGrid>
-        <Table data={data}>
+
+        
+        <Table data={data} autoHeight={true}>
           <Column flexGrow={2}>
             <HeaderCell>Code</HeaderCell>
             <Cell dataKey="code" />
           </Column>
 
-          <Column width={400}>
+          <Column flexGrow={2}>
             <HeaderCell>Creation</HeaderCell>
             <Cell dataKey="creation_date" >
               {rowData => rowData.creation_date.toLocaleString()}
@@ -65,8 +68,6 @@ const ListSalesPlans =()=>{
             <HeaderCell>User</HeaderCell>
             <Cell dataKey="user" />
           </Column>
-
-          
         </Table>
 
       </div>

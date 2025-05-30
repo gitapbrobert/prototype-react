@@ -105,7 +105,6 @@ const MyTable = () => {
           'july', 'august', 'september', 'october', 'november', 'december'
         ];
         update.total = months.reduce((sum, month) => sum + (Number(update[month]) || 0), 0);
-
         return update;
       }
       return item;
@@ -147,8 +146,6 @@ const MyTable = () => {
             <label for="name" class="form-label">Año:</label>
             <input type="text" id="name" readonly class="form-control-plaintext" value="2025" />
           </form>
-
-
         </div>
 
 
@@ -158,7 +155,7 @@ const MyTable = () => {
             
 
           <Table autoHeight={true} flexgrow={1} data={data} hover={false}>
-            <Column flexGrow={3}>
+            <Column flexGrow={2}>
               <HeaderCell>Model</HeaderCell>
               <Cell dataKey="model" dataType="string" onChange={handleChange} />
             </Column>
@@ -219,26 +216,22 @@ const MyTable = () => {
 
           </Table>
         </EditableContext.Provider>
-        <div></div>
-        <FlexboxGrid justify="start">
-              <FlexboxGrid.Item colspan={3}>
-                <Button endIcon={<BsPlusLg/>}  appearance="primary" active>
-                  Crear Simulacion
-                </Button>
-              </FlexboxGrid.Item>
-              <FlexboxGrid.Item colspan={0}>
-                <Button endIcon={<BsPlusLg/>}  appearance="default" active>
-                  Crear Plan
-                </Button>
-              </FlexboxGrid.Item>
+
+        <div className='form-footer'>
+          <FlexboxGrid justify="start">
+            <FlexboxGrid.Item colspan={2}>
+              <Button startIcon={<BsPlusLg />} appearance="primary" active>
+                Simular
+              </Button>
+            </FlexboxGrid.Item>
+            <FlexboxGrid.Item colspan={2}>
+              <Button startIcon={<BsPlusLg />} appearance="default" active>
+                Crear Plan
+              </Button>
+            </FlexboxGrid.Item>
           </FlexboxGrid>
+        </div>
       </div>
-
-
-
-
-
-
     </>
   );
 };
