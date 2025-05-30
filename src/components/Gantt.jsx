@@ -8,6 +8,7 @@ import { getData, getLinks, getMarkers } from "../data/data.js";
 import PFForm from "./PF-Form.jsx";
 import { Button, FlexboxGrid } from "rsuite";
 import { BsPlusLg } from "react-icons/bs";
+import EmbForm from "./Emb-Form.jsx";
 
 const GanttComponent = () => {
   
@@ -166,6 +167,7 @@ const GanttComponent = () => {
 
 
        <PFForm task={task} setTask={setTask} Types={taskTypes} onAction={formAction} IsOpen={open} />
+       <EmbForm></EmbForm>
         <Gantt
           api={apiRef}
           scales={scales}

@@ -1,7 +1,8 @@
     
 import React from 'react';
 import { Form, ButtonToolbar, Button, Input, InputGroup, InputNumber, Modal, SelectPicker, DatePicker, Slider, Table } from 'rsuite';
-import Column from 'rsuite/esm/Table/TableColumn';
+const { Column, HeaderCell, Cell } = Table;
+
 
 const Textarea = React.forwardRef((props, ref) => <Input {...props} as="textarea" ref={ref} />);
 
@@ -17,6 +18,11 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
   const handleSubmit = () => {
     console.log(formValue);
   };
+
+
+
+
+  const data=[];
 
   return (
     <Modal backdrop="static" open={IsOpen} onClose={handleClose}>
