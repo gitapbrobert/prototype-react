@@ -9,6 +9,10 @@ body {
   overflow: hidden;
   height: 100%;
 }
+.gantt-test{
+  width: 500px;
+  padding-bottom: 0.5rem;
+}
 
 .prueba{
     position: relative;
@@ -20,9 +24,9 @@ body {
   overflow: hidden;
   overflow-y: visible;
 }
-/* .gantt-container{
-  overflow-y: visible;
-} */
+.gantt-container{
+  margin-top: 1rem;
+}
 
 .wx-willow-theme {
     position: relative;

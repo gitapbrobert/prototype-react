@@ -1,6 +1,6 @@
-import { Table, Button, IconButton, Input, DateInput, InputNumber, Container, Content, Stack, FlexboxGrid, ButtonToolbar, Form } from 'rsuite';
+import { Table, Button, IconButton, Input, DateInput, InputNumber, Container, Content, Stack, FlexboxGrid, ButtonToolbar, Form, Modal } from 'rsuite';
 import { getData } from '../data/table';
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import 'rsuite/dist/rsuite.min.css';
@@ -29,6 +29,7 @@ const MyTable = () => {
   const [data, setData] = React.useState(defaultData);
   const [editingId, setEditingId] = React.useState(null);
   const [editingKey, setEditingKey] = React.useState(null);
+  
 
 
   React.useEffect(() => {
@@ -115,7 +116,6 @@ const MyTable = () => {
     setData(updateSummary);
   };
 
-
   const onEdit = (id, dataKey) => {
     setEditingId(id);
     setEditingKey(dataKey);
@@ -133,6 +133,8 @@ const MyTable = () => {
 
   return (
     <>
+
+    
 
       <div className='container  chip'>
         <div className='test'>
@@ -217,20 +219,7 @@ const MyTable = () => {
           </Table>
         </EditableContext.Provider>
 
-        <div className='form-footer'>
-          <FlexboxGrid justify="start">
-            <FlexboxGrid.Item colspan={2}>
-              <Button startIcon={<BsPlusLg />} appearance="primary" active>
-                Simular
-              </Button>
-            </FlexboxGrid.Item>
-            <FlexboxGrid.Item colspan={2}>
-              <Button startIcon={<BsPlusLg />} appearance="default" active>
-                Crear Plan
-              </Button>
-            </FlexboxGrid.Item>
-          </FlexboxGrid>
-        </div>
+        
       </div>
     </>
   );

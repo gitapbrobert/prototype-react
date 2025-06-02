@@ -1,7 +1,7 @@
 import "../assets/GanttStyles.css";
 import "wx-react-gantt/dist/gantt.css";
 import { Gantt, defaultEditorShape, defaultMenuOptions } from "wx-react-gantt";
-import { Toolbar , Willow } from "wx-react-gantt";
+import { Toolbar, Willow } from "wx-react-gantt";
 import React, { useRef, useEffect, useState } from "react";
 import Template from "./TaskTemplate.jsx";
 import { getData, getLinks, getMarkers } from "../data/data.js";
@@ -11,21 +11,36 @@ import { BsPlusLg } from "react-icons/bs";
 import EmbForm from "./Emb-Form.jsx";
 
 const GanttComponent = () => {
-  
+
   const apiRef = useRef(null);
   const [task, setTask] = useState(null);
   const [store, setStore] = useState(null);
   const [open, setOpen] = React.useState(false);
-  
-  
+  const [openEmb, setOpenEmb] = React.useState(false);
+
   useEffect(() => {
     if (apiRef.current) {
       const api = apiRef.current;
       setStore(api.getState().tasks);
-
       api.intercept("show-editor", (data) => {
+
         setTask(store.byId(data.id));
-        setOpen(true);
+
+        console.log(store.byId(data.id));
+        if((store.byId(data.id)).type === "pet"){
+
+          console.log("no hay pa pedido teorico xd");
+
+        }else if((store.byId(data.id)).type === "pef"){
+          
+          setOpen(true);
+
+        }else if((store.byId(data.id)).type === "emb"){
+          
+          setOpenEmb(true);
+
+        }
+
         console.log("showing editor ");
         return false;
       });
@@ -51,11 +66,12 @@ const GanttComponent = () => {
           //setTask(null);
           console.log("cerrando form");
           setOpen(false);
-        break;
+          setOpenEmb(false);
+          break;
 
         default:
           apiRef.current.exec(action, data); // "update-task", "delete-task" actions
-        break;
+          break;
       }
     }
   };
@@ -110,31 +126,31 @@ const GanttComponent = () => {
   ];
 
   const links = getLinks();
-  
+
   const taskTypes = [
     {
       id: "task",
       label: "Task"
     },
-    { 
-      id: "pet", 
-      label: "Pedido Teorico" 
+    {
+      id: "pet",
+      label: "Pedido Teorico"
     },
-    { 
-      id: "pef", 
-      label: "Pedido Firme" 
+    {
+      id: "pef",
+      label: "Pedido Firme"
     },
-    { 
-      id: "emb", 
-      label: "Embarque" 
+    {
+      id: "emb",
+      label: "Embarque"
     },
   ];
 
-  
+
   return (
     <>
       <div className="gantt-container">
-        <div className='test'>
+        <div className='gantt-test'>
           <form class="d-flex align-items-center gap-3">
 
             <label for="name" class="form-label">Codigo:</label>
@@ -146,28 +162,24 @@ const GanttComponent = () => {
             <input type="text" id="name" readonly class="form-control-plaintext" value="2025" />
           </form>
         </div>
-<div>
 
-        <FlexboxGrid justify="start">
-                  <FlexboxGrid.Item colspan={3}>
-                    <Button startIcon={<BsPlusLg/>}  appearance="primary" active>
-                      Agregar Firme
-                    </Button>
-                  </FlexboxGrid.Item>
-                  <FlexboxGrid.Item colspan={3}>
-                    <Button startIcon={<BsPlusLg/>}  appearance="primary" active>
-                      Agregar Embarque
-                    </Button>
-                  </FlexboxGrid.Item>
-                </FlexboxGrid>
-</div>
+        <div>
+          <FlexboxGrid justify="start">
+            <FlexboxGrid.Item colspan={3}>
+              <Button startIcon={<BsPlusLg />} appearance="primary" active >
+                Agregar Firme
+              </Button>
+            </FlexboxGrid.Item>
+            <FlexboxGrid.Item colspan={3}>
+              <Button startIcon={<BsPlusLg />} appearance="primary" active >
+                Agregar Embarque
+              </Button>
+            </FlexboxGrid.Item>
+          </FlexboxGrid>
+        </div>
 
-
-
-
-
-       <PFForm task={task} setTask={setTask} Types={taskTypes} onAction={formAction} IsOpen={open} />
-       <EmbForm></EmbForm>
+        <PFForm task={task} setTask={setTask} Types={taskTypes} onAction={formAction} IsOpen={open} />
+        <EmbForm task={task} setTask={setTask} Types={taskTypes} onAction={formAction} IsOpen={openEmb}/>
         <Gantt
           api={apiRef}
           scales={scales}
@@ -180,13 +192,12 @@ const GanttComponent = () => {
           start={new Date(2023, 10, 1)}
           end={new Date(2025, 3, 1)}
           taskTypes={taskTypes}
-          // editorShape={editor}
+        // editorShape={editor}
         />
-        {console.log(tasks)}
       </div>
     </>
   );
-  
+
 };
 
 export default GanttComponent;

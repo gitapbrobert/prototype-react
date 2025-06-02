@@ -14,18 +14,15 @@ const PFForm = ({task, setTask, Types, onAction, IsOpen}) => {
   const handleClose = () => setOpen(false);
   const [temp, settemp] = React.useState(open ? task : []);
   const exit = () => onAction("close-form", task);
-  const data = [];  
+  const data = [];
+
   const handleSubmit = () => {
     console.log(formValue);
   };
-
-
-
   
-
   return (
     
-    <Modal backdrop="static" open={IsOpen} onClose={  handleClose}>
+    <Modal backdrop="static" open={IsOpen} onClose={handleClose}>
       <Modal.Header>
         <Modal.Title>Pedido Firme</Modal.Title>
       </Modal.Header>

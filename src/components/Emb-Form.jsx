@@ -7,7 +7,6 @@ const { Column, HeaderCell, Cell } = Table;
 const Textarea = React.forwardRef((props, ref) => <Input {...props} as="textarea" ref={ref} />);
 
 const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
-  
 
   const [open, setOpen] = React.useState(true); //its no use
   // const handleOpen = () => setOpen(true);
@@ -20,14 +19,12 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
   };
 
 
-
-
   const data=[];
 
   return (
     <Modal backdrop="static" open={IsOpen} onClose={handleClose}>
       <Modal.Header>
-        <Modal.Title>Pedido Firme</Modal.Title>
+        <Modal.Title>Embarque</Modal.Title>
       </Modal.Header>
       <Modal.Body>
 
@@ -58,7 +55,7 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
         <Button onClick={exit} appearance="primary">
           Submit
         </Button>
-        <Button onClick={exit} appearance="subtle">
+        <Button onClick={handleClose} appearance="subtle">
           Cancel
         </Button>
       </Modal.Footer>
