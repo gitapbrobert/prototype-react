@@ -2,7 +2,8 @@ import { Button, Divider, FlexboxGrid, Modal, Table } from "rsuite";
 import { getData } from "../data/spList";
 import Column from "rsuite/esm/Table/TableColumn";
 import { Cell, HeaderCell } from "rsuite-table";
-import { BsPlusLg } from "react-icons/bs";
+import { BsPlusLg  } from "react-icons/bs";
+import { RiPlayListAddFill } from "react-icons/ri";
 import 'rsuite/dist/rsuite.min.css';
 import '../assets/SalesPlanListStyle.css'
 import MyTable from "./SalesPlanTable";
@@ -13,35 +14,46 @@ import { useState } from "react";
 const ListSalesPlans =()=>{
 
   const data = getData();
+  const [formTitle, setFormTitle] = useState("agregar");
+  const [setter, setSetter] = useState(0);
 
   const [open, setOpen] =  useState(false);
-  const handleClose = () => setOpen(false);
-  
+  const handleClose = () => {
+    setOpen(false)
+  };
+  const handleOpen = (number) => {
+    setOpen(true)
+    setSetter(number)
+  };
 
   return (
     <>
-  
-    <Modal open={open} size={'lg'} onClose={handleClose}>
-      <Modal.Header>
-          <Modal.Title>Agregar Plan de Negocios</Modal.Title>
+
+      <Modal open={open} size={'lg'} onClose={handleClose}>
+        <Modal.Header>
+          <Modal.Title>{formTitle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <MyTable></MyTable>
+          {/* content */}
+          <MyTable dataset={setter}></MyTable>
+
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={handleClose} appearance="subtle">
-            Cancel
+        <Modal.Footer classPrefix="">
+          <Button onClick={handleClose} appearance="primary">
+            Generar
           </Button>
           <Button onClick={handleClose} appearance="primary">
-            Ok
+            Simular
           </Button>
         </Modal.Footer>
-    </Modal>
-  
+      </Modal>
+        <div>Planes de Negocios</div>
+
       <div className="container wisp">
         <FlexboxGrid justify="start">
+
           <FlexboxGrid.Item colspan={3}>
-            <Button startIcon={<BsPlusLg/>} onClick={setOpen}  appearance="primary" active>
+            <Button startIcon={<RiPlayListAddFill/>} onClick={handleOpen} appearance="primary" active>
               Crear Plan
             </Button>
           </FlexboxGrid.Item>
@@ -53,39 +65,39 @@ const ListSalesPlans =()=>{
 
           <Column flexGrow={1}>
             <HeaderCell>Code</HeaderCell>
-            <Cell dataKey="code" onDoubleClick={setOpen} />
+            <Cell dataKey="code" onDoubleClick={()=>handleOpen(1)} />
           </Column>
 
           <Column flexGrow={2}>
             <HeaderCell>Creation</HeaderCell>
-            <Cell dataKey="creation_date" onDoubleClick={setOpen}>
+            <Cell dataKey="creation_date" onDoubleClick={()=>handleOpen(1)}>
               {rowData => rowData.creation_date.toLocaleString()}
             </Cell>
           </Column>
 
           <Column flexGrow={1}>
             <HeaderCell>Goal</HeaderCell>
-            <Cell dataKey="goal" onDoubleClick={setOpen}/>
+            <Cell dataKey="goal" onDoubleClick={()=>handleOpen(1)}/>
           </Column>
 
           <Column flexGrow={1}>
             <HeaderCell>Year</HeaderCell>
-            <Cell dataKey="year" onDoubleClick={setOpen}/>
+            <Cell dataKey="year" onDoubleClick={()=>handleOpen(1)}/>
           </Column>
 
           <Column flexGrow={1}>
             <HeaderCell>Supplier</HeaderCell>
-            <Cell dataKey="supplier" onDoubleClick={setOpen}/>
+            <Cell dataKey="supplier" onDoubleClick={()=>handleOpen(1)}/>
           </Column>
 
           <Column flexGrow={1}>
             <HeaderCell>Type</HeaderCell>
-            <Cell dataKey="type" onDoubleClick={setOpen}/>
+            <Cell dataKey="type" onDoubleClick={()=>handleOpen(1)}/>
           </Column>
 
           <Column flexGrow={1}>
             <HeaderCell>User</HeaderCell>
-            <Cell dataKey="user" onDoubleClick={setOpen}/>
+            <Cell dataKey="user" onDoubleClick={()=>handleOpen(1)}/>
           </Column>
         </Table>
 

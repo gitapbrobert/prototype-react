@@ -17,10 +17,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Header />}>
             <Route index element={<Home />} />
-            <Route path="salesplan" element={<SalesPlan />} />
+            <Route path="addsalesplan" element={<SalesPlan />} />
+            <Route path="salesplan" element={<ListSP/>}/>
             <Route path="orders" element={<Orders />} />
             <Route path="*" element={<NoPage />} />
-            <Route path="salesplanlist" element={<ListSP/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

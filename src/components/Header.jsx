@@ -21,15 +21,15 @@ const Header = () => {
                 </Link>
               </li> */}
               <li className="nav-item">
-                <Link to={"/salesplanlist"}>
-                  <a className="nav-link" href="#">Lista de Plan de Negocio</a>
-                </Link>
-              </li>
-              <li className="nav-item">
                 <Link to={"/salesplan"}>
-                  <a className="nav-link" href="#">Plan de Negocio</a>
+                  <a className="nav-link" href="#">Plan de Negocios</a>
                 </Link>
               </li>
+              {/* <li className="nav-item">
+                <Link to={"/addsalesplan"}>
+                  <a className="nav-link" href="#">Agregar Plan de Negocio</a>
+                </Link>
+              </li> */}
               <li className="nav-item">
                 <Link to={"/orders"}>
                   <a className="nav-link" href="#">Pedidos</a>

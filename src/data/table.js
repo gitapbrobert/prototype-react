@@ -1,4 +1,4 @@
-export function getData() {
+export function getData(set) {
     const data = [
         {
             id: 1,
@@ -121,6 +121,12 @@ export function getData() {
         },
     ];
 
-    return data;
-
+    const empty = [];
+    
+    if (set === 0){
+        return empty;
+    }else{
+        
+        return data;
+    }
 }

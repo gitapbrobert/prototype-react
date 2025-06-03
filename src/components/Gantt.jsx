@@ -166,12 +166,12 @@ const GanttComponent = () => {
         <div>
           <FlexboxGrid justify="start">
             <FlexboxGrid.Item colspan={3}>
-              <Button startIcon={<BsPlusLg />} appearance="primary" active >
+              <Button startIcon={<BsPlusLg />} appearance="primary" active onClick={setOpen}>
                 Agregar Firme
               </Button>
             </FlexboxGrid.Item>
             <FlexboxGrid.Item colspan={3}>
-              <Button startIcon={<BsPlusLg />} appearance="primary" active >
+              <Button startIcon={<BsPlusLg />} appearance="primary" active onClick={setOpenEmb}>
                 Agregar Embarque
               </Button>
             </FlexboxGrid.Item>

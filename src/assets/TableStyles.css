@@ -25,7 +25,7 @@
   border-color: rgba(0, 0, 0, 0.5);
   border-radius: 5px  ;
   border: 10px;
-  box-shadow:  10px 10px 20px rgba(0, 0, 0, 0.5);
+  /* box-shadow:  10px 10px 20px rgba(0, 0, 0, 0.5); */
 }
 
 .chip .table-head > .rs-table-cell {

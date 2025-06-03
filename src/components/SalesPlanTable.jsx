@@ -8,7 +8,7 @@ import '../assets/TableStyles.css'
 import { BsPlusLg } from "react-icons/bs";
 
 const { Column, HeaderCell, Cell } = Table;
-const defaultData = getData;
+// const defaultData = getData();
 
 const styles = `
 .table-cell-editing .rs-table-cell-content {
@@ -25,7 +25,9 @@ const styles = `
 
 const EditableContext = React.createContext({ editingId: null, editingKey: null });
 
-const MyTable = () => {
+const MyTable = ({dataset}) => {
+  console.log(dataset);
+  const defaultData = getData(dataset);
   const [data, setData] = React.useState(defaultData);
   const [editingId, setEditingId] = React.useState(null);
   const [editingKey, setEditingKey] = React.useState(null);
@@ -136,7 +138,7 @@ const MyTable = () => {
 
     
 
-      <div className='container  chip'>
+      <div className='  chip'>
         <div className='test'>
           <form class="d-flex align-items-center gap-3">
 
@@ -211,7 +213,7 @@ const MyTable = () => {
               <HeaderCell className='table-head'>December</HeaderCell>
               <EditableCell dataKey="december" dataType="number" onChange={handleChange} />
             </Column>
-            <Column flexGrow={2}>
+            <Column flexGrow={1.5}>
               <HeaderCell className='table-total'>Total</HeaderCell>
               <Cell dataKey="total" dataType="number" onChange={handleChange} className='totals' />
             </Column>
