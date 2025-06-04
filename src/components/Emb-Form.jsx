@@ -8,7 +8,7 @@ import { MdOutlineExpandLess } from "react-icons/md";
 
 const Textarea = React.forwardRef((props, ref) => <Input {...props} as="textarea" ref={ref} />);
 
-const rowKey = 'code';
+const rowKey = 'id';
 
 const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
   const [expandedRowKeys, setExpandedRowKeys] = React.useState([]);
@@ -36,24 +36,14 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
   const [temp, settemp] = React.useState(open ? task : []);
   const exit = () => onAction("close-form", task);
 
-  // Get all data
-  const allData = getEmb();
-  
-  // Get unique codes while preserving the first occurrence of each code
-  const uniqueCodes = [...new Set(allData.map(item => item.code))];
-  const uniqueData = uniqueCodes.map(code => 
-    allData.find(item => item.code === code)
-  );
+  const data = getEmb();
 
   const renderRowExpanded = rowData => {
-    // Filter data to get all entries with matching code
-    const matchingData = allData.filter(item => item.code === rowData.code);
-    
     return (
       <div style={{ padding: '20px' }}>
         <Table
           autoHeight={true}
-          data={matchingData}
+          data={rowData.models}
           hover={true}
         >
           <Column flexGrow={1}>
@@ -81,7 +71,7 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
       <Modal.Body>
         <Table
           autoHeight={true}
-          data={uniqueData}
+          data={data}
           rowKey={rowKey}
           expandedRowKeys={expandedRowKeys}
           renderRowExpanded={renderRowExpanded}

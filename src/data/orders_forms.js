@@ -16,23 +16,29 @@ export function getEmb(){
         {
             id: 1,
             code: 'CODE001',
-            model: 'Model A',
-            amount_pf: 25,
-            amount_emb: 21
+            models: [
+                {
+                    model: 'Model A',
+                    amount_pf: 25,
+                    amount_emb: 21
+                },
+                {
+                    model: 'Model B',
+                    amount_pf: 30,
+                    amount_emb: 28
+                }
+            ]
         },
         {
             id: 2,
-            code: 'CODE001',
-            model: 'Model B',
-            amount_pf: 30,
-            amount_emb: 28
-        },
-        {
-            id: 3,
             code: 'CODE002',
-            model: 'Model C',
-            amount_pf: 15,
-            amount_emb: 12
+            models: [
+                {
+                    model: 'Model C',
+                    amount_pf: 15,
+                    amount_emb: 12
+                }
+            ]
         }
     ];
     return data;
