@@ -40,13 +40,14 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
 
   const renderRowExpanded = rowData => {
     return (
-      <div style={{ padding: '20px', width: '100%' }}>
+      <div style={{ padding: '20px', width: '100%', minHeight: '150px' }}>
         <Table
           autoHeight
           data={rowData.models}
           hover={true}
           wordWrap="break-word"
           rowHeight={60}
+          style={{ minHeight: '120px' }}
         >
           <Column flexGrow={1}>
             <HeaderCell>Model</HeaderCell>
@@ -79,6 +80,7 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
           renderRowExpanded={renderRowExpanded}
           rowHeight={60}
           wordWrap="break-word"
+          style={{ width: '100%' }}
         >
           <Column width={70} align="center">
             <HeaderCell>#</HeaderCell>
