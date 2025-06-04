@@ -51,18 +51,25 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
           expandedRowKeys={expandedRowKeys}
           renderRowExpanded={rowData => {
             return (
-              <div className="p-3">
-                <h6>Additional Details</h6>
-                <div className="row">
-                  <div className="col-md-6">
-                    <p><strong>Status:</strong> Active</p>
-                    <p><strong>Last Updated:</strong> {new Date().toLocaleDateString()}</p>
-                  </div>
-                  <div className="col-md-6">
-                    <p><strong>Notes:</strong> Sample additional information for {rowData.code}</p>
-                    <p><strong>Reference:</strong> REF-{rowData.id}</p>
-                  </div>
-                </div>
+              <div style={{ padding: '20px' }}>
+                <Table
+                  autoHeight={true}
+                  data={data.filter(item => item.code === rowData.code)}
+                  hover={true}
+                >
+                  <Column flexGrow={1}>
+                    <HeaderCell>Model</HeaderCell>
+                    <Cell dataKey="model" />
+                  </Column>
+                  <Column flexGrow={1}>
+                    <HeaderCell>Amount PF</HeaderCell>
+                    <Cell dataKey="amount_pf" />
+                  </Column>
+                  <Column flexGrow={1}>
+                    <HeaderCell>Amount EMB</HeaderCell>
+                    <Cell dataKey="amount_emb" />
+                  </Column>
+                </Table>
               </div>
             );
           }}
@@ -91,8 +98,6 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
             <HeaderCell>Codigo</HeaderCell>
             <Cell dataKey="code" />
           </Column>
-
-          
         </Table>
       </Modal.Body>
       <Modal.Footer>
