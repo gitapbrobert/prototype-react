@@ -8,7 +8,7 @@ import { MdOutlineExpandLess } from "react-icons/md";
 
 const Textarea = React.forwardRef((props, ref) => <Input {...props} as="textarea" ref={ref} />);
 
-const rowKey = 'id';
+const rowKey = 'code';
 
 const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
   const [expandedRowKeys, setExpandedRowKeys] = React.useState([]);
@@ -36,7 +36,10 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
   const [temp, settemp] = React.useState(open ? task : []);
   const exit = () => onAction("close-form", task);
 
-  const data = getEmb();
+  // Get unique codes
+  const allData = getEmb();
+  const uniqueData = Array.from(new Set(allData.map(item => item.code)))
+    .map(code => allData.find(item => item.code === code));
 
   return (
     <Modal backdrop="static" size={'lg'} open={IsOpen} onClose={handleClose}>
@@ -46,7 +49,7 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
       <Modal.Body>
         <Table
           autoHeight={true}
-          data={data}
+          data={uniqueData}
           rowKey={rowKey}
           expandedRowKeys={expandedRowKeys}
           renderRowExpanded={rowData => {
@@ -54,7 +57,7 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
               <div style={{ padding: '20px' }}>
                 <Table
                   autoHeight={true}
-                  data={data.filter(item => item.code === rowData.code)}
+                  data={allData.filter(item => item.code === rowData.code)}
                   hover={true}
                 >
                   <Column flexGrow={1}>
