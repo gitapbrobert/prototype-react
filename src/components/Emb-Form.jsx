@@ -40,7 +40,7 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
 
   const renderRowExpanded = rowData => {
     return (
-      <div className="expanded-row-container" style={{ 
+      <div className="expanded-row-container\" style={{ 
         padding: '20px',
         margin: '10px 0',
         backgroundColor: '#f8f9fa',
