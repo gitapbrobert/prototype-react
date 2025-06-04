@@ -40,23 +40,25 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
 
   const renderRowExpanded = rowData => {
     return (
-      <div style={{ padding: '20px' }}>
+      <div style={{ padding: '10px' }}>
         <Table
           autoHeight={true}
           data={rowData.models}
           hover={true}
+          rowHeight={50}
+          style={{ backgroundColor: '#f5f5f5' }}
         >
           <Column flexGrow={1}>
-            <HeaderCell>Model</HeaderCell>
-            <Cell dataKey="model" />
+            <HeaderCell style={{ backgroundColor: '#e0e0e0' }}>Model</HeaderCell>
+            <Cell dataKey="model" style={{ padding: '10px' }} />
           </Column>
           <Column flexGrow={1}>
-            <HeaderCell>Amount PF</HeaderCell>
-            <Cell dataKey="amount_pf" />
+            <HeaderCell style={{ backgroundColor: '#e0e0e0' }}>Amount PF</HeaderCell>
+            <Cell dataKey="amount_pf" style={{ padding: '10px' }} />
           </Column>
           <Column flexGrow={1}>
-            <HeaderCell>Amount EMB</HeaderCell>
-            <Cell dataKey="amount_emb" />
+            <HeaderCell style={{ backgroundColor: '#e0e0e0' }}>Amount EMB</HeaderCell>
+            <Cell dataKey="amount_emb" style={{ padding: '10px' }} />
           </Column>
         </Table>
       </div>
@@ -73,12 +75,13 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
           autoHeight={true}
           data={data}
           rowKey={rowKey}
+          rowHeight={60}
           expandedRowKeys={expandedRowKeys}
           renderRowExpanded={renderRowExpanded}
         >
           <Column width={70} align="center">
             <HeaderCell>#</HeaderCell>
-            <Cell>
+            <Cell style={{ padding: '10px' }}>
               {(rowData) => (
                 <IconButton
                   size="sm"
@@ -96,7 +99,7 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
 
           <Column flexGrow={1}>
             <HeaderCell>Codigo</HeaderCell>
-            <Cell dataKey="code" />
+            <Cell dataKey="code" style={{ padding: '10px' }} />
           </Column>
         </Table>
       </Modal.Body>
