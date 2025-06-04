@@ -36,10 +36,42 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
   const [temp, settemp] = React.useState(open ? task : []);
   const exit = () => onAction("close-form", task);
 
-  // Get unique codes
+  // Get all data
   const allData = getEmb();
-  const uniqueData = Array.from(new Set(allData.map(item => item.code)))
-    .map(code => allData.find(item => item.code === code));
+  
+  // Get unique codes while preserving the first occurrence of each code
+  const uniqueCodes = [...new Set(allData.map(item => item.code))];
+  const uniqueData = uniqueCodes.map(code => 
+    allData.find(item => item.code === code)
+  );
+
+  const renderRowExpanded = rowData => {
+    // Filter data to get all entries with matching code
+    const matchingData = allData.filter(item => item.code === rowData.code);
+    
+    return (
+      <div style={{ padding: '20px' }}>
+        <Table
+          autoHeight={true}
+          data={matchingData}
+          hover={true}
+        >
+          <Column flexGrow={1}>
+            <HeaderCell>Model</HeaderCell>
+            <Cell dataKey="model" />
+          </Column>
+          <Column flexGrow={1}>
+            <HeaderCell>Amount PF</HeaderCell>
+            <Cell dataKey="amount_pf" />
+          </Column>
+          <Column flexGrow={1}>
+            <HeaderCell>Amount EMB</HeaderCell>
+            <Cell dataKey="amount_emb" />
+          </Column>
+        </Table>
+      </div>
+    );
+  };
 
   return (
     <Modal backdrop="static" size={'lg'} open={IsOpen} onClose={handleClose}>
@@ -52,48 +84,23 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
           data={uniqueData}
           rowKey={rowKey}
           expandedRowKeys={expandedRowKeys}
-          renderRowExpanded={rowData => {
-            return (
-              <div style={{ padding: '20px' }}>
-                <Table
-                  autoHeight={true}
-                  data={allData.filter(item => item.code === rowData.code)}
-                  hover={true}
-                >
-                  <Column flexGrow={1}>
-                    <HeaderCell>Model</HeaderCell>
-                    <Cell dataKey="model" />
-                  </Column>
-                  <Column flexGrow={1}>
-                    <HeaderCell>Amount PF</HeaderCell>
-                    <Cell dataKey="amount_pf" />
-                  </Column>
-                  <Column flexGrow={1}>
-                    <HeaderCell>Amount EMB</HeaderCell>
-                    <Cell dataKey="amount_emb" />
-                  </Column>
-                </Table>
-              </div>
-            );
-          }}
+          renderRowExpanded={renderRowExpanded}
         >
           <Column width={70} align="center">
             <HeaderCell>#</HeaderCell>
             <Cell>
-              {(rowData) => {
-                return (
-                  <IconButton
-                    size="sm"
-                    appearance="subtle"
-                    onClick={() => handleExpanded(rowData)}
-                    icon={
-                      expandedRowKeys.includes(rowData[rowKey]) ? 
-                        <MdOutlineExpandLess /> : 
-                        <MdOutlineExpandMore />
-                    }
-                  />
-                );
-              }}
+              {(rowData) => (
+                <IconButton
+                  size="sm"
+                  appearance="subtle"
+                  onClick={() => handleExpanded(rowData)}
+                  icon={
+                    expandedRowKeys.includes(rowData[rowKey]) ? 
+                      <MdOutlineExpandLess /> : 
+                      <MdOutlineExpandMore />
+                  }
+                />
+              )}
             </Cell>
           </Column>
 
