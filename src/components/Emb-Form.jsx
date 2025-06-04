@@ -92,20 +92,7 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
             <Cell dataKey="code" />
           </Column>
 
-          <Column flexGrow={1}>
-            <HeaderCell>Modelo</HeaderCell>
-            <Cell dataKey="model" />
-          </Column>
-
-          <Column flexGrow={1}>
-            <HeaderCell>Cantidad (PT)</HeaderCell>
-            <Cell dataKey="amount_pf" />
-          </Column>
-
-          <Column flexGrow={1}>
-            <HeaderCell>Cantidad (PF)</HeaderCell>
-            <Cell dataKey="amount_emb" />
-          </Column>
+          
         </Table>
       </Modal.Body>
       <Modal.Footer>
