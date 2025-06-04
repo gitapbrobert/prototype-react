@@ -40,25 +40,29 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
 
   const renderRowExpanded = rowData => {
     return (
-      <div style={{ padding: '10px' }}>
+      <div style={{ padding: '20px', minHeight: '150px' }}>
         <Table
           autoHeight={true}
           data={rowData.models}
           hover={true}
-          rowHeight={50}
-          style={{ backgroundColor: '#f5f5f5' }}
+          rowHeight={60}
+          style={{ 
+            backgroundColor: '#f8f9fa',
+            border: '1px solid #dee2e6',
+            borderRadius: '4px'
+          }}
         >
           <Column flexGrow={1}>
-            <HeaderCell style={{ backgroundColor: '#e0e0e0' }}>Model</HeaderCell>
-            <Cell dataKey="model" style={{ padding: '10px' }} />
+            <HeaderCell style={{ padding: '12px', backgroundColor: '#e9ecef' }}>Model</HeaderCell>
+            <Cell dataKey="model" style={{ padding: '12px' }} />
           </Column>
           <Column flexGrow={1}>
-            <HeaderCell style={{ backgroundColor: '#e0e0e0' }}>Amount PF</HeaderCell>
-            <Cell dataKey="amount_pf" style={{ padding: '10px' }} />
+            <HeaderCell style={{ padding: '12px', backgroundColor: '#e9ecef' }}>Amount PF</HeaderCell>
+            <Cell dataKey="amount_pf" style={{ padding: '12px' }} />
           </Column>
           <Column flexGrow={1}>
-            <HeaderCell style={{ backgroundColor: '#e0e0e0' }}>Amount EMB</HeaderCell>
-            <Cell dataKey="amount_emb" style={{ padding: '10px' }} />
+            <HeaderCell style={{ padding: '12px', backgroundColor: '#e9ecef' }}>Amount EMB</HeaderCell>
+            <Cell dataKey="amount_emb" style={{ padding: '12px' }} />
           </Column>
         </Table>
       </div>
@@ -75,13 +79,14 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
           autoHeight={true}
           data={data}
           rowKey={rowKey}
-          rowHeight={60}
+          rowHeight={70}
           expandedRowKeys={expandedRowKeys}
           renderRowExpanded={renderRowExpanded}
+          style={{ minHeight: '300px' }}
         >
           <Column width={70} align="center">
-            <HeaderCell>#</HeaderCell>
-            <Cell style={{ padding: '10px' }}>
+            <HeaderCell style={{ padding: '12px' }}>#</HeaderCell>
+            <Cell style={{ padding: '12px' }}>
               {(rowData) => (
                 <IconButton
                   size="sm"
@@ -98,8 +103,8 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
           </Column>
 
           <Column flexGrow={1}>
-            <HeaderCell>Codigo</HeaderCell>
-            <Cell dataKey="code" style={{ padding: '10px' }} />
+            <HeaderCell style={{ padding: '12px' }}>Codigo</HeaderCell>
+            <Cell dataKey="code" style={{ padding: '12px' }} />
           </Column>
         </Table>
       </Modal.Body>
