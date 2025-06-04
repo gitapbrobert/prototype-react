@@ -40,29 +40,54 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
 
   const renderRowExpanded = rowData => {
     return (
-      <div style={{ padding: '20px', minHeight: '150px' }}>
+      <div className="expanded-row-container" style={{ 
+        padding: '20px',
+        margin: '10px 0',
+        backgroundColor: '#f8f9fa',
+        borderRadius: '8px',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+      }}>
         <Table
-          autoHeight={true}
+          autoHeight
           data={rowData.models}
-          hover={true}
+          hover={false}
           rowHeight={60}
-          style={{ 
-            backgroundColor: '#f8f9fa',
-            border: '1px solid #dee2e6',
+          style={{
+            border: '1px solid #e9ecef',
             borderRadius: '4px'
           }}
         >
           <Column flexGrow={1}>
-            <HeaderCell style={{ padding: '12px', backgroundColor: '#e9ecef' }}>Model</HeaderCell>
-            <Cell dataKey="model" style={{ padding: '12px' }} />
+            <HeaderCell style={{
+              padding: '15px',
+              backgroundColor: '#f1f3f5',
+              fontWeight: '600'
+            }}>
+              Model
+            </HeaderCell>
+            <Cell style={{ padding: '15px' }} dataKey="model" />
           </Column>
+
           <Column flexGrow={1}>
-            <HeaderCell style={{ padding: '12px', backgroundColor: '#e9ecef' }}>Amount PF</HeaderCell>
-            <Cell dataKey="amount_pf" style={{ padding: '12px' }} />
+            <HeaderCell style={{
+              padding: '15px',
+              backgroundColor: '#f1f3f5',
+              fontWeight: '600'
+            }}>
+              Amount PF
+            </HeaderCell>
+            <Cell style={{ padding: '15px' }} dataKey="amount_pf" />
           </Column>
+
           <Column flexGrow={1}>
-            <HeaderCell style={{ padding: '12px', backgroundColor: '#e9ecef' }}>Amount EMB</HeaderCell>
-            <Cell dataKey="amount_emb" style={{ padding: '12px' }} />
+            <HeaderCell style={{
+              padding: '15px',
+              backgroundColor: '#f1f3f5',
+              fontWeight: '600'
+            }}>
+              Amount EMB
+            </HeaderCell>
+            <Cell style={{ padding: '15px' }} dataKey="amount_emb" />
           </Column>
         </Table>
       </div>
@@ -70,23 +95,33 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
   };
 
   return (
-    <Modal backdrop="static" size={'lg'} open={IsOpen} onClose={handleClose}>
+    <Modal backdrop="static" size="lg" open={IsOpen} onClose={handleClose}>
       <Modal.Header>
         <Modal.Title>Embarque</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body style={{ minHeight: '400px', padding: '20px' }}>
         <Table
-          autoHeight={true}
+          autoHeight
           data={data}
           rowKey={rowKey}
           rowHeight={70}
+          hover={false}
           expandedRowKeys={expandedRowKeys}
           renderRowExpanded={renderRowExpanded}
-          style={{ minHeight: '300px' }}
+          style={{
+            border: '1px solid #e9ecef',
+            borderRadius: '4px'
+          }}
         >
           <Column width={70} align="center">
-            <HeaderCell style={{ padding: '12px' }}>#</HeaderCell>
-            <Cell style={{ padding: '12px' }}>
+            <HeaderCell style={{
+              padding: '15px',
+              backgroundColor: '#f1f3f5',
+              fontWeight: '600'
+            }}>
+              #
+            </HeaderCell>
+            <Cell style={{ padding: '15px' }}>
               {(rowData) => (
                 <IconButton
                   size="sm"
@@ -94,8 +129,8 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
                   onClick={() => handleExpanded(rowData)}
                   icon={
                     expandedRowKeys.includes(rowData[rowKey]) ? 
-                      <MdOutlineExpandLess /> : 
-                      <MdOutlineExpandMore />
+                      <MdOutlineExpandLess style={{ fontSize: '20px' }} /> : 
+                      <MdOutlineExpandMore style={{ fontSize: '20px' }} />
                   }
                 />
               )}
@@ -103,8 +138,14 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
           </Column>
 
           <Column flexGrow={1}>
-            <HeaderCell style={{ padding: '12px' }}>Codigo</HeaderCell>
-            <Cell dataKey="code" style={{ padding: '12px' }} />
+            <HeaderCell style={{
+              padding: '15px',
+              backgroundColor: '#f1f3f5',
+              fontWeight: '600'
+            }}>
+              Codigo
+            </HeaderCell>
+            <Cell style={{ padding: '15px' }} dataKey="code" />
           </Column>
         </Table>
       </Modal.Body>
