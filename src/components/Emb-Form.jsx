@@ -6,10 +6,6 @@ import { getEmb } from '../data/orders_forms.js';
 import { MdOutlineExpandMore } from "react-icons/md";
 import { MdOutlineExpandLess } from "react-icons/md";
 
-const Textarea = React.forwardRef((props, ref) => <Input {...props} as="textarea" ref={ref} />);
-
-const rowKey = 'id';
-
 const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
   const [expandedRowKeys, setExpandedRowKeys] = React.useState([]);
 
@@ -18,7 +14,7 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
     const nextExpandedRowKeys = [];
 
     expandedRowKeys.forEach(key => {
-      if (key === rowData[rowKey]) {
+      if (key === rowData.id) {
         open = true;
       } else {
         nextExpandedRowKeys.push(key);
@@ -26,68 +22,78 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
     });
 
     if (!open) {
-      nextExpandedRowKeys.push(rowData[rowKey]);
+      nextExpandedRowKeys.push(rowData.id);
     }
 
     setExpandedRowKeys(nextExpandedRowKeys);
   };
 
   const handleClose = () => setOpen(false);
-  const [temp, settemp] = React.useState(open ? task : []);
   const exit = () => onAction("close-form", task);
 
   const data = getEmb();
 
   const renderRowExpanded = rowData => {
     return (
-      <div className="expanded-row-container\" style={{ 
-        padding: '20px',
-        margin: '10px 0',
-        backgroundColor: '#f8f9fa',
-        borderRadius: '8px',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+      <div style={{ 
+        width: '100%',
+        backgroundColor: '#1a1d24',
+        padding: '0 20px'
       }}>
         <Table
           autoHeight
           data={rowData.models}
           hover={false}
-          rowHeight={60}
           style={{
-            border: '1px solid #e9ecef',
-            borderRadius: '4px'
+            backgroundColor: 'transparent'
           }}
         >
           <Column flexGrow={1}>
             <HeaderCell style={{
-              padding: '15px',
-              backgroundColor: '#f1f3f5',
-              fontWeight: '600'
+              color: '#8e8e8e',
+              backgroundColor: 'transparent',
+              borderBottom: '1px solid #2f3542',
+              fontSize: '14px'
             }}>
               Model
             </HeaderCell>
-            <Cell style={{ padding: '15px' }} dataKey="model" />
+            <Cell style={{ 
+              color: '#fff',
+              borderBottom: '1px solid #2f3542',
+              padding: '12px 8px'
+            }} dataKey="model" />
           </Column>
 
           <Column flexGrow={1}>
             <HeaderCell style={{
-              padding: '15px',
-              backgroundColor: '#f1f3f5',
-              fontWeight: '600'
+              color: '#8e8e8e',
+              backgroundColor: 'transparent',
+              borderBottom: '1px solid #2f3542',
+              fontSize: '14px'
             }}>
               Amount PF
             </HeaderCell>
-            <Cell style={{ padding: '15px' }} dataKey="amount_pf" />
+            <Cell style={{ 
+              color: '#fff',
+              borderBottom: '1px solid #2f3542',
+              padding: '12px 8px'
+            }} dataKey="amount_pf" />
           </Column>
 
           <Column flexGrow={1}>
             <HeaderCell style={{
-              padding: '15px',
-              backgroundColor: '#f1f3f5',
-              fontWeight: '600'
+              color: '#8e8e8e',
+              backgroundColor: 'transparent',
+              borderBottom: '1px solid #2f3542',
+              fontSize: '14px'
             }}>
               Amount EMB
             </HeaderCell>
-            <Cell style={{ padding: '15px' }} dataKey="amount_emb" />
+            <Cell style={{ 
+              color: '#fff',
+              borderBottom: '1px solid #2f3542',
+              padding: '12px 8px'
+            }} dataKey="amount_emb" />
           </Column>
         </Table>
       </div>
@@ -95,40 +101,61 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
   };
 
   return (
-    <Modal backdrop="static" size="lg" open={IsOpen} onClose={handleClose}>
-      <Modal.Header>
+    <Modal 
+      backdrop="static" 
+      size="lg" 
+      open={IsOpen} 
+      onClose={handleClose}
+      style={{
+        backgroundColor: '#13151a'
+      }}
+    >
+      <Modal.Header style={{
+        backgroundColor: '#13151a',
+        color: '#fff',
+        borderBottom: '1px solid #2f3542'
+      }}>
         <Modal.Title>Embarque</Modal.Title>
       </Modal.Header>
-      <Modal.Body style={{ minHeight: '400px', padding: '20px' }}>
+      <Modal.Body style={{ 
+        backgroundColor: '#13151a',
+        padding: '20px'
+      }}>
         <Table
           autoHeight
           data={data}
-          rowKey={rowKey}
-          rowHeight={70}
-          hover={false}
+          rowKey="id"
           expandedRowKeys={expandedRowKeys}
           renderRowExpanded={renderRowExpanded}
+          hover={false}
           style={{
-            border: '1px solid #e9ecef',
-            borderRadius: '4px'
+            backgroundColor: '#1a1d24'
           }}
         >
-          <Column width={70} align="center">
+          <Column width={50} align="center">
             <HeaderCell style={{
-              padding: '15px',
-              backgroundColor: '#f1f3f5',
-              fontWeight: '600'
+              color: '#8e8e8e',
+              backgroundColor: 'transparent',
+              borderBottom: '1px solid #2f3542',
+              fontSize: '14px'
             }}>
               #
             </HeaderCell>
-            <Cell style={{ padding: '15px' }}>
+            <Cell style={{
+              padding: '12px 8px',
+              color: '#fff',
+              borderBottom: '1px solid #2f3542'
+            }}>
               {(rowData) => (
                 <IconButton
                   size="sm"
                   appearance="subtle"
+                  style={{
+                    color: '#fff'
+                  }}
                   onClick={() => handleExpanded(rowData)}
                   icon={
-                    expandedRowKeys.includes(rowData[rowKey]) ? 
+                    expandedRowKeys.includes(rowData.id) ? 
                       <MdOutlineExpandLess style={{ fontSize: '20px' }} /> : 
                       <MdOutlineExpandMore style={{ fontSize: '20px' }} />
                   }
@@ -139,21 +166,29 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
 
           <Column flexGrow={1}>
             <HeaderCell style={{
-              padding: '15px',
-              backgroundColor: '#f1f3f5',
-              fontWeight: '600'
+              color: '#8e8e8e',
+              backgroundColor: 'transparent',
+              borderBottom: '1px solid #2f3542',
+              fontSize: '14px'
             }}>
               Codigo
             </HeaderCell>
-            <Cell style={{ padding: '15px' }} dataKey="code" />
+            <Cell style={{
+              color: '#fff',
+              borderBottom: '1px solid #2f3542',
+              padding: '12px 8px'
+            }} dataKey="code" />
           </Column>
         </Table>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer style={{
+        backgroundColor: '#13151a',
+        borderTop: '1px solid #2f3542'
+      }}>
         <Button onClick={exit} appearance="primary">
           Submit
         </Button>
-        <Button onClick={exit} appearance="subtle">
+        <Button onClick={exit} appearance="subtle" style={{ color: '#fff' }}>
           Cancel
         </Button>
       </Modal.Footer>
