@@ -10,3 +10,16 @@
   border: 10px;
   box-shadow:  10px 10px 20px rgba(0, 0, 0, 0.5);
 }
+.core{
+  /* background-color: rgb(236, 236, 236); */
+  border-radius: 5px;
+  padding: 0.5rem;
+
+}
+.list-head > .rs-table-cell {
+  /* background-color: rgb(236, 20, 20);
+  color: white; */
+  font-size: 14px;
+  font-weight: bold;
+  color: #686868;
+}

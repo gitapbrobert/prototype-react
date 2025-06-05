@@ -22,29 +22,81 @@ const styles = `
 `;
 
 const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
-  
   const [open, setOpen] = React.useState(true); //its no use
   const [temp, settemp] = React.useState(open ? task : []);
   
   const handleClose = () => setOpen(false);
   const exit = () => onAction("close-form", task);
-  
+
   const [data, setData] = React.useState(defaultData);
   const [editingId, setEditingId] = React.useState(null);
   const [editingKey, setEditingKey] = React.useState(null);
+
+  React.useEffect(() => {
+
+    // const months = [
+    //   "january", "february", "march", "april", "may", "june",
+    //   "july", "august", "september", "october", "november", "december"
+    // ];
+
+    const summary = {
+      id: 51,
+      code: 'Total',
+      model: '',
+      amount_pf: 0,
+      amount_emb: 0,
+      containers: 0
+    };
+
+      Object.keys(summary).filter(key => key !== "id" && key !== "code" && key !== "model")
+        .forEach(key => {
+          summary[key] = data.reduce((acc, item) => acc + item[key], 0);
+        });
+  
+      data.push(summary);
+  
+  
+      data.forEach(item => {
+        item.total = Object.keys(item)
+          .filter(key => key !== "id" && key !== "model" && key !== "code")
+          .reduce((sum, key) => sum + item[key], 0);
+      });
+  
+  
+    }, []);
+  
+
+
 
   const handleChange = (id, key, value) => {
     const nextData = Object.assign([], data);
     nextData.find(item => item.id === id)[key] = value;
 
     if(nextData.find(item => item.id === id)[key] >= nextData.find(item => item.id === id)['amount_pf']){
-      nextData.find(item => item.id === id)[key] = nextData.find(item => item.id === id)['amount_pf'];
-      
+      nextData.find(item => item.id === id)[key] = nextData.find(item => item.id === id)['amount_pf']; 
       console.log('limiting');
     }
+    nextData.find(item => item.id === id)['containers'] = Math.trunc(Number(nextData.find(item => item.id === id)['amount_emb'])/2);
 
 
-    setData(nextData);
+    //here the total column updates whenever  
+    const updateSummary = nextData.map(item => {
+      if (item.id === 51) {
+        const summary = nextData.filter(item => item.code !== 'Total' ).reduce((sum, item) => sum + Number(item[key] || 0), 0);
+        const update = { ...item, [key]: summary };
+        console.log(update);
+        const months = [
+          'amount_pf',
+          'amount_emb',
+          'containers'
+        ];
+        update.total = months.reduce((sum, month) => sum + (Number(update[month]) || 0), 0);
+        return update;
+      }
+      return item;
+    });
+
+    setData(updateSummary);
   };
 
   const onEdit = (id, dataKey) => {
@@ -95,6 +147,10 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
           <Column flexGrow={1}>
             <HeaderCell>Cantidad Embarcada</HeaderCell>
             <EditableCell dataKey="amount_emb" dataType="number" onChange={handleChange} />
+          </Column>
+          <Column flexGrow={1}>
+            <HeaderCell>Contenedores</HeaderCell>
+            <Cell dataKey="containers"/>
           </Column>
         </Table>
         </EditableContext.Provider>

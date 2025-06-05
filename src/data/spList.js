@@ -8,9 +8,9 @@ export function getData(dataset) {
             creation_date: new Date(2025,0,1),
             goal:2500,
             year:"2025",
-            supplier: "changan",
+            supplier: "Changan",
             type:"Real", //plan real o simulacion
-            user:"Cosme Fulanito",
+            user:"John Doe",
 
         },
         {
@@ -19,9 +19,9 @@ export function getData(dataset) {
             creation_date: new Date(2025,0,1),
             goal:2614,
             year:"2025",
-            supplier: "changan",
+            supplier: "Changan",
             type:"Real", //plan real o simulacion
-            user:"Cosme Fulanito",
+            user:"John Doe",
         },
         
         {
@@ -30,9 +30,9 @@ export function getData(dataset) {
             creation_date: new Date(2025,0,1),
             goal:2532,
             year:"2025",
-            supplier: "changan",
+            supplier: "Changan",
             type:"Simulado",//plan real o simulacion
-            user:"Cosme Fulanito",
+            user:"John Doe",
             
         },
         {
@@ -41,9 +41,9 @@ export function getData(dataset) {
             creation_date: new Date(2025,0,1),
             goal:2632,
             year:"2025",
-            supplier: "changan",
+            supplier: "Changan",
             type:"Simulado", //plan real o simulacion
-            user:"Cosme Fulanito",
+            user:"John Doe",
             
         },
         {
@@ -52,9 +52,9 @@ export function getData(dataset) {
             creation_date: new Date(2025,0,1),
             goal:2617,
             year:"2025",
-            supplier: "changan",
+            supplier: "Changan",
             type:"Simulado", //plan real o simulacion
-            user:"Cosme Fulanito",
+            user:"John Doe",
             
         },
     ];

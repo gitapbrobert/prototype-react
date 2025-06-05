@@ -1,4 +1,4 @@
-import { Button, Divider, FlexboxGrid, Modal, Table } from "rsuite";
+import { Button, Divider, FlexboxGrid, IconButton, Input, InputGroup, Modal, Table } from "rsuite";
 import { getData } from "../data/spList";
 import Column from "rsuite/esm/Table/TableColumn";
 import { Cell, HeaderCell } from "rsuite-table";
@@ -8,8 +8,14 @@ import 'rsuite/dist/rsuite.min.css';
 import '../assets/SalesPlanListStyle.css'
 import MyTable from "./SalesPlanTable";
 import { useState } from "react";
+import SearchIcon from '@rsuite/icons/Search';
+import MenuIcon from '@rsuite/icons/Menu';
 
 
+
+const style={
+  width: 400,
+};
 
 const ListSalesPlans =()=>{
 
@@ -47,56 +53,68 @@ const ListSalesPlans =()=>{
           </Button>
         </Modal.Footer>
       </Modal>
-        <div>Planes de Negocios</div>
 
       <div className="container wisp">
-        <FlexboxGrid justify="start">
+        <div className="core">
+          <FlexboxGrid justify="start">
 
-          <FlexboxGrid.Item colspan={3}>
-            <Button startIcon={<RiPlayListAddFill/>} onClick={handleOpen} appearance="primary" active>
-              Crear Plan
-            </Button>
-          </FlexboxGrid.Item>
+            <FlexboxGrid.Item colspan={3}>
+              
+          <Button startIcon={<RiPlayListAddFill />} onClick={handleOpen} appearance="primary" active>
+                Crear Plan
+          </Button>
+            </FlexboxGrid.Item>
+          <InputGroup style={style}>
+            <Input placeholder={"search..."}></Input>
+            <InputGroup.Button>
+              <SearchIcon />
+            </InputGroup.Button>  
+          </InputGroup>
+            <IconButton icon={<MenuIcon/>}></IconButton>
           
-        </FlexboxGrid>
+        
+
+
+          </FlexboxGrid>
+        </div>
 
         
         <Table data={data} autoHeight={true}>
 
           <Column flexGrow={1}>
-            <HeaderCell>Code</HeaderCell>
+            <HeaderCell className='list-head'>Code</HeaderCell>
             <Cell dataKey="code" onDoubleClick={()=>handleOpen(1)} />
           </Column>
 
           <Column flexGrow={2}>
-            <HeaderCell>Creation</HeaderCell>
+            <HeaderCell  className='list-head'>Creation</HeaderCell>
             <Cell dataKey="creation_date" onDoubleClick={()=>handleOpen(1)}>
               {rowData => rowData.creation_date.toLocaleString()}
             </Cell>
           </Column>
 
           <Column flexGrow={1}>
-            <HeaderCell>Goal</HeaderCell>
+            <HeaderCell className='list-head'>Goal</HeaderCell>
             <Cell dataKey="goal" onDoubleClick={()=>handleOpen(1)}/>
           </Column>
 
           <Column flexGrow={1}>
-            <HeaderCell>Year</HeaderCell>
+            <HeaderCell className='list-head'>Year</HeaderCell>
             <Cell dataKey="year" onDoubleClick={()=>handleOpen(1)}/>
           </Column>
 
           <Column flexGrow={1}>
-            <HeaderCell>Supplier</HeaderCell>
+            <HeaderCell className='list-head'>Supplier</HeaderCell>
             <Cell dataKey="supplier" onDoubleClick={()=>handleOpen(1)}/>
           </Column>
 
           <Column flexGrow={1}>
-            <HeaderCell>Type</HeaderCell>
+            <HeaderCell className='list-head'>Type</HeaderCell>
             <Cell dataKey="type" onDoubleClick={()=>handleOpen(1)}/>
           </Column>
 
           <Column flexGrow={1}>
-            <HeaderCell>User</HeaderCell>
+            <HeaderCell className='list-head'>User</HeaderCell>
             <Cell dataKey="user" onDoubleClick={()=>handleOpen(1)}/>
           </Column>
         </Table>
