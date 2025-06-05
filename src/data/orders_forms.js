@@ -1,45 +1,167 @@
 export function getPF(){
     const data =[
+        // {
+        //     id: 1,
+        //     code:'PT-01',
+        //     coderowspan:7,
+        //     model:'4X2 HUNTER',
+        //     amount_pt:0,
+        //     amount_pf:0,
+        // },
+        // {
+        //     id: 2,
+        //     code:'PT-01',
+        //     model:'4X4 HUNTER',
+        //     amount_pt:0,
+        //     amount_pf:0,
+        // },
         {
-            id: 1,
-            code:'',
-            model:'',
-            amount_pt:0,
+            id: 3,
+            code:'PT-01',
+            model:'4X4 HUNTER G',
+            amount_pt:12,
             amount_pf:0,
         },
+        {
+            id: 4,
+            code:'PT-01',
+            model:'ALSVIN MT',
+            amount_pt:100,
+            amount_pf:0,
+        },
+        {
+            id: 5,
+            code:'PT-01',
+            model:'CS35 PLUS',
+            amount_pt:12,
+            amount_pf:0,
+        },
+        {
+            id: 6,
+            code:'PT-01',
+            model:'CS55 PLUS',
+            amount_pt:50,
+            amount_pf:0,
+        },
+        // {
+        //     id: 7,
+        //     code:'PT-01',
+        //     model:'CS95 PLUS',
+        //     amount_pt:0,
+        //     amount_pf:0,
+        // },
     ];
     return data;
 }
 
 export function getEmb(){
-    const data = [
+    const data =[
         {
             id: 1,
-            code: 'CODE001',
-            models: [
-                {
-                    model: 'Model A',
-                    amount_pf: 25,
-                    amount_emb: 21
-                },
-                {
-                    model: 'Model B',
-                    amount_pf: 30,
-                    amount_emb: 28
-                }
-            ]
+            code:'PF-01',
+            coderowspan:7,
+            model:'4X2 HUNTER',
+            amount_pf:0,
+            amount_emb:0,
         },
         {
             id: 2,
-            code: 'CODE002',
-            models: [
-                {
-                    model: 'Model C',
-                    amount_pf: 15,
-                    amount_emb: 12
-                }
-            ]
-        }
+            code:'PF-01',
+            model:'4X4 HUNTER',
+            amount_pf:0,
+            amount_emb:0,
+        },
+        {
+            id: 3,
+            code:'PF-01',
+            model:'4X4 HUNTER G',
+            amount_pf:0,
+            amount_emb:0,
+        },
+        {
+            id: 4,
+            code:'PF-01',
+            model:'ALSVIN MT',
+            amount_pf:0,
+            amount_emb:0,
+        },
+        {
+            id: 5,
+            code:'PF-01',
+            model:'CS35 PLUS',
+            amount_pf:0,
+            amount_emb:0,
+        },
+        {
+            id: 6,
+            code:'PF-01',
+            model:'CS55 PLUS',
+            amount_pf:0,
+            amount_emb:0,
+        },
+        
+        {
+            id: 7,
+            code:'PF-01',
+            model:'CS95 PLUS',
+            amount_pf:0,
+            amount_emb:0,
+        },
+        {
+            id: 11,
+            code:'PF-02',
+            coderowspan:7,
+            model:'4X2 HUNTER',
+            amount_pf:0,
+            amount_emb:0,
+        },
+        {
+            id: 12,
+            code:'PF-02',
+            model:'4X4 HUNTER',
+            amount_pf:0,
+            amount_emb:0,
+        },
+        {
+            id: 13,
+            code:'PF-02',
+            model:'4X4 HUNTER G',
+            amount_pf:0,
+            amount_emb:0,
+        },
+        {
+            id: 14,
+            code:'PF-02',
+            model:'ALSVIN MT',
+            amount_pf:0,
+            amount_emb:0,
+        },
+        {
+            id: 15,
+            code:'PF-02',
+            model:'CS35 PLUS',
+            amount_pf:0,
+            amount_emb:0,
+        },
+        {
+            id: 16,
+            code:'PF-02',
+            model:'CS55 PLUS',
+            amount_pf:0,
+            amount_emb:0,
+        },
+        {
+            id: 17,
+            code:'PF-02',
+            model:'CS95 PLUS',
+            amount_pf:0,
+            amount_emb:0,
+        },
+        
+        
+
+
     ];
+
     return data;
 }

@@ -20,8 +20,8 @@
   justify-content: left;
 }
 .chip{
-  margin-top: 2rem;
-  padding-top: 1rem;
+  
+  padding-bottom: 0.25rem;
   border-color: rgba(0, 0, 0, 0.5);
   border-radius: 5px  ;
   border: 10px;

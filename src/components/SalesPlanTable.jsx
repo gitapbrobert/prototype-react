@@ -139,16 +139,15 @@ const MyTable = ({dataset}) => {
     
 
       <div className='  chip'>
-        <div className='test'>
+        <div className='gantt-test'>
           <form class="d-flex align-items-center gap-3">
 
-            <label for="name" class="form-label">Codigo:</label>
-            <input type="text" id="name" readonly class="form-control-plaintext" value="PN-2025" />
-
-            <label for="name" class="form-label">Planta:</label>
-            <input type="text" id="name" readonly class="form-control-plaintext" value="Changan" />
-            <label for="name" class="form-label">Año:</label>
-            <input type="text" id="name" readonly class="form-control-plaintext" value="2025" />
+            <label for="name" class="form-label"><b>Codigo:</b></label>
+            <label for="name" class="form-label">PN-2025</label>
+            <label for="name" class="form-label"><b>Planta:</b></label>
+            <label for="name" class="form-label">Changan</label>
+            <label for="name" class="form-label"><b>Año:</b></label>
+            <label for="name" class="form-label">2025</label>
           </form>
         </div>
 

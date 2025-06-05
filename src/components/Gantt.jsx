@@ -17,6 +17,10 @@ const GanttComponent = () => {
   const [store, setStore] = useState(null);
   const [open, setOpen] = React.useState(false);
   const [openEmb, setOpenEmb] = React.useState(false);
+  ////////
+  const [tasks, setTasks] = useState(getData());
+
+
 
   useEffect(() => {
     if (apiRef.current) {
@@ -45,9 +49,20 @@ const GanttComponent = () => {
         return false;
       });
 
-      api.intercept("add-task", () => {
+      api.intercept("add-task", (data) => {
         console.log("adding task yipee");
-        return false;
+        if ( typeof data.target === 'number'){
+          console.log(data.task);
+          data.task.type = 'pef';
+          
+        } else if(data.target.substring(0,2) === 'PF'){
+          data.task.type = 'emb';
+          console.log(data.task);
+        } else{
+          return false
+        }
+
+       
       });
 
       api.intercept("update-task", () => {
@@ -82,7 +97,7 @@ const GanttComponent = () => {
     { unit: "month", step: 1, format: "MMMM" },
   ];
 
-  const tasks = getData();
+  
 
   const markers = getMarkers();
 
@@ -153,17 +168,16 @@ const GanttComponent = () => {
         <div className='gantt-test'>
           <form class="d-flex align-items-center gap-3">
 
-            <label for="name" class="form-label">Codigo:</label>
-            <input type="text" id="name" readonly class="form-control-plaintext" value="PN-2025" />
-
-            <label for="name" class="form-label">Planta:</label>
-            <input type="text" id="name" readonly class="form-control-plaintext" value="Changan" />
-            <label for="name" class="form-label">Año:</label>
-            <input type="text" id="name" readonly class="form-control-plaintext" value="2025" />
+            <label for="name" class="form-label"><b>Codigo:</b></label>
+            <label for="name" class="form-label">PN-2025</label>
+            <label for="name" class="form-label"><b>Planta:</b></label>
+            <label for="name" class="form-label">Changan</label>
+            <label for="name" class="form-label"><b>Año:</b></label>
+            <label for="name" class="form-label">2025</label>
           </form>
         </div>
 
-        <div>
+        {/* <div>
           <FlexboxGrid justify="start">
             <FlexboxGrid.Item colspan={3}>
               <Button startIcon={<BsPlusLg />} appearance="primary" active onClick={setOpen}>
@@ -176,7 +190,7 @@ const GanttComponent = () => {
               </Button>
             </FlexboxGrid.Item>
           </FlexboxGrid>
-        </div>
+        </div> */}
 
         <PFForm task={task} setTask={setTask} Types={taskTypes} onAction={formAction} IsOpen={open} />
         <EmbForm task={task} setTask={setTask} Types={taskTypes} onAction={formAction} IsOpen={openEmb}/>
