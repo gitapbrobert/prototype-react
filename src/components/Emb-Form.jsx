@@ -1,4 +1,3 @@
-    
 import React from 'react';
 import { Form, ButtonToolbar, Button, Input, InputGroup, InputNumber, Modal, SelectPicker, DatePicker, Slider, Table, DateInput } from 'rsuite';
 import { BsFloppy2Fill } from "react-icons/bs";
@@ -134,15 +133,15 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
           
           <Column flexGrow={1}            >
             <HeaderCell>Codigo</HeaderCell>
-            <Cell dataKey="code" />
+            <TotalRowCell dataKey="code" />
           </Column>
           <Column flexGrow={1}>
             <HeaderCell>Modelo</HeaderCell>
-            <Cell dataKey="model" dataType="string" />
+            <TotalRowCell dataKey="model" dataType="string" />
           </Column>
           <Column flexGrow={1}>
             <HeaderCell>Cantidad Pendiente</HeaderCell>
-            <Cell dataKey="amount_pf"  />
+            <TotalRowCell dataKey="amount_pf"  />
           </Column>
           <Column flexGrow={1}>
             <HeaderCell>Cantidad Embarcada</HeaderCell>
@@ -150,7 +149,7 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
           </Column>
           <Column flexGrow={1}>
             <HeaderCell>Contenedores</HeaderCell>
-            <Cell dataKey="containers"/>
+            <TotalRowCell dataKey="containers"/>
           </Column>
         </Table>
         </EditableContext.Provider>
@@ -169,6 +168,21 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
 
     
 
+  );
+};
+
+// New component to handle total row styling
+const TotalRowCell = ({ rowData, dataKey, ...props }) => {
+  const isTotalRow = rowData.code === 'Total';
+  
+  return (
+    <Cell
+      {...props}
+      className={isTotalRow ? 'table-cell-total' : ''}
+      dataKey={dataKey}
+    >
+      {rowData[dataKey]}
+    </Cell>
   );
 };
 
@@ -200,10 +214,13 @@ const EditableCell = ({ rowData, dataType, dataKey, onChange, ...props }) => {
   const text = toValueString(value, dataType);
   const inputRef = React.useRef();
   const cellRef = React.useRef();
+  const isTotalRow = rowData.code === 'Total';
 
   const handleEdit = () => {
-    onEdit?.(rowData.id, dataKey);
-    focus(inputRef);
+    if (!isTotalRow) { // Prevent editing total row
+      onEdit?.(rowData.id, dataKey);
+      focus(inputRef);
+    }
   };
 
   const handleFinished = () => {
@@ -216,16 +233,19 @@ const EditableCell = ({ rowData, dataType, dataKey, onChange, ...props }) => {
       {...props}
       ref={cellRef}
       tabIndex={0}
-      className={editing ? 'table-cell-editing' : 'table-cell'}
+      className={
+        editing && !isTotalRow ? 'table-cell-editing' : 
+        isTotalRow ? 'table-cell-total' : 'table-cell'
+      }
       onDoubleClick={handleEdit}
       onKeyDown={e => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && !isTotalRow) {
           handleEdit();
         }
       }}
      
     >
-      {editing ? (
+      {editing && !isTotalRow ? (
         <Field
           ref={inputRef}
           defaultValue={value}
