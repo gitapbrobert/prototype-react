@@ -88,9 +88,7 @@ const ListSalesPlans =()=>{
 
           <Column flexGrow={1}>
             <HeaderCell className='list-head'>Code</HeaderCell>
-            <Cell  dataKey="code"  onDoubleClick={()=>handleOpen(1)}>
-              {console.log(rowData)}
-            </Cell>
+            <Cell  dataKey="code"  onDoubleClick={()=>handleOpen(1)}></Cell>
           </Column>
 
           <Column flexGrow={2}>
@@ -130,6 +128,18 @@ const ListSalesPlans =()=>{
     </>
   );
 }
+const SimCell = ({ rowData, dataKey, ...props }) =>{
+
+  return(
+    <Cell
+      className={(rowData.type ==="Simulado" ? 'simu': 'real')}
+      dataKey={dataKey}
+      onDoubleClick={()=>handleOpen(1)}
+
+    />
+  );
+};
+
 
 export default ListSalesPlans;
 
