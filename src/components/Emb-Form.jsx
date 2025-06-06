@@ -1,8 +1,8 @@
 import React from 'react';
-import { Form, ButtonToolbar, Button, Input, InputGroup, InputNumber, Modal, SelectPicker, DatePicker, Slider, Table, DateInput } from 'rsuite';
+import { Form, ButtonToolbar, Button, Input, InputGroup, InputNumber, Modal, SelectPicker, DatePicker, Slider, Table, DateInput, HStack } from 'rsuite';
 import { BsFloppy2Fill } from "react-icons/bs";
 const { Column, HeaderCell, Cell } = Table;
-import { getEmb } from '../data/orders_forms';
+import { getEmb, getPicker } from '../data/orders_forms';
 import "../assets/formStyles.css";
 
 const EditableContext = React.createContext({ editingId: null, editingKey: null });
@@ -28,6 +28,8 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
   const exit = () => onAction("close-form", task);
 
   const [data, setData] = React.useState(defaultData);
+  const pickerdata = getPicker();
+
   const [editingId, setEditingId] = React.useState(null);
   const [editingKey, setEditingKey] = React.useState(null);
 
@@ -120,11 +122,73 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
     
     <Modal backdrop="static" size={'md'} open={IsOpen} onClose={handleClose} overflow={true}>
       <Modal.Header>
-        <Modal.Title>Embarque</Modal.Title>
+        <Modal.Title>Embarque EMB-0001-2025-MDV</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {/* <div>
+          <form class="d-flex align-items-center gap-3">
 
+            <label for="name" class="form-label"><b>Codigo:</b></label>
+            <label for="name" class="form-label">PN-2025</label>
+            <label for="name" class="form-label"><b>Planta:</b></label>
+            <label for="name" class="form-label">Changan</label>
+            <label for="name" class="form-label"><b>Año:</b></label>
+            <label for="name" class="form-label">2025</label>
+          </form>
+        </div> */}
+        <div className='con'>
 
+          <div className='stack_cont'>
+            <HStack>
+              <div>Origen: </div>
+              <SelectPicker
+                data={pickerdata.origin}
+                searchable={false}
+                style={{ width: 150 }}
+                defaultValue={"china"}
+                readOnly
+                labelKey="label"
+                valueKey="name"
+              />
+              <div>Puerto: </div>
+              <SelectPicker
+                data={pickerdata.Port}
+                searchable={false}
+                style={{ width: 150 }}
+                placeholder="Seleccione"
+                labelKey="label"
+                valueKey="name"
+              />
+
+            </HStack>
+          </div>
+
+          <div className='stack_cont'>
+            <HStack>
+
+              <div>Naviera: </div>
+              <SelectPicker
+                data={pickerdata.Nav}
+                searchable={false}
+                style={{ width: 150 }}
+                placeholder="Seleccione"
+                labelKey="label"
+                valueKey="name"
+              />
+              <div>Agente Aduanal: </div>
+              <SelectPicker
+                data={pickerdata.aduana}
+                searchable={false}
+                style={{ width: 150 }}
+                placeholder="Seleccione"
+                labelKey="label"
+                valueKey="name"
+                defaultValue={'ayudenme'}
+              />
+            </HStack>
+          </div>
+
+        </div>
         {/* Tabla */}
         <EditableContext.Provider value={{ editingId, editingKey, onEdit, onEditFinished }}>
         <style>{styles}</style>
@@ -132,23 +196,23 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
         <Table autoHeight={true} flexgrow={1} data={data} hover={false}>
           
           <Column flexGrow={1}            >
-            <HeaderCell>Codigo</HeaderCell>
+            <HeaderCell className='superheader'>Codigo</HeaderCell>
             <TotalRowCell dataKey="code" />
           </Column>
           <Column flexGrow={1}>
-            <HeaderCell>Modelo</HeaderCell>
+            <HeaderCell className='superheader'>Modelo</HeaderCell>
             <TotalRowCell dataKey="model" dataType="string" />
           </Column>
           <Column flexGrow={1}>
-            <HeaderCell>Cantidad Pendiente</HeaderCell>
+            <HeaderCell className='superheader'>Cantidad Pendiente</HeaderCell>
             <TotalRowCell dataKey="amount_pf"  />
           </Column>
           <Column flexGrow={1}>
-            <HeaderCell>Cantidad Embarcada</HeaderCell>
+            <HeaderCell className='superheader'>Cantidad Embarcada</HeaderCell>
             <EditableCell dataKey="amount_emb" dataType="number" onChange={handleChange} />
           </Column>
           <Column flexGrow={1}>
-            <HeaderCell>Contenedores</HeaderCell>
+            <HeaderCell className='superheader'>Contenedores</HeaderCell>
             <TotalRowCell dataKey="containers"/>
           </Column>
         </Table>

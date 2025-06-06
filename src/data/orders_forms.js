@@ -169,3 +169,22 @@ export function getEmb(){
 
     return data;
 }
+
+export function getPicker() {
+    const data = {
+        origin:[ {label:"China", name:"china"}],
+        Port: [
+            {label:"Tiajin", name:"tiajin"},
+            {label:"Qingdao", name:"Qingdao"},
+
+        ],
+        Nav: [
+            {label:"Maersk", name:"maersk"},
+            {label:"MSC", name:"msc"},
+            {label:"CMA", name:"cma"},
+        ],
+                
+        aduana: [{label:"Aduana y Transporte L&M", name:"ayudenme"}],
+    }
+    return data;
+}

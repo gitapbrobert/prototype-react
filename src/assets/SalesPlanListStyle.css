@@ -31,3 +31,9 @@
     font-size: 14px;
     
 }
+.superheader > .rs-table-cell{
+  background-color: #3d3d3d;
+  color: azure;
+  font-weight: bold;
+  font-size: 14px;
+}
