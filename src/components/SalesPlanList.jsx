@@ -88,39 +88,39 @@ const ListSalesPlans =()=>{
 
           <Column flexGrow={1}>
             <HeaderCell className='list-head'>Code</HeaderCell>
-            <Cell  dataKey="code"  onDoubleClick={()=>handleOpen(1)}></Cell>
+            <SimuladoCell dataKey="code" onDoubleClick={()=>handleOpen(1)} />
           </Column>
 
           <Column flexGrow={2}>
             <HeaderCell  className='list-head'>Creation</HeaderCell>
-            <Cell dataKey="creation_date" onDoubleClick={()=>handleOpen(1)}>
+            <SimuladoCell dataKey="creation_date" onDoubleClick={()=>handleOpen(1)}>
               {rowData => rowData.creation_date.toLocaleString()}
-            </Cell>
+            </SimuladoCell>
           </Column>
 
           <Column flexGrow={1}>
             <HeaderCell className='list-head'>Goal</HeaderCell>
-            <Cell dataKey="goal" onDoubleClick={()=>handleOpen(1)}/>
+            <SimuladoCell dataKey="goal" onDoubleClick={()=>handleOpen(1)}/>
           </Column>
 
           <Column flexGrow={1}>
             <HeaderCell className='list-head'>Year</HeaderCell>
-            <Cell dataKey="year" onDoubleClick={()=>handleOpen(1)}/>
+            <SimuladoCell dataKey="year" onDoubleClick={()=>handleOpen(1)}/>
           </Column>
 
           <Column flexGrow={1}>
             <HeaderCell className='list-head'>Supplier</HeaderCell>
-            <Cell dataKey="supplier" onDoubleClick={()=>handleOpen(1)}/>
+            <SimuladoCell dataKey="supplier" onDoubleClick={()=>handleOpen(1)}/>
           </Column>
 
           <Column flexGrow={1}>
             <HeaderCell className='list-head'>Type</HeaderCell>
-            <Cell dataKey="type" onDoubleClick={()=>handleOpen(1)}/>
+            <SimuladoCell dataKey="type" onDoubleClick={()=>handleOpen(1)}/>
           </Column>
 
           <Column flexGrow={1}>
             <HeaderCell className='list-head'>User</HeaderCell>
-            <Cell dataKey="user" onDoubleClick={()=>handleOpen(1)}/>
+            <SimuladoCell dataKey="user" onDoubleClick={()=>handleOpen(1)}/>
           </Column>
         </Table>
 
@@ -128,47 +128,21 @@ const ListSalesPlans =()=>{
     </>
   );
 }
-const SimCell = ({ rowData, dataKey, ...props }) =>{
 
-  return(
+const SimuladoCell = ({ rowData, dataKey, children, onDoubleClick, ...props }) => {
+  const isSimulado = rowData.type === "Simulado";
+  
+  return (
     <Cell
-      className={(rowData.type ==="Simulado" ? 'simu': 'real')}
+      {...props}
+      style={{ color: isSimulado ? 'red' : 'inherit' }}
       dataKey={dataKey}
-      onDoubleClick={()=>handleOpen(1)}
-
-    />
+      onDoubleClick={onDoubleClick}
+    >
+      {children ? children(rowData) : rowData[dataKey]}
+    </Cell>
   );
 };
 
 
 export default ListSalesPlans;
-
-
-
-
-
-
-
-
-// import { Table, Column, HeaderCell, Cell } from 'rsuite';
-
-// const MyCell = React.forwardRef(({ children, rowData, ...rest }, ref) => (
-//   <Cell ref={ref} rowData={rowData} onDoubleClick={() => console.log(rowData)} {...rest}>
-//     {children}
-//   </Cell>
-// ));
-
-// const App = () => {
-//   return (
-//     <Table height={400} data={data}>
-//       <Column width={160}>
-//         <HeaderCell>First Name</HeaderCell>
-//         <MyCell dataKey="firstName" />
-//       </Column>
-//       <Column width={160}>
-//         <HeaderCell>Last Name</HeaderCell>
-//         <MyCell dataKey="lastName" />
-//       </Column>
-//     </Table>
-//   );
-// };
