@@ -175,8 +175,13 @@ const GanttComponent = () => {
             <label for="name" class="form-label">PN-2025</label>
             <label for="name" class="form-label"><b>Planta:</b></label>
             <label for="name" class="form-label">Changan</label>
-            <label for="name" class="form-label"><b>Año:</b></label>
+            
+          </form>
+          <form class="d-flex align-items-center gap-4">  
+          <label for="name" class="form-label"><b>Año:</b></label>
             <label for="name" class="form-label">2025</label>
+            <label for="name" class="form-label"><b>Tipo:</b></label>
+            <label for="name" class="form-label">Real</label>
           </form>
         </div>
 

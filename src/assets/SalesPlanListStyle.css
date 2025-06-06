@@ -25,5 +25,9 @@
   color: #686868;
 }
 .table-cell-total{
-    background-color: rgb(255, 0, 0);
+    background-color: #cfcfcf;
+    color: rgb(78, 78, 78);
+    font-weight: bold;
+    font-size: 14px;
+    
 }
