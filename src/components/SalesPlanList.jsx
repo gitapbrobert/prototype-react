@@ -28,8 +28,13 @@ const ListSalesPlans =()=>{
     setOpen(false)
   };
   const handleOpen = (number) => {
+    setFormTitle('Editar Plan de Negocios');
     setOpen(true)
-    setSetter(number)
+  };
+
+  const handleOpenButton = (number) => {
+    setFormTitle('Agregar Plan de Negocios');
+    setOpen(true)
   };
 
   return (
@@ -60,7 +65,7 @@ const ListSalesPlans =()=>{
 
             <FlexboxGrid.Item colspan={3}>
               
-          <Button startIcon={<RiPlayListAddFill />} onClick={handleOpen} appearance="primary" active>
+          <Button startIcon={<RiPlayListAddFill />} onClick={handleOpenButton} appearance="primary" active>
                 Crear Plan
           </Button>
             </FlexboxGrid.Item>
@@ -83,7 +88,9 @@ const ListSalesPlans =()=>{
 
           <Column flexGrow={1}>
             <HeaderCell className='list-head'>Code</HeaderCell>
-            <Cell dataKey="code" onDoubleClick={()=>handleOpen(1)} />
+            <Cell  dataKey="code"  onDoubleClick={()=>handleOpen(1)}>
+              {console.log(rowData)}
+            </Cell>
           </Column>
 
           <Column flexGrow={2}>
@@ -123,7 +130,6 @@ const ListSalesPlans =()=>{
     </>
   );
 }
-
 
 export default ListSalesPlans;
 

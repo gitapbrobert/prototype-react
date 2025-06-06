@@ -120,13 +120,5 @@ export function getData(set) {
             total: 0,
         },
     ];
-
-    const empty = [];
-    
-    if (set === 0){
-        return empty;
-    }else{
-        
-        return data;
-    }
+    return data;
 }

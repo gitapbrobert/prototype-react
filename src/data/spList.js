@@ -55,14 +55,9 @@ export function getData(dataset) {
             supplier: "Changan",
             type:"Simulado", //plan real o simulacion
             user:"John Doe",
-            
-        },
-    ];
-    if (dataset === 0){
-        return empty;
-    }
-    else{
-        return data;
-    }
 
+        },
+
+    ];
+    return data;
 }
