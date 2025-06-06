@@ -135,7 +135,7 @@ const SimuladoCell = ({ rowData, dataKey, children, onDoubleClick, ...props }) =
   return (
     <Cell
       {...props}
-      style={{ color: isSimulado ? 'red' : 'inherit' }}
+      style={{ color: isSimulado ? '#0568a1' : 'inherit' }}
       dataKey={dataKey}
       onDoubleClick={onDoubleClick}
     >

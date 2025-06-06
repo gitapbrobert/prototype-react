@@ -52,16 +52,19 @@ const GanttComponent = () => {
       api.intercept("add-task", (data) => {
         console.log("adding task yipee");
         if (typeof data.target === 'number') {
-          console.log(data.task);
-          data.task.type = 'pef';
-
+          // console.log(data.tas);
+          // data.task.type = 'pef';
+          setOpen(true);
+          return false;
         } else if (data.target.substring(0, 2) === 'PF') {
-          data.task.type = 'emb';
-          console.log(data.task);
+          // data.task.type = 'emb';
+          // console.log("abriendo emb");
+          setOpenEmb(true);
+          return false;
         } else {
+          console.log("less")
           return false
         }
-        return false
 
       });
 
