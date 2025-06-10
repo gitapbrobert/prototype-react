@@ -51,12 +51,18 @@ const ListSalesPlans =()=>{
 
         </Modal.Body>
         <Modal.Footer classPrefix="">
-          <Button onClick={handleClose} appearance="primary">
-            Generar
-          </Button>
-          <Button onClick={handleClose} appearance="primary">
-            Simular
-          </Button>
+          <FlexboxGrid justify="start">
+            <FlexboxGrid.Item colspan={2}>
+              <Button onClick={handleClose} appearance="primary">
+                Generar
+              </Button>
+            </FlexboxGrid.Item>
+            <FlexboxGrid.Item colspan={2}>
+              <Button onClick={handleClose} appearance="primary">
+                Simular
+              </Button>
+            </FlexboxGrid.Item>
+          </FlexboxGrid>
         </Modal.Footer>
       </Modal>
 
@@ -66,9 +72,9 @@ const ListSalesPlans =()=>{
 
             <FlexboxGrid.Item colspan={3}>
               
-          <Button startIcon={<RiPlayListAddFill />} onClick={handleOpenButton} appearance="primary" active>
+              <Button startIcon={<RiPlayListAddFill />} onClick={handleOpenButton} appearance="primary" active>
                 Crear Plan
-          </Button>
+              </Button>
             </FlexboxGrid.Item>
           <InputGroup style={style}>
             <Input placeholder={"Buscar Planes..."}></Input>
