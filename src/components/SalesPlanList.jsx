@@ -10,6 +10,7 @@ import MyTable from "./SalesPlanTable";
 import { useState } from "react";
 import SearchIcon from '@rsuite/icons/Search';
 import MenuIcon from '@rsuite/icons/Menu';
+import EditIcon from '@rsuite/icons/Edit';
 
 
 
@@ -70,16 +71,12 @@ const ListSalesPlans =()=>{
           </Button>
             </FlexboxGrid.Item>
           <InputGroup style={style}>
-            <Input placeholder={"search..."}></Input>
+            <Input placeholder={"Buscar Planes..."}></Input>
             <InputGroup.Button>
               <SearchIcon />
             </InputGroup.Button>  
           </InputGroup>
             <IconButton icon={<MenuIcon/>}></IconButton>
-          
-        
-
-
           </FlexboxGrid>
         </div>
 
@@ -87,40 +84,44 @@ const ListSalesPlans =()=>{
         <Table data={data} autoHeight={true}>
 
           <Column flexGrow={1}>
-            <HeaderCell className='list-head'>Code</HeaderCell>
-            <SimuladoCell dataKey="code" onDoubleClick={()=>handleOpen(1)} />
+            <HeaderCell className='list-head'>Codigo</HeaderCell>
+            <SimuladoCell dataKey="code"  />
           </Column>
 
           <Column flexGrow={2}>
-            <HeaderCell  className='list-head'>Creation</HeaderCell>
-            <SimuladoCell dataKey="creation_date" onDoubleClick={()=>handleOpen(1)}>
+            <HeaderCell  className='list-head'>Fecha de Creación</HeaderCell>
+            <SimuladoCell dataKey="creation_date" >
               {rowData => rowData.creation_date.toLocaleString()}
             </SimuladoCell>
           </Column>
 
           <Column flexGrow={1}>
-            <HeaderCell className='list-head'>Goal</HeaderCell>
-            <SimuladoCell dataKey="goal" onDoubleClick={()=>handleOpen(1)}/>
+            <HeaderCell className='list-head'>Meta</HeaderCell>
+            <SimuladoCell dataKey="goal" />
           </Column>
 
           <Column flexGrow={1}>
-            <HeaderCell className='list-head'>Year</HeaderCell>
-            <SimuladoCell dataKey="year" onDoubleClick={()=>handleOpen(1)}/>
+            <HeaderCell className='list-head'>Año</HeaderCell>
+            <SimuladoCell dataKey="year" />
           </Column>
 
           <Column flexGrow={1}>
-            <HeaderCell className='list-head'>Supplier</HeaderCell>
-            <SimuladoCell dataKey="supplier" onDoubleClick={()=>handleOpen(1)}/>
+            <HeaderCell className='list-head'>Planta</HeaderCell>
+            <SimuladoCell dataKey="supplier" />
           </Column>
 
           <Column flexGrow={1}>
-            <HeaderCell className='list-head'>Type</HeaderCell>
-            <SimuladoCell dataKey="type" onDoubleClick={()=>handleOpen(1)}/>
+            <HeaderCell className='list-head'>Tipo</HeaderCell>
+            <SimuladoCell dataKey="type" />
           </Column>
 
           <Column flexGrow={1}>
-            <HeaderCell className='list-head'>User</HeaderCell>
-            <SimuladoCell dataKey="user" onDoubleClick={()=>handleOpen(1)}/>
+            <HeaderCell className='list-head'>Creado Por</HeaderCell>
+            <SimuladoCell dataKey="user" />
+          </Column>
+          <Column flexGrow={1}>
+            <HeaderCell className='list-head'>Creado Por</HeaderCell>
+            <Cell><IconButton icon={<EditIcon onClick={()=>handleOpen(1)}/>}></IconButton></Cell>
           </Column>
         </Table>
 
@@ -139,6 +140,21 @@ const SimuladoCell = ({ rowData, dataKey, children, onDoubleClick, ...props }) =
       dataKey={dataKey}
       onDoubleClick={onDoubleClick}
     >
+      {children ? children(rowData) : rowData[dataKey]}
+    </Cell>
+  );
+};
+const IconCell = ({ rowData, icon, dataKey, children, onDoubleClick, ...props }) => {
+  const isSimulado = rowData.type === "Simulado";
+  
+  return (
+    <Cell
+      {...props}
+      style={{ color: isSimulado ? '#0568a1' : 'inherit' }}
+      dataKey={dataKey}
+      onDoubleClick={onDoubleClick}
+    >
+      <icon/>
       {children ? children(rowData) : rowData[dataKey]}
     </Cell>
   );

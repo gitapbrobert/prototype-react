@@ -9,7 +9,7 @@ export default function Template({ data }) {
     <>
       {data.type !== "milestone" ? (
         <>
-          <div className="custom-class ">{data.text || ""} ($ {String( data.price || 0)})</div>
+          <div className="custom-class ">{data.text || ""} ($ {String( data.price.toFixed(2) || 0)})</div>
         </>
       ) : (
         <div className="wx-text-out text-left">{data.text || ""}/{data.progress}%</div>
