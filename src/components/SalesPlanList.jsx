@@ -143,7 +143,10 @@ const ListSalesPlans =()=>{
             <Cell>
               {
                 rowData => 
-                <IconButton icon={<EditIcon onClick={handleOpen(1, rowData.type)}/>}></IconButton>
+                <IconButton 
+                  icon={<EditIcon />} 
+                  onClick={() => handleOpen(1, rowData.type)}
+                />
               }
             </Cell>
           </Column>
@@ -153,11 +156,7 @@ const ListSalesPlans =()=>{
     </>
   );
 }
-const titleEdit=({tipo})=>{
-  return(
-      <IconButton icon={<EditIcon onClick={handleOpen(1, tipo)}/>}></IconButton>
-  );
-}
+
 const SimuladoCell = ({ rowData, dataKey, children, onDoubleClick, ...props }) => {
   const isSimulado = rowData.type === "Simulado";
   
@@ -172,21 +171,5 @@ const SimuladoCell = ({ rowData, dataKey, children, onDoubleClick, ...props }) =
     </Cell>
   );
 };
-const IconCell = ({ rowData, icon, dataKey, children, onDoubleClick, ...props }) => {
-  const isSimulado = rowData.type === "Simulado";
-  
-  return (
-    <Cell
-      {...props}
-      style={{ color: isSimulado ? '#0568a1' : 'inherit' }}
-      dataKey={dataKey}
-      onDoubleClick={onDoubleClick}
-    >
-      <icon/>
-      {children ? children(rowData) : rowData[dataKey]}
-    </Cell>
-  );
-};
-
 
 export default ListSalesPlans;
