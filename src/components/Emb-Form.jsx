@@ -6,73 +6,7 @@ import { getEmb, getPicker } from '../data/orders_forms';
 import "../assets/formStyles.css";
 
 const EditableContext = React.createContext({ editingId: null, editingKey: null });
-
-// Updated data structure for tree table
-const getTreeData = () => {
-  return [
-    {
-      id: 1,
-      code: 'PF-01',
-      model: 'Pedido Firme 01',
-      amount_pf: 25,
-      amount_emb: 0,
-      containers: 0,
-      children: [
-        {
-          id: 2,
-          code: 'PF-01',
-          model: '4X4 HUNTER',
-          amount_pf: 10,
-          amount_emb: 0,
-          containers: 0
-        },
-        {
-          id: 4,
-          code: 'PF-01',
-          model: 'ALSVIN MT',
-          amount_pf: 5,
-          amount_emb: 0,
-          containers: 0
-        },
-        {
-          id: 5,
-          code: 'PF-01',
-          model: 'CS35 PLUS',
-          amount_pf: 10,
-          amount_emb: 0,
-          containers: 0
-        }
-      ]
-    },
-    {
-      id: 10,
-      code: 'PF-02',
-      model: 'Pedido Firme 02',
-      amount_pf: 7,
-      amount_emb: 0,
-      containers: 0,
-      children: [
-        {
-          id: 11,
-          code: 'PF-02',
-          model: '4X2 HUNTER',
-          amount_pf: 5,
-          amount_emb: 0,
-          containers: 0
-        },
-        {
-          id: 16,
-          code: 'PF-02',
-          model: 'CS55 PLUS',
-          amount_pf: 2,
-          amount_emb: 0,
-          containers: 0
-        }
-      ]
-    }
-  ];
-};
-
+const defaultData = getEmb();
 const styles = `
 .table-cell-editing .rs-table-cell-content {
   padding: 4px;
@@ -84,88 +18,86 @@ const styles = `
   outline: none;
   box-shadow: inset 0 0 0 1px #007bff;
 }
-.rs-table-row-group {
-  background-color: #f8f9fa;
-  font-weight: bold;
-}
-.rs-table-row-group .rs-table-cell {
-  background-color: #e9ecef;
-}
 `;
 
 const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(true); //its no use
   const [temp, settemp] = React.useState(open ? task : []);
   
   const handleClose = () => setOpen(false);
   const exit = () => onAction("close-form", task);
 
-  const [data, setData] = React.useState(getTreeData());
+  const [data, setData] = React.useState(defaultData);
   const pickerdata = getPicker();
 
   const [editingId, setEditingId] = React.useState(null);
   const [editingKey, setEditingKey] = React.useState(null);
 
-  // Function to calculate totals recursively
-  const calculateTotals = (items) => {
-    return items.map(item => {
-      if (item.children) {
-        // Calculate totals for children first
-        const updatedChildren = calculateTotals(item.children);
-        
-        // Calculate parent totals from children
-        const childTotals = updatedChildren.reduce((acc, child) => ({
-          amount_pf: acc.amount_pf + child.amount_pf,
-          amount_emb: acc.amount_emb + child.amount_emb,
-          containers: acc.containers + child.containers
-        }), { amount_pf: 0, amount_emb: 0, containers: 0 });
+  React.useEffect(() => {
 
-        return {
-          ...item,
-          children: updatedChildren,
-          amount_pf: childTotals.amount_pf,
-          amount_emb: childTotals.amount_emb,
-          containers: childTotals.containers
-        };
+    // const months = [
+    //   "january", "february", "march", "april", "may", "june",
+    //   "july", "august", "september", "october", "november", "december"
+    // ];
+
+    const summary = {
+      id: 51,
+      code: 'Total',
+      model: '',
+      amount_pf: 0,
+      amount_emb: 0,
+      containers: 0
+    };
+
+      Object.keys(summary).filter(key => key !== "id" && key !== "code" && key !== "model")
+        .forEach(key => {
+          summary[key] = data.reduce((acc, item) => acc + item[key], 0);
+        });
+  
+      data.push(summary);
+  
+  
+      data.forEach(item => {
+        item.total = Object.keys(item)
+          .filter(key => key !== "id" && key !== "model" && key !== "code")
+          .reduce((sum, key) => sum + item[key], 0);
+      });
+  
+  
+    }, []);
+  
+
+
+
+  const handleChange = (id, key, value) => {
+    const nextData = Object.assign([], data);
+    nextData.find(item => item.id === id)[key] = value;
+
+    if(nextData.find(item => item.id === id)[key] >= nextData.find(item => item.id === id)['amount_pf']){
+      nextData.find(item => item.id === id)[key] = nextData.find(item => item.id === id)['amount_pf']; 
+      console.log('limiting');
+    }
+    nextData.find(item => item.id === id)['containers'] = Math.trunc(Number(nextData.find(item => item.id === id)['amount_emb'])/2);
+
+
+    //here the total column updates whenever  
+    const updateSummary = nextData.map(item => {
+      if (item.id === 51) {
+        const summary = nextData.filter(item => item.code !== 'Total' ).reduce((sum, item) => sum + Number(item[key] || 0), 0);
+        const update = { ...item, [key]: summary };
+        console.log(update);
+        const months = [
+          'amount_pf',
+          'amount_emb',
+          'containers'
+        ];
+        update.total = months.reduce((sum, month) => sum + (Number(update[month]) || 0), 0);
+        return update;
       }
       return item;
     });
-  };
 
-  const handleChange = (id, key, value) => {
-    const updateNode = (nodes) => {
-      return nodes.map(node => {
-        if (node.id === id) {
-          const updatedNode = { ...node, [key]: value };
-          
-          // Calculate containers based on amount_emb
-          if (key === 'amount_emb') {
-            updatedNode.containers = Math.trunc(Number(value) / 2);
-            
-            // Limit amount_emb to amount_pf
-            if (updatedNode.amount_emb > updatedNode.amount_pf) {
-              updatedNode.amount_emb = updatedNode.amount_pf;
-              updatedNode.containers = Math.trunc(Number(updatedNode.amount_pf) / 2);
-            }
-          }
-          
-          return updatedNode;
-        }
-        
-        if (node.children) {
-          return {
-            ...node,
-            children: updateNode(node.children)
-          };
-        }
-        
-        return node;
-      });
-    };
-
-    const updatedData = updateNode(data);
-    const dataWithTotals = calculateTotals(updatedData);
-    setData(dataWithTotals);
+    setData(updateSummary);
   };
 
   const onEdit = (id, dataKey) => {
@@ -178,13 +110,34 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
     setEditingKey(null);
   };
 
+  const handleRemove = id => {
+    setData(data.filter(item => item.id !== id));
+  };
+
+  const handleSubmit = () => {
+    console.log(formValue);
+  };
+  
   return (
-    <Modal backdrop="static" size={'lg'} open={IsOpen} onClose={handleClose} overflow={true}>
+    
+    <Modal backdrop="static" size={'md'} open={IsOpen} onClose={handleClose} overflow={true}>
       <Modal.Header>
         <Modal.Title>Embarque EMB-0001-2025-MDV</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {/* <div>
+          <form class="d-flex align-items-center gap-3">
+
+            <label for="name" class="form-label"><b>Codigo:</b></label>
+            <label for="name" class="form-label">PN-2025</label>
+            <label for="name" class="form-label"><b>Planta:</b></label>
+            <label for="name" class="form-label">Changan</label>
+            <label for="name" class="form-label"><b>Año:</b></label>
+            <label for="name" class="form-label">2025</label>
+          </form>
+        </div> */}
         <div className='con'>
+
           <div className='stack_cont'>
             <HStack>
               <div>Origen: </div>
@@ -206,11 +159,13 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
                 labelKey="label"
                 valueKey="name"
               />
+
             </HStack>
           </div>
 
           <div className='stack_cont'>
             <HStack>
+
               <div>Naviera: </div>
               <SelectPicker
                 data={pickerdata.Nav}
@@ -232,50 +187,41 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
               />
             </HStack>
           </div>
+
         </div>
-
-        {/* Tree Table */}
+        {/* Tabla */}
         <EditableContext.Provider value={{ editingId, editingKey, onEdit, onEditFinished }}>
-          <style>{styles}</style>
+        <style>{styles}</style>
 
-          <Table 
-            autoHeight={true} 
-            data={data} 
-            hover={false}
-            isTree
-            defaultExpandAllRows
-            rowKey="id"
-          >
-            <Column flexGrow={1}>
-              <HeaderCell className='superheader'>Codigo</HeaderCell>
-              <TreeCell dataKey="code" />
-            </Column>
-            
-            <Column flexGrow={2}>
-              <HeaderCell className='superheader'>Modelo</HeaderCell>
-              <TreeCell dataKey="model" />
-            </Column>
-            
-            <Column flexGrow={1}>
-              <HeaderCell className='superheader'>Cantidad Pendiente</HeaderCell>
-              <TreeCell dataKey="amount_pf" />
-            </Column>
-            
-            <Column flexGrow={1}>
-              <HeaderCell className='superheader'>Cantidad Embarcada</HeaderCell>
-              <EditableTreeCell dataKey="amount_emb" dataType="number" onChange={handleChange} />
-            </Column>
-            
-            <Column flexGrow={1}>
-              <HeaderCell className='superheader'>Contenedores</HeaderCell>
-              <TreeCell dataKey="containers" />
-            </Column>
-          </Table>
+        <Table autoHeight={true} flexgrow={1} data={data} hover={false}>
+          
+          <Column flexGrow={1}            >
+            <HeaderCell className='superheader'>Codigo</HeaderCell>
+            <TotalRowCell dataKey="code" />
+          </Column>
+          <Column flexGrow={1}>
+            <HeaderCell className='superheader'>Modelo</HeaderCell>
+            <TotalRowCell dataKey="model" dataType="string" />
+          </Column>
+          <Column flexGrow={1}>
+            <HeaderCell className='superheader'>Cantidad Pendiente</HeaderCell>
+            <TotalRowCell dataKey="amount_pf"  />
+          </Column>
+          <Column flexGrow={1}>
+            <HeaderCell className='superheader'>Cantidad Embarcada</HeaderCell>
+            <EditableCell dataKey="amount_emb" dataType="number" onChange={handleChange} />
+          </Column>
+          <Column flexGrow={1}>
+            <HeaderCell className='superheader'>Contenedores</HeaderCell>
+            <TotalRowCell dataKey="containers"/>
+          </Column>
+        </Table>
         </EditableContext.Provider>
+        {/* tabla */}
+
       </Modal.Body>
-      
       <Modal.Footer>
-        <Button startIcon={<BsFloppy2Fill/>} appearance="primary" active>
+        <Button startIcon={<BsFloppy2Fill/>}  appearance="primary" active>
           Generar
         </Button>
         <Button onClick={exit} appearance="subtle">
@@ -283,17 +229,20 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
         </Button>
       </Modal.Footer>
     </Modal>
+
+    
+
   );
 };
 
-// Tree Cell component for non-editable cells
-const TreeCell = ({ rowData, dataKey, ...props }) => {
-  const hasChildren = rowData.children && rowData.children.length > 0;
+// New component to handle total row styling
+const TotalRowCell = ({ rowData, dataKey, ...props }) => {
+  const isTotalRow = rowData.code === 'Total';
   
   return (
     <Cell
       {...props}
-      className={hasChildren ? 'rs-table-row-group' : ''}
+      className={isTotalRow ? 'table-cell-total' : ''}
       dataKey={dataKey}
     >
       {rowData[dataKey]}
@@ -301,33 +250,46 @@ const TreeCell = ({ rowData, dataKey, ...props }) => {
   );
 };
 
-// Editable Tree Cell component
-const EditableTreeCell = ({ rowData, dataType, dataKey, onChange, ...props }) => {
+function toValueString(value, dataType) {
+  return dataType === 'date' ? value?.toLocaleDateString() : value;
+}
+
+const fieldMap = {
+  string: Input,
+  number: InputNumber,
+  date: DateInput
+};
+
+function focus(ref) {
+  setTimeout(() => {
+    if (ref.current?.tagName === 'INPUT' || ref.current?.getAttribute('tabindex') === '0') {
+      ref.current.focus();
+    } else if (ref.current instanceof HTMLElement) {
+      ref.current.querySelector('input').focus();
+    }
+  }, 0);
+}
+
+const EditableCell = ({ rowData, dataType, dataKey, onChange, ...props }) => {
   const { editingId, editingKey, onEdit, onEditFinished } = React.useContext(EditableContext);
   const editing = rowData.id === editingId && dataKey === editingKey;
+  const Field = fieldMap[dataType];
   const value = rowData[dataKey];
+  const text = toValueString(value, dataType);
   const inputRef = React.useRef();
   const cellRef = React.useRef();
-  const hasChildren = rowData.children && rowData.children.length > 0;
+  const isTotalRow = rowData.code === 'Total';
 
   const handleEdit = () => {
-    if (!hasChildren) { // Only allow editing leaf nodes
+    if (!isTotalRow) { // Prevent editing total row
       onEdit?.(rowData.id, dataKey);
-      setTimeout(() => {
-        if (inputRef.current) {
-          inputRef.current.focus();
-        }
-      }, 0);
+      focus(inputRef);
     }
   };
 
   const handleFinished = () => {
     onEditFinished();
-    setTimeout(() => {
-      if (cellRef.current) {
-        cellRef.current.focus();
-      }
-    }, 0);
+    focus(cellRef);
   };
 
   return (
@@ -336,18 +298,19 @@ const EditableTreeCell = ({ rowData, dataType, dataKey, onChange, ...props }) =>
       ref={cellRef}
       tabIndex={0}
       className={
-        editing && !hasChildren ? 'table-cell-editing' : 
-        hasChildren ? 'rs-table-row-group' : 'table-cell'
+        editing && !isTotalRow ? 'table-cell-editing' : 
+        isTotalRow ? 'table-cell-total' : 'table-cell'
       }
       onDoubleClick={handleEdit}
       onKeyDown={e => {
-        if (e.key === 'Enter' && !hasChildren) {
+        if (e.key === 'Enter' && !isTotalRow) {
           handleEdit();
         }
       }}
+     
     >
-      {editing && !hasChildren ? (
-        <InputNumber
+      {editing && !isTotalRow ? (
+        <Field
           ref={inputRef}
           defaultValue={value}
           onBlur={handleFinished}
@@ -361,7 +324,7 @@ const EditableTreeCell = ({ rowData, dataType, dataKey, onChange, ...props }) =>
           }}
         />
       ) : (
-        value
+        text
       )}
     </Cell>
   );
