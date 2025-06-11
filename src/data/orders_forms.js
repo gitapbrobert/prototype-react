@@ -69,8 +69,8 @@ export function getEmb(){
             code:'PF-01',
             model:'4X4 HUNTER',
             amount_pf:10,
-            amount_emb:0,
-            containers:0
+            amount_emb:3,
+            containers:1
         },
         // {
         //     id: 3,
@@ -84,7 +84,7 @@ export function getEmb(){
             code:'PF-01',
             model:'ALSVIN MT',
             amount_pf:5,
-            amount_emb:0,
+            amount_emb:4,
             containers:0
         },
         {
@@ -92,8 +92,8 @@ export function getEmb(){
             code:'PF-01',
             model:'CS35 PLUS',
             amount_pf:10,
-            amount_emb:0,
-            containers:0
+            amount_emb:5,
+            containers:2
         },
         // {
         //     id: 6,
@@ -115,8 +115,8 @@ export function getEmb(){
             code:'PF-02',
             model:'4X2 HUNTER',
             amount_pf:5,
-            amount_emb:0,
-            containers:0
+            amount_emb:2,
+            containers:1
         },
         // {
         //     id: 12,
@@ -151,7 +151,7 @@ export function getEmb(){
             code:'PF-02',
             model:'CS55 PLUS',
             amount_pf:2,
-            amount_emb:0,
+            amount_emb:1,
             containers:0
         },
         // {

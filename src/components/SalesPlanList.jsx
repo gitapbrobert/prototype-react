@@ -11,7 +11,8 @@ import { useState } from "react";
 import SearchIcon from '@rsuite/icons/Search';
 import MenuIcon from '@rsuite/icons/Menu';
 import EditIcon from '@rsuite/icons/Edit';
-
+import SortUpIcon from '@rsuite/icons/SortUp';
+import FileUploadIcon from '@rsuite/icons/FileUpload';
 
 
 const style={
@@ -71,7 +72,7 @@ const ListSalesPlans =()=>{
               </Button>
             </FlexboxGrid.Item> */}
             <FlexboxGrid.Item colspan={2}>
-              <Button onClick={handleClose} appearance="primary">
+              <Button onClick={handleClose} endIcon={<FileUploadIcon/>} appearance="primary">
                 {formButtontitle}
               </Button>
             </FlexboxGrid.Item>
