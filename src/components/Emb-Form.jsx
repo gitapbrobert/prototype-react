@@ -250,6 +250,7 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
               <HeaderCell className='superheader'>Codigo</HeaderCell>
               <TreeCell />
             </Column>
+
             
             <Column flexGrow={2} dataKey="model">
               <HeaderCell className='superheader'>Modelo</HeaderCell>
