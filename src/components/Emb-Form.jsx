@@ -246,29 +246,29 @@ const EmbForm = ({task, setTask, Types, onAction, IsOpen}) => {
             defaultExpandAllRows
             rowKey="id"
           >
-            <Column flexGrow={1} dataKey="code">
+            <Column flexGrow={1}>
               <HeaderCell className='superheader'>Codigo</HeaderCell>
-              <TreeCell />
+              <TreeCell dataKey="code" />
             </Column>
             
-            <Column flexGrow={2} dataKey="model">
+            <Column flexGrow={2}>
               <HeaderCell className='superheader'>Modelo</HeaderCell>
-              <TreeCell />
+              <TreeCell dataKey="model" />
             </Column>
             
-            <Column flexGrow={1} dataKey="amount_pf">
+            <Column flexGrow={1}>
               <HeaderCell className='superheader'>Cantidad Pendiente</HeaderCell>
-              <TreeCell />
+              <TreeCell dataKey="amount_pf" />
             </Column>
             
-            <Column flexGrow={1} dataKey="amount_emb">
+            <Column flexGrow={1}>
               <HeaderCell className='superheader'>Cantidad Embarcada</HeaderCell>
-              <EditableTreeCell dataType="number" onChange={handleChange} />
+              <EditableTreeCell dataKey="amount_emb" dataType="number" onChange={handleChange} />
             </Column>
             
-            <Column flexGrow={1} dataKey="containers">
+            <Column flexGrow={1}>
               <HeaderCell className='superheader'>Contenedores</HeaderCell>
-              <TreeCell />
+              <TreeCell dataKey="containers" />
             </Column>
           </Table>
         </EditableContext.Provider>
@@ -294,6 +294,7 @@ const TreeCell = ({ rowData, dataKey, ...props }) => {
     <Cell
       {...props}
       className={hasChildren ? 'rs-table-row-group' : ''}
+      dataKey={dataKey}
     >
       {rowData[dataKey]}
     </Cell>
