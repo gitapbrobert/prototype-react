@@ -261,7 +261,8 @@ export function getMarkers() {
     {
       start: new Date(2024, 0, 1),
       text: "$ 00",
-      css: "marker",
+      css: 'marker  data-bs-toggle="tooltip" data-bs-title="Default tooltip"',
+
     },
     {
       start: new Date(2024, 1, 28),
