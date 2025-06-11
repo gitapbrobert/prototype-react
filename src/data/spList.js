@@ -18,7 +18,7 @@ export function getData(dataset) {
             code:"PN02",
             creation_date: new Date(2025,0,1),
             goal:2614,
-            year:"2025",
+            year:"2024",
             supplier: "Changan",
             type:"Real", //plan real o simulacion
             user:"John Doe",

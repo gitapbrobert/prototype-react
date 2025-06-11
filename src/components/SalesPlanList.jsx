@@ -22,21 +22,34 @@ const ListSalesPlans =()=>{
 
   const data = getData();
   const [formTitle, setFormTitle] = useState("agregar");
+  const [formButtontitle, setFormButtonTitle] = useState("Simular");
   const [setter, setSetter] = useState(0);
 
   const [open, setOpen] =  useState(false);
   const handleClose = () => {
     setOpen(false)
   };
-  const handleOpen = (number) => {
+  const handleOpen = (number, tipo) => {
     setFormTitle('Editar Plan de Negocios');
+    console.log(tipo+" que mierda es esto");
+    if (tipo === "Real"){
+      setFormButtonTitle("Simular Plan");
+    }else{
+      setFormButtonTitle("Generar Plan");
+    }
     setOpen(true)
   };
 
   const handleOpenButton = (number) => {
     setFormTitle('Agregar Plan de Negocios');
+    setFormButtonTitle("Generar Plan");
+    
     setOpen(true)
   };
+
+
+  const temp = "";
+
 
   return (
     <>
@@ -50,16 +63,16 @@ const ListSalesPlans =()=>{
           <MyTable dataset={setter}></MyTable>
 
         </Modal.Body>
-        <Modal.Footer classPrefix="">
+        <Modal.Footer >
           <FlexboxGrid justify="start">
-            <FlexboxGrid.Item colspan={2}>
+            {/* <FlexboxGrid.Item colspan={2}>
               <Button onClick={handleClose} appearance="primary">
                 Generar
               </Button>
-            </FlexboxGrid.Item>
+            </FlexboxGrid.Item> */}
             <FlexboxGrid.Item colspan={2}>
               <Button onClick={handleClose} appearance="primary">
-                Simular
+                {formButtontitle}
               </Button>
             </FlexboxGrid.Item>
           </FlexboxGrid>
@@ -126,8 +139,13 @@ const ListSalesPlans =()=>{
             <SimuladoCell dataKey="user" />
           </Column>
           <Column flexGrow={1}>
-            <HeaderCell className='list-head'>Creado Por</HeaderCell>
-            <Cell><IconButton icon={<EditIcon onClick={()=>handleOpen(1)}/>}></IconButton></Cell>
+            <HeaderCell className='list-head'></HeaderCell>
+            <Cell>
+              {
+                rowData => 
+                <IconButton icon={<EditIcon onClick={handleOpen(1, rowData.type)}/>}></IconButton>
+              }
+            </Cell>
           </Column>
         </Table>
 
@@ -135,7 +153,11 @@ const ListSalesPlans =()=>{
     </>
   );
 }
-
+const titleEdit=({tipo})=>{
+  return(
+      <IconButton icon={<EditIcon onClick={handleOpen(1, tipo)}/>}></IconButton>
+  );
+}
 const SimuladoCell = ({ rowData, dataKey, children, onDoubleClick, ...props }) => {
   const isSimulado = rowData.type === "Simulado";
   
@@ -143,7 +165,7 @@ const SimuladoCell = ({ rowData, dataKey, children, onDoubleClick, ...props }) =
     <Cell
       {...props}
       style={{ color: isSimulado ? '#0568a1' : 'inherit' }}
-      dataKey={dataKey}
+      dataKey={(dataKey ? dataKey : "")}
       onDoubleClick={onDoubleClick}
     >
       {children ? children(rowData) : rowData[dataKey]}
