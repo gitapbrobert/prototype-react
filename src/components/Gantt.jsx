@@ -1,111 +1,294 @@
-import { Gantt } from "wx-react-gantt";
+import "../assets/GanttStyles.css";
 import "wx-react-gantt/dist/gantt.css";
-import React, { useRef, useEffect } from "react";
+import { Gantt, defaultEditorShape, defaultMenuOptions } from "wx-react-gantt";
+import { Toolbar, Willow } from "wx-react-gantt";
+import React, { useRef, useEffect, useState } from "react";
+import Template from "./TaskTemplate.jsx";
+import { getData, getLinks, getMarkers } from "../data/data.js";
+import PFForm from "./PF-Form.jsx";
+import { Button, FlexboxGrid } from "rsuite";
+import { BsPlusLg } from "react-icons/bs";
+import EmbForm from "./Emb-Form.jsx";
 
-const MyGanttComponent = () => {
-  const tasks = [
-    {
-      id: 20,
-      text: "New Task",
-      start: new Date(2024, 5, 11),
-      end: new Date(2024, 6, 12),
-      duration: 1,
-      progress: 2,
-      type: "task",
-      lazy: false,
-    },
-    {
-      id: 47,
-      text: "[1] Master project",
-      start: new Date(2024, 5, 12),
-      end: new Date(2024, 7, 12),
-      duration: 8,
-      progress: 0,
-      parent: 0,
-      type: "summary",
-    },
-    {
-      id: 22,
-      text: "Task",
-      start: new Date(2024, 7, 11),
-      end: new Date(2024, 8, 12),
-      duration: 8,
-      progress: 0,
-      parent: 47,
-      type: "task",
-    },
-    {
-      id: 21,
-      text: "New Task 2",
-      start: new Date(2024, 7, 10),
-      end: new Date(2024, 8, 12),
-      duration: 3,
-      progress: 0,
-      type: "task",
-      lazy: false,
-    },
-  ];
+const GanttComponent = () => {
 
-  const zoomConfig = {
-  maxCellWidth: 400,
-  level: 3,
-  levels: [
-    {
-      minCellWidth: 200,
-      scales: [{ unit: "year", step: 1, format: "yyyy" }],
-    },
-    {
-      minCellWidth: 150,
-      scales: [
-        { unit: "year", step: 1, format: "yyyy" },
-        { unit: "quarter", step: 1, format: "QQQQ" },
-      ],
-    },
-    {
-      minCellWidth: 250,
-      scales: [
-        { unit: "quarter", step: 1, format: "QQQQ" },
-        { unit: "month", step: 1, format: "MMMM yyy" },
-      ],
-    },
-    {
-      minCellWidth: 100,
-      scales: [
-        { unit: "month", step: 1, format: "MMMM yyy" },
-        { unit: "week", step: 1, format: "'week' w" },
-      ],
-    },
-    {
-      maxCellWidth: 200,
-      scales: [
-        { unit: "month", step: 1, format: "MMMM yyy" },
-        { unit: "day", step: 1, format: "d", css: dayStyle },
-      ],
-    },
-    {
-      minCellWidth: 25,
-      scales: [
-        { unit: "day", step: 1, format: "MMM d", css: dayStyle },
-        { unit: "hour", step: 6, format: hoursTemplate },
-      ],
-    },
-    {
-      scales: [
-        { unit: "day", step: 1, format: "MMM d", css: dayStyle },
-        { unit: "hour", step: 1, format: "HH:mm" },
-      ],
-    },
-  ],
-};
+  const apiRef = useRef(null);
+  const [task, setTask] = useState(null);
+  const [store, setStore] = useState(null);
+  const [open, setOpen] = React.useState(false);
+  const [openEmb, setOpenEmb] = React.useState(false);
+  ////////
+  const [tasks, setTasks] = useState(getData());
 
-  const links = [{ id: 1, source: 20, target: 21, type: "e2e" }];
+
+
+  useEffect(() => {
+    if (apiRef.current) {
+      const api = apiRef.current;
+      setStore(api.getState().tasks);
+      api.intercept("show-editor", (data) => {
+
+        setTask(store.byId(data.id));
+
+        console.log(store.byId(data.id));
+        if((store.byId(data.id)).type === "pet"){
+
+          console.log("no hay pa pedido teorico xd");
+
+        }else if((store.byId(data.id)).type === "pef"){
+          
+          setOpen(true);
+
+        }else if((store.byId(data.id)).type === "emb"){
+          
+          setOpenEmb(true);
+
+        }
+
+        console.log("showing editor ");
+        return false;
+      });
+
+      api.intercept("add-task", (data) => {
+        console.log("adding task yipee");
+        if (typeof data.target === 'number') {
+          // console.log(data.tas);
+          // data.task.type = 'pef';
+          setOpen(true);
+          return false;
+        } else if (data.target.substring(0, 2) === 'PF') {
+          // data.task.type = 'emb';
+          // console.log("abriendo emb");
+          setOpenEmb(true);
+          return false;
+        } else {
+          console.log("less")
+          return false
+        }
+
+      });
+
+      api.intercept("update-task", () => {
+        console.log("updating task");
+        return false;
+      });
+
+    }
+
+  }, [apiRef.current, store]);
+
+  const formAction = (action, data) => {
+    if (action) {
+      switch (action) {
+        case "close-form":
+          //setTask(null);
+          console.log("cerrando form");
+          setOpen(false);
+          setOpenEmb(false);
+          break;
+
+        default:
+          apiRef.current.exec(action, data); // "update-task", "delete-task" actions
+          break;
+      }
+    }
+  };
+
 
   const scales = [
-    { unit: "month", step: 1, format: "MMMM yyy" },
-    { unit: "day", step: 1, format: "d" },
+    { unit: "year", step: 1, format: "yyyy" },
+    { unit: "month", step: 1, format: "MMMM" },
   ];
 
-  return <Gantt zoomConfig tasks={tasks} links={links} scales={scales} />;
+  
+
+  const markers = getMarkers();
+
+  const columns = [
+    {
+      id: "text",
+      header: "ID",
+      flexgrow: 1,
+      align: "left",
+      resizable: false
+    },
+    {
+      id: "progress",
+      header: "P%",
+      // flexgrow: 1,
+      width: 50,
+      align: "center",
+      resizable: false
+    },
+    {
+      id: "start",
+      header: "Initial Date",
+      width: 100,
+      align: "center",
+      resizable: false,
+    },
+    {
+      id: "end",
+      header: "Initial Date",
+      width: 100,
+      align: "center",
+      resizable: false,
+    },
+    {
+      id: "action",
+      header: "",
+      width: 40,
+      align: "center",
+      resizable: false,
+    },
+  ];
+
+  const links = getLinks();
+
+  const taskTypes = [
+    {
+      id: "task",
+      label: "Task"
+    },
+    {
+      id: "pet",
+      label: "Pedido Teorico"
+    },
+    {
+      id: "pef",
+      label: "Pedido Firme"
+    },
+    {
+      id: "emb",
+      label: "Embarque"
+    },
+  ];
+
+
+  return (
+    <>
+      <div className="gantt-container">
+        <div className='gantt-test'>
+          <form class="d-flex align-items-center gap-3">
+
+            <label for="name" class="form-label"><b>Codigo:</b></label>
+            <label for="name" class="form-label">PN-2025</label>
+            <label for="name" class="form-label"><b>Planta:</b></label>
+            <label for="name" class="form-label">Changan</label>
+            
+          </form>
+          <form class="d-flex align-items-center gap-4">  
+          <label for="name" class="form-label"><b>Año:</b></label>
+            <label for="name" class="form-label">2025</label>
+            <label for="name" class="form-label"><b>Tipo:</b></label>
+            <label for="name" class="form-label">Real</label>
+          </form>
+        </div>
+
+        {/* <div>
+          <FlexboxGrid justify="start">
+            <FlexboxGrid.Item colspan={3}>
+              <Button startIcon={<BsPlusLg />} appearance="primary" active onClick={setOpen}>
+                Agregar Firme
+              </Button>
+            </FlexboxGrid.Item>
+            <FlexboxGrid.Item colspan={3}>
+              <Button startIcon={<BsPlusLg />} appearance="primary" active onClick={setOpenEmb}>
+                Agregar Embarque
+              </Button>
+            </FlexboxGrid.Item>
+          </FlexboxGrid>
+        </div> */}
+
+        <PFForm task={task} setTask={setTask} Types={taskTypes} onAction={formAction} IsOpen={open} />
+        <EmbForm task={task} setTask={setTask} Types={taskTypes} onAction={formAction} IsOpen={openEmb}/>
+        <Gantt
+          api={apiRef}
+          scales={scales}
+          markers={markers}
+          columns={columns}
+          taskTemplate={Template}
+          // onCustomClick={doClick}
+          tasks={tasks}
+          links={links}
+          start={new Date(2023, 10, 1)}
+          end={new Date(2025, 3, 1)}
+          taskTypes={taskTypes}
+        // editorShape={editor}
+        />
+      </div>
+    </>
+  );
+
 };
 
-export default MyGanttComponent;
+export default GanttComponent;
+
+
+
+
+
+// const editor = [
+//   {key:"text",type:"text",label:"Name",config:{placeholder:"Add task name",focus:!0}},
+//   // { key: "details", type: "textarea", label: "Description", config: { placeholder: "Add description" } },
+//   {
+//     key:"type",
+//     type:"select",
+//     label:"Type",
+//     options: [
+//       {
+//         id: "task",
+//         label: "Task"
+//       },
+//       {
+//         id: "pet",
+//         label: "Pedido Teorico"
+//       },
+//       {
+//         id: "pef",
+//         label: "Pedido Firme"
+//       },
+//       {
+//         id: "emb",
+//         label: "Embarque"
+//       },
+
+//     ]
+//   },
+  
+//   { key: "start", type: "date", label: "Start date" },
+//   { key: "end", type: "date", label: "End date" },
+//   {key:"progress",type:"slider",label:"Progress"},
+//   { 
+//     key: "price", 
+//     type: "counter", 
+//     label: "Monto", 
+//     // config: { min: 1, max: 100 } 
+//   },
+//   // { key: "links", type: "links" }
+// ];
+
+
+
+
+
+
+
+
+  // useEffect(() => {
+  //   if (apiRef.current) {
+  //     apiRef.current.intercept("drag-task", ev => {
+  //       if (typeof ev.top !== "undefined")
+  //         console.log("FUNCIONA EL HOOK WOOOOOOOOOOOOOOOOHHHHHH")
+  //       return false;
+  //     });
+  //   }
+  // }, [apiRef]);
+
+  // useEffect(() => {
+  //   if (apiRef.current) {
+  //     apiRef.current.intercept("resize-column", ev => {
+  //       if (ev.width || ev.left) return false;
+  //     });
+  //   }
+  // }, [apiRef]);
