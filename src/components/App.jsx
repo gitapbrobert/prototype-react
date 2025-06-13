@@ -2,7 +2,7 @@ import "wx-react-gantt/dist/gantt.css";
 import "../assets/App.css";
 import {  Willow, WillowDark, Toolbar } from "wx-react-gantt";
 import Header from './Header';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import SalesPlan from "../pages/spTable";
 import Home from "../pages/Home";
 import Orders from "../pages/Orders";
@@ -13,7 +13,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<Header />}>
             <Route index element={<Home />} />
@@ -23,7 +23,7 @@ function App() {
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 }
