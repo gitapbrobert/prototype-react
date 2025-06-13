@@ -2,7 +2,6 @@
   "name": "prototype-react",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://gitapbrobert.github.io/prototype-react/",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
